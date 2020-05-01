@@ -4,62 +4,39 @@ using UnityEngine;
 
 public class Player_Movement : MonoBehaviour
 {
-    private float speed = 10.0f;
-    public GameObject character;
-    private float jumpHeight = 5;
-    private bool IsJumping = false;
+    CharacterController characterController;
+    private float speed = 6.0f;
+    private float jumpSpeed = 8.0f;
+    private float gravity = 20.0f;
+    private Vector3 moveDirection = Vector3.zero;
 
     void Start()
     {
-        character = this.gameObject;
+        characterController = GetComponent<CharacterController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+        if (characterController.isGrounded)
         {
-            transform.position += Vector3.right * speed * Time.deltaTime;
-        }
-        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
-        {
-            transform.position += Vector3.left * speed * Time.deltaTime;
-        }
-        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
-        {
-            transform.position += Vector3.forward * speed * Time.deltaTime;
-        }
-        if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
-        {
-            transform.position += Vector3.back * speed * Time.deltaTime;
+            // We are grounded, so recalculate
+            // move direction directly from axes
+
+            moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
+            moveDirection *= speed;
+
+            if (Input.GetButton("Jump"))
+            {
+                moveDirection.y = jumpSpeed;
+            }
         }
 
-        //will fix later
+        
+        moveDirection.y -= gravity * Time.deltaTime;
 
-        //if (Input.GetKey(KeyCode.Space) && IsJumping == false)
-        //{
-            
-        //    transform.position += Vector3.up * jumpHeight * Time.deltaTime;
-        //    IsJumping = true;
-        //}
-        //else
-        //{
+        // Move the controller
+        characterController.Move(moveDirection * Time.deltaTime);
 
-        //}
-
-    }
-    void OnCollisionEnter(Collision Col)
-    {
-        if (Col.gameObject.name == "Floor")
-        {
-            IsJumping = false;
-        }
-    }
-    void OnCollisionExit(Collision Col)
-    {
-        if (Col.gameObject.name == "Floor")
-        {
-            IsJumping = true;
-        }
     }
 }
