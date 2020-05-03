@@ -10,19 +10,20 @@ public class Player_Movement : MonoBehaviour
     private float gravity = 20.0f;
     private Vector3 moveDirection = Vector3.zero;
 
+    private bool moving;
+
     void Start()
     {
         characterController = GetComponent<CharacterController>();
     }
 
-    // Update is called once per frame
     void Update()
     {
+   
+
+
         if (characterController.isGrounded)
         {
-            // We are grounded, so recalculate
-            // move direction directly from axes
-
             moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
             moveDirection *= speed;
 
@@ -31,12 +32,11 @@ public class Player_Movement : MonoBehaviour
                 moveDirection.y = jumpSpeed;
             }
         }
-
-        
+        else { moveDirection = Vector3.zero; }
+        //the players always getting effected by gravity
         moveDirection.y -= gravity * Time.deltaTime;
 
-        // Move the controller
+        // Moves the controller
         characterController.Move(moveDirection * Time.deltaTime);
-
     }
 }
