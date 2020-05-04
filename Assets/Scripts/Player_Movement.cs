@@ -19,7 +19,7 @@ public class Player_Movement : MonoBehaviour
 
     void Update()
     {
-   
+
 
 
         if (characterController.isGrounded)
@@ -32,7 +32,10 @@ public class Player_Movement : MonoBehaviour
                 moveDirection.y = jumpSpeed;
             }
         }
-        else { moveDirection = Vector3.zero; }
+        //else
+        //{
+        //    moveDirection = Vector3.zero;
+        //}
         //the players always getting effected by gravity
         moveDirection.y -= gravity * Time.deltaTime;
 

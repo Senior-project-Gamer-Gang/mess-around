@@ -7,7 +7,6 @@ public class CheckPoints : MonoBehaviour
     GameObject player;
     public GameObject[] checkpointamount = new GameObject[10];
     public Vector3[] checkpointpos = new Vector3[10];
-
     public int currentcheckpoint;
 
     void Start()
@@ -22,14 +21,26 @@ public class CheckPoints : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
 
         player.transform.position = checkpointpos[0];
+
+
     }
 
     void Update()
     {
-      
+        for (int i = 0; i < checkpointamount.Length; i++)
+        {
+            if (checkpointamount[i].GetComponent<Checkpoint_Collider>().triggered == true)
+            {
+                currentcheckpoint = i;
+                checkpointamount[i].GetComponent<Checkpoint_Collider>().triggered = false;
+            }
+            if (i >= checkpointamount.Length)
+            {
+                i = 0;
+            }
+        }
     }
 
 
-    
 
 }
