@@ -9,13 +9,17 @@ public class Player_Movement : MonoBehaviour
     private float jumpSpeed = 8.0f;
     private float gravity = 20.0f;
     private Vector3 moveDirection = Vector3.zero;
-
     private bool moving;
+    public GameObject[] DeathObjs = new GameObject[20];
+    //just a temp obj
+    public GameObject obj;
+    
 
     void Start()
     {
         //gets the CharacterController 
         characterController = GetComponent<CharacterController>();
+        DeathObjs = GameObject.FindGameObjectsWithTag("Death");
     }
 
     void Update()
@@ -40,5 +44,31 @@ public class Player_Movement : MonoBehaviour
 
         // Moves the controller
         characterController.Move(moveDirection * Time.deltaTime);
+
+
+
+
+
+
+
+        //keeps running through the for loop to see if the player collides with the DeathObjs
+        for (int i = 0; i < DeathObjs.Length; i++)
+        {
+            if (DeathObjs[i].GetComponent<Death>().Dead == true)
+            {
+                this.gameObject.transform.position = obj.GetComponent<CheckPoints>().checkpointpos[
+                    obj.GetComponent<CheckPoints>().currentcheckpoint];
+
+                DeathObjs[i].GetComponent<Death>().Dead = false;
+            }
+            //resets after it loops through the all the checkpoints 
+            if (i >= DeathObjs.Length)
+            {
+                i = 0;
+            }
+        }
+
+
+
     }
 }
