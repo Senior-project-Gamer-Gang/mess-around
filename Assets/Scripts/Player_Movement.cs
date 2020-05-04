@@ -14,6 +14,7 @@ public class Player_Movement : MonoBehaviour
 
     void Start()
     {
+        //gets the CharacterController 
         characterController = GetComponent<CharacterController>();
     }
 
@@ -21,21 +22,19 @@ public class Player_Movement : MonoBehaviour
     {
 
 
-
+        //you can move if your characters grounded 
         if (characterController.isGrounded)
         {
+            //moves the player 
             moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
             moveDirection *= speed;
-
+            //jump if you press space 
             if (Input.GetButton("Jump"))
             {
                 moveDirection.y = jumpSpeed;
             }
         }
-        //else
-        //{
-        //    moveDirection = Vector3.zero;
-        //}
+
         //the players always getting effected by gravity
         moveDirection.y -= gravity * Time.deltaTime;
 

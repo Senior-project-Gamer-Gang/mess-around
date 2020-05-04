@@ -11,15 +11,17 @@ public class CheckPoints : MonoBehaviour
 
     void Start()
     {
+        //adds all the checkpoints to the array 
         checkpointamount = GameObject.FindGameObjectsWithTag("CheckPoint");
-
+        //goes through all the checkpoints and gets all the vector3s from the checkpoints and adds them to the array
         for (int i = 0; i < checkpointamount.Length; i++)
         {
             checkpointpos[i] = checkpointamount[i].transform.position;
         }
-
+        //finds the player 
         player = GameObject.FindGameObjectWithTag("Player");
-
+        //the player position = the first checkpoint position 
+        //this will change when we have save files
         player.transform.position = checkpointpos[0];
 
 
@@ -27,6 +29,7 @@ public class CheckPoints : MonoBehaviour
 
     void Update()
     {
+        //keeps running through the for loop to see if the player collides with the checkpoints 
         for (int i = 0; i < checkpointamount.Length; i++)
         {
             if (checkpointamount[i].GetComponent<Checkpoint_Collider>().triggered == true)
@@ -34,6 +37,7 @@ public class CheckPoints : MonoBehaviour
                 currentcheckpoint = i;
                 checkpointamount[i].GetComponent<Checkpoint_Collider>().triggered = false;
             }
+            //resets after it loops through the all the checkpoints 
             if (i >= checkpointamount.Length)
             {
                 i = 0;
