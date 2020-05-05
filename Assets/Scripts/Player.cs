@@ -14,6 +14,9 @@ public class Player : MonoBehaviour
     //just a temp obj
     public GameObject obj;
 
+    //fastest jeff = 3 hp jumps medium
+    //big handman slowest speed  = 5 hp jumps smallest
+    //peashooter med speed = 4 hp jumps higher
 
     void Start()
     {
