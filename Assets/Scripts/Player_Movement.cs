@@ -13,7 +13,7 @@ public class Player_Movement : MonoBehaviour
     public GameObject[] DeathObjs = new GameObject[20];
     //just a temp obj
     public GameObject obj;
-    
+
 
     void Start()
     {
@@ -32,6 +32,7 @@ public class Player_Movement : MonoBehaviour
             //moves the player 
             moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
             moveDirection *= speed;
+
             //jump if you press space 
             if (Input.GetButton("Jump"))
             {
@@ -46,19 +47,16 @@ public class Player_Movement : MonoBehaviour
         characterController.Move(moveDirection * Time.deltaTime);
 
 
-
-
-
-
-
         //keeps running through the for loop to see if the player collides with the DeathObjs
         for (int i = 0; i < DeathObjs.Length; i++)
         {
             if (DeathObjs[i].GetComponent<Death>().Dead == true)
             {
+                //sets the position of the player to the most recent checkpoint touched
                 this.gameObject.transform.position = obj.GetComponent<CheckPoints>().checkpointpos[
                     obj.GetComponent<CheckPoints>().currentcheckpoint];
 
+                //player dies
                 DeathObjs[i].GetComponent<Death>().Dead = false;
             }
             //resets after it loops through the all the checkpoints 
