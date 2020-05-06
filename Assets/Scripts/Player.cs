@@ -1,33 +1,60 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     CharacterController characterController;
-    private float speed = 6.0f;
-    private float jumpSpeed = 8.0f;
-    private float gravity = 20.0f;
+    
     private Vector3 moveDirection = Vector3.zero;
     private bool moving;
     public GameObject[] DeathObjs = new GameObject[20];
     //just a temp obj
-    public GameObject obj;
+     GameObject obj;
+    //these values are just test values, the values in the start
+    //are for the playable characters
+    private int hp = 6;
+    private float speed = 6.0f;
+    private float jumpSpeed = 8.0f;
+    private float gravity = 20.0f;
 
-    //fastest jeff = 3 hp jumps medium
-    //big handman slowest speed  = 5 hp jumps smallest
-    //peashooter med speed = 4 hp jumps higher
+    public Text text;
+    
 
     void Start()
     {
         //gets the CharacterController 
         characterController = GetComponent<CharacterController>();
         DeathObjs = GameObject.FindGameObjectsWithTag("Death");
+        #region diffrentPlayerTypes
+        if (this.gameObject.name == "Jeff")
+        {
+            speed = 6.0f;
+            jumpSpeed = 4;
+            gravity = 20;
+            hp = 3;
+        }
+        if (this.gameObject.name == "Shooter")
+        {
+            speed = 4.0f;
+            jumpSpeed = 6;
+            gravity = 20;
+            hp = 4;
+        }
+        if (this.gameObject.name == "HandMan")
+        {
+            speed = 2.0f;
+            jumpSpeed = 2;
+            gravity = 20;
+            hp = 6;
+        }
+        #endregion
     }
 
     void Update()
     {
-
+        text.text = hp.ToString();
 
         //you can move if your characters grounded 
         if (characterController.isGrounded)
@@ -41,6 +68,7 @@ public class Player : MonoBehaviour
             {
                 moveDirection.y = jumpSpeed;
             }
+            
         }
 
         //the players always getting effected by gravity
