@@ -151,7 +151,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  text: {fileID: 1404649862}
 --- !u!143 &95038344
 CharacterController:
   m_ObjectHideFlags: 0
@@ -409,7 +408,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400076, guid: 348dcb8d92adfec429f2fb792853f31e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.61
+      value: 8.66
       objectReference: {fileID: 0}
     - target: {fileID: 400076, guid: 348dcb8d92adfec429f2fb792853f31e, type: 3}
       propertyPath: m_LocalPosition.z
