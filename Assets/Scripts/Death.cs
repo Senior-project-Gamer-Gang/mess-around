@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Death : MonoBehaviour
 {
-    public bool Dead;
+    public bool lose_Hp;
     public bool IsFloor;
     void OnTriggerEnter(Collider Col)
     {
@@ -12,7 +12,7 @@ public class Death : MonoBehaviour
         if (Col.gameObject.tag == "Player" && IsFloor == false)
         {
             //if player collides with checkpoint triggered is true 
-            Dead = true;
+            lose_Hp = true;
         }
     }
     //this is for a box around the level
@@ -21,7 +21,7 @@ public class Death : MonoBehaviour
     {
         if (IsFloor == true)
         {
-            Dead = true;
+            lose_Hp = true;
         }
     }
 }
