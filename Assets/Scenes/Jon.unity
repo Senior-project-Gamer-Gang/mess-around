@@ -625,7 +625,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1450980082}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0, y: 1, z: -8.56}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -646,7 +646,10 @@ MonoBehaviour:
   player: {fileID: 1016735454}
   zoomDistance: 8
   tooCloseDistance: 2
-  followPlayerSpeed: 0.1
+  tooFarDistance: 0
+  maxFollowSpeed: 6
+  cameraAcceleration: 0.8
+  cameraHeight: 3
 --- !u!1 &1700540078
 GameObject:
   m_ObjectHideFlags: 0
