@@ -20,7 +20,6 @@ public class Player : MonoBehaviour
     private float gravity = 20.0f;
 
     public Text text;
-
     float hit_timer;
 
     bool playerDead;
@@ -37,7 +36,7 @@ public class Player : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         DeathObjs = GameObject.FindGameObjectsWithTag("Death");
 
-
+        
         List<GameObject> PlayerList = new List<GameObject>(GameObject.FindGameObjectsWithTag("Player"));
         PlayerList.RemoveAll(delegate (GameObject player)
         {
@@ -75,7 +74,7 @@ public class Player : MonoBehaviour
     {
         distbetweenobj[0] = Vector3.Distance(players[0].transform.position, transform.position);
         distbetweenobj[1] = Vector3.Distance(players[1].transform.position, transform.position);
-
+        text.text = hp.ToString();
         //switchs player
         if (activeplayer == true)
         {
@@ -84,24 +83,30 @@ public class Player : MonoBehaviour
                 players[0].GetComponent<Player>().activeplayer = true;
                 players[0].GetComponent<Player>().switchtime = 2;
                 switchtime = 2;
+                text.text = players[0].GetComponent<Player>().hp.ToString();
                 activeplayer = false;
             }
             if (Input.GetKeyDown(KeyCode.E) && distbetweenobj[1] < 3 && switchtime < 0)
             {
                 players[1].GetComponent<Player>().activeplayer = true;
                 players[1].GetComponent<Player>().switchtime = 2;
+                text.text = players[1].GetComponent<Player>().hp.ToString();
                 switchtime = 2;
                 activeplayer = false;
             }
+            this.gameObject.GetComponentInChildren<Camera>().enabled = true;
 
         }
-
+        if(activeplayer == false)
+            this.gameObject.GetComponentInChildren<Camera>().enabled = false;
+        #region tiemrs
         if (switchtime >= -1)
             switchtime -= Time.deltaTime;
 
         text.text = hp.ToString();
         if (hit_timer >= -1)
             hit_timer -= Time.deltaTime;
+        #endregion
         #region PlayerMovement
         if (activeplayer == true)
         {
@@ -130,7 +135,7 @@ public class Player : MonoBehaviour
         //keeps running through the for loop to see if the player collides with the DeathObjs
         for (int i = 0; i < DeathObjs.Length; i++)
         {
-            if (DeathObjs[i].GetComponent<Death>().lose_Hp == true)
+            if (DeathObjs[i].GetComponent<Death>().lose_Hp == true && activeplayer == true)
             {
                 //this is for if you fall off the map
                 if (DeathObjs[i].GetComponent<Death>().IsFloor == true)
