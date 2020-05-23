@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     //these values are just test values, the values in the start
     //are for the playable characters
     public int hp = 6;
-    private float hand_speed = 6.0f;
+    private float speed = 6.0f;
     private float jumpSpeed = 8.0f;
     private float gravity = 20.0f;
     public Text text;
@@ -30,8 +30,8 @@ public class Player : MonoBehaviour
     public GameObject[] fireobj = new GameObject[1];
     //this is just for the fired gameobjs
     public GameObject[] firedobj = new GameObject[2];
-    public float punch_time = 1;
-    float handSpeed = 2;
+    public float punch_time;
+    float handSpeed = 8;
     GameObject hand;
     bool handinmotion;
     #endregion
@@ -54,21 +54,21 @@ public class Player : MonoBehaviour
         #region diffrentPlayerTypes
         if (this.gameObject.name == "Jeff")
         {
-            hand_speed = 6.0f;
+            speed = 6.0f;
             jumpSpeed = 4;
             gravity = 20;
             hp = 3;
         }
         if (this.gameObject.name == "Shooter")
         {
-            hand_speed = 4.0f;
+            speed = 4.0f;
             jumpSpeed = 6;
             gravity = 20;
             hp = 4;
         }
         if (this.gameObject.name == "HandMan")
         {
-            hand_speed = 2.0f;
+            speed = 2.0f;
             jumpSpeed = 2;
             gravity = 20;
             hp = 6;
@@ -93,12 +93,14 @@ public class Player : MonoBehaviour
                 players[0].GetComponent<Player>().activeplayer = true;
                 players[0].GetComponent<Player>().switchtime = 2;
                 switchtime = 2;
+                
                 activeplayer = false;
             }
             if (Input.GetKeyDown(KeyCode.E) && distbetweenobj[1] < 3 && switchtime < 0)
             {
                 players[1].GetComponent<Player>().activeplayer = true;
                 players[1].GetComponent<Player>().switchtime = 2;
+                
                 switchtime = 2;
                 activeplayer = false;
             }
@@ -107,32 +109,33 @@ public class Player : MonoBehaviour
             
             this.gameObject.GetComponentInChildren<Camera>().enabled = true;
 
-        }
-        if (Input.GetMouseButtonDown(0) && this.gameObject.name == "Jeff")
-        {
-
-        }
-        if (Input.GetMouseButtonDown(0) && this.gameObject.name == "Shooter")
-        {
-
-        }
-        if (  this.gameObject.name == "HandMan")
-        {
-            
-            if (Input.GetMouseButtonDown(0) && punch_time < 0 && firedobj[0].gameObject != null)
+            if (Input.GetMouseButtonDown(0) && this.gameObject.name == "Jeff")
             {
-                hand = Instantiate(fireobj[0], this.gameObject.transform.position, Quaternion.identity);
-                punch_time = 1;
-                handinmotion = true;
+
             }
-            if (handinmotion == true && hand.gameObject != null)
+            if (Input.GetMouseButtonDown(0) && this.gameObject.name == "Shooter")
             {
-                hand.transform.position += transform.forward * Time.deltaTime * hand_speed;
-                Destroy(hand, punch_time);
+
             }
-            if (punch_time <= 0)
-                handinmotion = false;
+            if (this.gameObject.name == "HandMan")
+            {
+
+                if (Input.GetMouseButtonDown(0) && punch_time < 0)
+                {
+                    hand = Instantiate(fireobj[0], this.gameObject.transform.position, Quaternion.identity);
+                    punch_time = 1;
+                    handinmotion = true;
+                }
+                if (handinmotion == true && hand.gameObject != null)
+                {
+                    hand.transform.position += transform.forward * Time.deltaTime * handSpeed;
+                    Destroy(hand, punch_time);
+                }
+                if (punch_time <= 0)
+                    handinmotion = false;
+            }
         }
+       
 
         
 
@@ -156,7 +159,7 @@ public class Player : MonoBehaviour
             {
                 //moves the player 
                 moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
-                moveDirection *= hand_speed;
+                moveDirection *= speed;
 
                 //jump if you press space 
                 if (Input.GetButton("Jump"))
