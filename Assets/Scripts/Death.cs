@@ -6,6 +6,7 @@ public class Death : MonoBehaviour
 {
     public bool lose_Hp;
     public bool IsFloor;
+    public int Hp = 1;
     void OnTriggerEnter(Collider Col)
     {
         //checks if players collides with checkpoints 
@@ -13,6 +14,10 @@ public class Death : MonoBehaviour
         {
             //if player collides with checkpoint triggered is true 
             lose_Hp = true;
+        }
+        if (Col.gameObject.tag == "Player_Hit" && IsFloor == false)
+        {
+
         }
     }
     //this is for a box around the level
@@ -24,4 +29,14 @@ public class Death : MonoBehaviour
             lose_Hp = true;
         }
     }
+    void Update()
+    {
+        //if this gameobjects hp is zero destroy gameobject
+        if (this.Hp <= 0)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+
 }

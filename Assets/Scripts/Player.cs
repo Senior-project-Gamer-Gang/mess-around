@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    #region topValues
     CharacterController characterController;
-
     private Vector3 moveDirection = Vector3.zero;
     private bool moving;
     GameObject[] DeathObjs = new GameObject[20];
@@ -14,29 +14,35 @@ public class Player : MonoBehaviour
     public GameObject obj;
     //these values are just test values, the values in the start
     //are for the playable characters
-    private int hp = 6;
-    private float speed = 6.0f;
+    public int hp = 6;
+    private float hand_speed = 6.0f;
     private float jumpSpeed = 8.0f;
     private float gravity = 20.0f;
-
     public Text text;
     float hit_timer;
-
     bool playerDead;
-
-
     public GameObject[] players = new GameObject[2];
     Vector3[] playerpos = new Vector3[3];
     public float[] distbetweenobj = new float[2];
     public bool activeplayer;
     public float switchtime;
+    //this is just a temp 
+    public GameObject[] fireobj = new GameObject[1];
+    //this is just for the fired gameobjs
+    public GameObject[] firedobj = new GameObject[2];
+    public float punch_time = 1;
+    float handSpeed = 2;
+    GameObject hand;
+    bool handinmotion;
+    #endregion
+
     void Start()
     {
         //gets the CharacterController 
         characterController = GetComponent<CharacterController>();
         DeathObjs = GameObject.FindGameObjectsWithTag("Death");
 
-        
+
         List<GameObject> PlayerList = new List<GameObject>(GameObject.FindGameObjectsWithTag("Player"));
         PlayerList.RemoveAll(delegate (GameObject player)
         {
@@ -48,21 +54,21 @@ public class Player : MonoBehaviour
         #region diffrentPlayerTypes
         if (this.gameObject.name == "Jeff")
         {
-            speed = 6.0f;
+            hand_speed = 6.0f;
             jumpSpeed = 4;
             gravity = 20;
             hp = 3;
         }
         if (this.gameObject.name == "Shooter")
         {
-            speed = 4.0f;
+            hand_speed = 4.0f;
             jumpSpeed = 6;
             gravity = 20;
             hp = 4;
         }
         if (this.gameObject.name == "HandMan")
         {
-            speed = 2.0f;
+            hand_speed = 2.0f;
             jumpSpeed = 2;
             gravity = 20;
             hp = 6;
@@ -72,9 +78,13 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        //firedobj = GameObject.FindGameObjectsWithTag("Player_Hit");
+
+
+
         distbetweenobj[0] = Vector3.Distance(players[0].transform.position, transform.position);
         distbetweenobj[1] = Vector3.Distance(players[1].transform.position, transform.position);
-        text.text = hp.ToString();
+        
         //switchs player
         if (activeplayer == true)
         {
@@ -83,27 +93,58 @@ public class Player : MonoBehaviour
                 players[0].GetComponent<Player>().activeplayer = true;
                 players[0].GetComponent<Player>().switchtime = 2;
                 switchtime = 2;
-                text.text = players[0].GetComponent<Player>().hp.ToString();
                 activeplayer = false;
             }
             if (Input.GetKeyDown(KeyCode.E) && distbetweenobj[1] < 3 && switchtime < 0)
             {
                 players[1].GetComponent<Player>().activeplayer = true;
                 players[1].GetComponent<Player>().switchtime = 2;
-                text.text = players[1].GetComponent<Player>().hp.ToString();
                 switchtime = 2;
                 activeplayer = false;
             }
+  
+                text.text = this.hp.ToString();
+            
             this.gameObject.GetComponentInChildren<Camera>().enabled = true;
 
         }
-        if(activeplayer == false)
+        if (Input.GetMouseButtonDown(0) && this.gameObject.name == "Jeff")
+        {
+
+        }
+        if (Input.GetMouseButtonDown(0) && this.gameObject.name == "Shooter")
+        {
+
+        }
+        if (  this.gameObject.name == "HandMan")
+        {
+            
+            if (Input.GetMouseButtonDown(0) && punch_time < 0 && firedobj[0].gameObject != null)
+            {
+                hand = Instantiate(fireobj[0], this.gameObject.transform.position, Quaternion.identity);
+                punch_time = 1;
+                handinmotion = true;
+            }
+            if (handinmotion == true && hand.gameObject != null)
+            {
+                hand.transform.position += transform.forward * Time.deltaTime * hand_speed;
+                Destroy(hand, punch_time);
+            }
+            if (punch_time <= 0)
+                handinmotion = false;
+        }
+
+        
+
+
+        if (activeplayer == false)
             this.gameObject.GetComponentInChildren<Camera>().enabled = false;
         #region tiemrs
         if (switchtime >= -1)
             switchtime -= Time.deltaTime;
-
-        text.text = hp.ToString();
+        if (punch_time >= -1)
+            punch_time -= Time.deltaTime;
+        
         if (hit_timer >= -1)
             hit_timer -= Time.deltaTime;
         #endregion
@@ -115,7 +156,7 @@ public class Player : MonoBehaviour
             {
                 //moves the player 
                 moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
-                moveDirection *= speed;
+                moveDirection *= hand_speed;
 
                 //jump if you press space 
                 if (Input.GetButton("Jump"))
