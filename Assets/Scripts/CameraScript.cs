@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraScript : MonoBehaviour
 {
     public GameObject player;
+    public GameObject pauseObject;
     public float zoomDistance; //How far the camera stays away from the player by default
     public float tooCloseDistance; //How close the player can be to the camera to cause the camera to back up.
     public float tooFarDistance; //How far the player can be before camera goes for its true max speed.
@@ -15,6 +16,7 @@ public class CameraScript : MonoBehaviour
     private float cameraSpeed; //How fast the camera is moving.
     private float maxSpeed; //This max speed gets chosen by the camera when following player. 
     private bool isMoving;
+    private bool isPaused;
 
     // Start is called before the first frame update
     void Start()
@@ -25,11 +27,15 @@ public class CameraScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        AdjustCameraOnXZAxis();
-        AdjustCameraOnYAxis();
-        CameraSpeed();
+        isPaused = pauseObject.GetComponent<PauseScript>().isPaused;
+        if (!isPaused)
+        {
+            AdjustCameraOnXZAxis();
+            AdjustCameraOnYAxis();
+            CameraSpeed();
 
-        transform.LookAt(new Vector3(player.transform.position.x, 0, player.transform.position.z));
+            transform.LookAt(new Vector3(player.transform.position.x, 0, player.transform.position.z));
+        }
     }
 
     private void AdjustCameraOnXZAxis()
