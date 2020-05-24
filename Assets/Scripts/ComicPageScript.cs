@@ -4,24 +4,16 @@ using UnityEngine;
 
 public class ComicPageScript : MonoBehaviour
 {
+
     private float rotationSpeed = .5f;
     public GameObject pauseObject;
     private bool isPaused;
+    private GameObject gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            //Here is where I would raise a counter for pages collected or somethin, but we dont have one just yet.
-            //I would also trigger whatever victory "yay!" thing here the player has.
-            Destroy(gameObject);
-        }
+        gameManager = GameObject.FindGameObjectWithTag("GameManager");
     }
 
     // Update is called once per frame

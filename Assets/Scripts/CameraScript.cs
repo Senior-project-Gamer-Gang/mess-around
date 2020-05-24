@@ -28,13 +28,13 @@ public class CameraScript : MonoBehaviour
     void Update()
     {
         isPaused = pauseObject.GetComponent<PauseScript>().isPaused;
-        if (!isPaused)
+        if (!isPaused || player != null) //As long as it is not paused or the player is not null, it will begin to do its thing
         {
             AdjustCameraOnXZAxis();
             AdjustCameraOnYAxis();
             CameraSpeed();
 
-            transform.LookAt(new Vector3(player.transform.position.x, 0, player.transform.position.z));
+            transform.LookAt(new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
         }
     }
 

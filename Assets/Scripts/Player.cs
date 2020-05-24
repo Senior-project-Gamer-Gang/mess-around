@@ -34,6 +34,9 @@ public class Player : MonoBehaviour
     float handSpeed = 8;
     GameObject hand;
     bool handinmotion;
+
+    private GameObject gameManager; //The manager of course -Jon
+    private GameObject camera; //The camera of course -Jon
     #endregion
 
     void Start()
@@ -41,6 +44,10 @@ public class Player : MonoBehaviour
         //gets the CharacterController 
         characterController = GetComponent<CharacterController>();
         DeathObjs = GameObject.FindGameObjectsWithTag("Death");
+
+        //gets the game manager + camera -Jon
+        gameManager = GameObject.FindGameObjectWithTag("GameManager");
+        camera = GameObject.FindGameObjectWithTag("MainCamera");
 
 
         List<GameObject> PlayerList = new List<GameObject>(GameObject.FindGameObjectsWithTag("Player"));
@@ -76,6 +83,18 @@ public class Player : MonoBehaviour
         #endregion
     }
 
+    //This is what the character controller uses for its collision detection.
+    //It only runs this function if the controller is moving
+    //It does not detect collisions when standing still -Jon
+    private void OnControllerColliderHit(ControllerColliderHit hit) 
+    {
+        if(hit.gameObject.tag == "ComicPage")
+        { //The player collects a comic page, it should add to the pages number displayed on screen along with removing the page object. -Jon
+            gameManager.GetComponent<GameManagerScript>().pagesCollected++;
+            Destroy(hit.gameObject);
+        }
+    }
+
     void Update()
     {
         //firedobj = GameObject.FindGameObjectsWithTag("Player_Hit");
@@ -106,8 +125,11 @@ public class Player : MonoBehaviour
             }
   
                 text.text = this.hp.ToString();
-            
-            this.gameObject.GetComponentInChildren<Camera>().enabled = true;
+
+            //this.gameObject.GetComponentInChildren<Camera>().enabled = true; (Commented out for now -Jon)
+            //Tells the camera to now focus on this active player -Jon
+            camera.GetComponent<CameraScript>().player = gameObject;
+
 
             if (Input.GetMouseButtonDown(0) && this.gameObject.name == "Jeff")
             {
@@ -140,8 +162,8 @@ public class Player : MonoBehaviour
         
 
 
-        if (activeplayer == false)
-            this.gameObject.GetComponentInChildren<Camera>().enabled = false;
+        //if (activeplayer == false)
+            //this.gameObject.GetComponentInChildren<Camera>().enabled = false; (Commentated out for now -Jon)
         #region tiemrs
         if (switchtime >= -1)
             switchtime -= Time.deltaTime;

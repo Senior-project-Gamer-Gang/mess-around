@@ -7,6 +7,9 @@ TagManager:
   - Floor
   - CheckPoint
   - Death
+  - Player_Hit
+  - GameManager
+  - ComicPage
   layers:
   - Default
   - TransparentFX
