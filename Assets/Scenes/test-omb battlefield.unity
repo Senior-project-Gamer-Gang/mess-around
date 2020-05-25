@@ -779,9 +779,6 @@ MonoBehaviour:
   switchtime: 0
   fireobj:
   - {fileID: 0}
-  firedobj:
-  - {fileID: 0}
-  - {fileID: 0}
   punch_time: 0
 --- !u!143 &1381626555
 CharacterController:
@@ -908,9 +905,6 @@ MonoBehaviour:
   activeplayer: 0
   switchtime: 0
   fireobj:
-  - {fileID: 0}
-  firedobj:
-  - {fileID: 0}
   - {fileID: 0}
   punch_time: 0
 --- !u!143 &1541655983
@@ -1402,5 +1396,11 @@ PrefabInstance:
       propertyPath: text
       value: 
       objectReference: {fileID: 1404649862}
+    - target: {fileID: 5948592772021152440, guid: 33b7a6d43cf4d4d46be02dfc6c95be26,
+        type: 3}
+      propertyPath: fireobj.Array.data[0]
+      value: 
+      objectReference: {fileID: 4589377047038542749, guid: f42497e8755795e488c3239631826ada,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33b7a6d43cf4d4d46be02dfc6c95be26, type: 3}

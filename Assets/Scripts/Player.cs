@@ -11,13 +11,7 @@ public class Player : MonoBehaviour
     private bool moving;
     GameObject[] DeathObjs = new GameObject[20];
     //just a temp obj
-    public GameObject obj;
-    //these values are just test values, the values in the start
-    //are for the playable characters
-    public int hp = 6;
-    private float speed = 6.0f;
-    private float jumpSpeed = 8.0f;
-    private float gravity = 20.0f;
+    public GameObject obj;    
     public Text text;
     float hit_timer;
     bool playerDead;
@@ -26,14 +20,26 @@ public class Player : MonoBehaviour
     public float[] distbetweenobj = new float[2];
     public bool activeplayer;
     public float switchtime;
+
     //this is just a temp 
     public GameObject[] fireobj = new GameObject[1];
     //this is just for the fired gameobjs
-    public GameObject[] firedobj = new GameObject[2];
-    public float punch_time;
+    GameObject[] firedobj = new GameObject[2];
+
+    //each player will ahev these varibles 
+    public int hp;
+    private float speed;
+    private float jumpSpeed;
+    private float gravity = 20.0f;
+    //*------------------------------*
+
+    //big handmans varibles
+    public float punch_time = .5f;
     float handSpeed = 8;
     GameObject hand;
     bool handinmotion;
+    public bool handattack;
+    //*-------------------------------------*
 
     private GameObject gameManager; //The manager of course -Jon
     private GameObject camera; //The camera of course -Jon
@@ -97,10 +103,6 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        //firedobj = GameObject.FindGameObjectsWithTag("Player_Hit");
-
-
-
         distbetweenobj[0] = Vector3.Distance(players[0].transform.position, transform.position);
         distbetweenobj[1] = Vector3.Distance(players[1].transform.position, transform.position);
         
@@ -131,13 +133,22 @@ public class Player : MonoBehaviour
             camera.GetComponent<CameraScript>().player = gameObject;
 
 
-            if (Input.GetMouseButtonDown(0) && this.gameObject.name == "Jeff")
+            if (this.gameObject.name == "Jeff")
             {
-
+                if (Input.GetMouseButtonDown(0) && gameManager.GetComponent<GameManagerScript>().pagesCollected >= 1)
+                {
+                    jeffscale(this.gameObject.transform.localScale);
+                }
+                if (Input.GetMouseButtonUp(0) && gameManager.GetComponent<GameManagerScript>().pagesCollected >= 1)
+                {
+                    jefforiganal(this.gameObject.transform.localScale);
+                }
+                    
             }
-            if (Input.GetMouseButtonDown(0) && this.gameObject.name == "Shooter")
+            if (this.gameObject.name == "Shooter")
             {
-
+                if (gameManager.GetComponent<GameManagerScript>().pagesCollected >= 1)
+                    jumpSpeed = 12;
             }
             if (this.gameObject.name == "HandMan")
             {
@@ -145,7 +156,7 @@ public class Player : MonoBehaviour
                 if (Input.GetMouseButtonDown(0) && punch_time < 0)
                 {
                     hand = Instantiate(fireobj[0], this.gameObject.transform.position, Quaternion.identity);
-                    punch_time = 1;
+                    punch_time = .5f;
                     handinmotion = true;
                 }
                 if (handinmotion == true && hand.gameObject != null)
@@ -155,6 +166,9 @@ public class Player : MonoBehaviour
                 }
                 if (punch_time <= 0)
                     handinmotion = false;
+                //if this is true then big handman can break through walls 
+                if (gameManager.GetComponent<GameManagerScript>().pagesCollected >= 1)
+                    handattack = true;
             }
         }
        
@@ -235,6 +249,18 @@ public class Player : MonoBehaviour
             Dead();
         }
         #endregion
+    }
+    //this scales jeff down 
+    void jeffscale(Vector3 scale)
+    {
+        scale -= new Vector3(0.1f, 0.1f, 0.1f);
+        this.gameObject.transform.localScale = scale;
+    }
+    //this scales jeff back to the origanal scale 
+    void jefforiganal(Vector3 scale)
+    {
+        scale = new Vector3(0.4f, 0.4f, 0.4f);
+        this.gameObject.transform.localScale = scale;
     }
     public void Dead()
     {
