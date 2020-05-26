@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     private bool moving;
     GameObject[] DeathObjs = new GameObject[20];
     //just a temp obj
-    public GameObject obj;    
+    public GameObject obj;
     public Text text;
     float hit_timer;
     bool playerDead;
@@ -92,9 +92,9 @@ public class Player : MonoBehaviour
     //This is what the character controller uses for its collision detection.
     //It only runs this function if the controller is moving
     //It does not detect collisions when standing still -Jon
-    private void OnControllerColliderHit(ControllerColliderHit hit) 
+    private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if(hit.gameObject.tag == "ComicPage")
+        if (hit.gameObject.tag == "ComicPage")
         { //The player collects a comic page, it should add to the pages number displayed on screen along with removing the page object. -Jon
             gameManager.GetComponent<GameManagerScript>().pagesCollected++;
             Destroy(hit.gameObject);
@@ -105,7 +105,7 @@ public class Player : MonoBehaviour
     {
         distbetweenobj[0] = Vector3.Distance(players[0].transform.position, transform.position);
         distbetweenobj[1] = Vector3.Distance(players[1].transform.position, transform.position);
-        
+
         //switchs player
         if (activeplayer == true)
         {
@@ -114,19 +114,19 @@ public class Player : MonoBehaviour
                 players[0].GetComponent<Player>().activeplayer = true;
                 players[0].GetComponent<Player>().switchtime = 2;
                 switchtime = 2;
-                
+
                 activeplayer = false;
             }
             if (Input.GetKeyDown(KeyCode.E) && distbetweenobj[1] < 3 && switchtime < 0)
             {
                 players[1].GetComponent<Player>().activeplayer = true;
                 players[1].GetComponent<Player>().switchtime = 2;
-                
+
                 switchtime = 2;
                 activeplayer = false;
             }
-  
-                //text.text = this.hp.ToString();
+            if(text.gameObject != null)
+                text.text = this.hp.ToString();
 
             //this.gameObject.GetComponentInChildren<Camera>().enabled = true; (Commented out for now -Jon)
             //Tells the camera to now focus on this active player -Jon
@@ -143,12 +143,17 @@ public class Player : MonoBehaviour
                 {
                     jefforiganal(this.gameObject.transform.localScale);
                 }
-                    
+
             }
             if (this.gameObject.name == "Shooter")
             {
                 if (gameManager.GetComponent<GameManagerScript>().pagesCollected >= 1)
                     jumpSpeed = 12;
+
+                if (Input.GetMouseButtonDown(0))
+                {
+
+                }
             }
             if (this.gameObject.name == "HandMan")
             {
@@ -171,19 +176,19 @@ public class Player : MonoBehaviour
                     handattack = true;
             }
         }
-       
 
-        
+
+
 
 
         //if (activeplayer == false)
-            //this.gameObject.GetComponentInChildren<Camera>().enabled = false; (Commentated out for now -Jon)
+        //this.gameObject.GetComponentInChildren<Camera>().enabled = false; (Commentated out for now -Jon)
         #region tiemrs
         if (switchtime >= -1)
             switchtime -= Time.deltaTime;
         if (punch_time >= -1)
             punch_time -= Time.deltaTime;
-        
+
         if (hit_timer >= -1)
             hit_timer -= Time.deltaTime;
         #endregion
