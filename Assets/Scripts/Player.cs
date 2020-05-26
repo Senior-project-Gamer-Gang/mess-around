@@ -67,22 +67,22 @@ public class Player : MonoBehaviour
         #region diffrentPlayerTypes
         if (this.gameObject.name == "Jeff")
         {
-            speed = 6.0f;
-            jumpSpeed = 4;
+            speed = 12.0f;
+            jumpSpeed = 8;
             gravity = 20;
             hp = 3;
         }
         if (this.gameObject.name == "Shooter")
         {
-            speed = 4.0f;
-            jumpSpeed = 6;
+            speed = 8.0f;
+            jumpSpeed = 12;
             gravity = 20;
             hp = 4;
         }
         if (this.gameObject.name == "HandMan")
         {
-            speed = 2.0f;
-            jumpSpeed = 2;
+            speed = 4.0f;
+            jumpSpeed = 4;
             gravity = 20;
             hp = 6;
         }
@@ -148,7 +148,7 @@ public class Player : MonoBehaviour
             if (this.gameObject.name == "Shooter")
             {
                 if (gameManager.GetComponent<GameManagerScript>().pagesCollected >= 1)
-                    jumpSpeed = 12;
+                    jumpSpeed = 20;
 
                 if (Input.GetMouseButtonDown(0))
                 {
