@@ -10,6 +10,7 @@ TagManager:
   - Player_Hit
   - GameManager
   - ComicPage
+  - Wall
   layers:
   - Default
   - TransparentFX

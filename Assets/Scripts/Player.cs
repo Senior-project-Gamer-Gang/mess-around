@@ -258,13 +258,13 @@ public class Player : MonoBehaviour
     //this scales jeff down 
     void jeffscale(Vector3 scale)
     {
-        scale -= new Vector3(0.1f, 0.1f, 0.1f);
+        scale -= new Vector3(0.5f, 0.5f, 0.5f);
         this.gameObject.transform.localScale = scale;
     }
     //this scales jeff back to the origanal scale 
     void jefforiganal(Vector3 scale)
     {
-        scale = new Vector3(0.4f, 0.4f, 0.4f);
+        scale = new Vector3(1f, 1f, 1f);
         this.gameObject.transform.localScale = scale;
     }
     public void Dead()

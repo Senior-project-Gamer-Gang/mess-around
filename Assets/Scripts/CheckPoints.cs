@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CheckPoints : MonoBehaviour
 {
-    GameObject player;
+    public GameObject player;
     public GameObject[] checkpointamount = new GameObject[10];
     public Vector3[] checkpointpos = new Vector3[10];
     public int currentcheckpoint;
