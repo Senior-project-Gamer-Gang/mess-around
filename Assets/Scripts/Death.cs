@@ -15,10 +15,6 @@ public class Death : MonoBehaviour
             //if player collides with checkpoint triggered is true 
             lose_Hp = true;
         }
-        if (Col.gameObject.tag == "Player_Hit" && IsFloor == false)
-        {
-
-        }
     }
     //this is for a box around the level
     //if you leave the box the player dies
