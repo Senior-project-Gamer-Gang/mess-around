@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
     public float switchtime;
 
     //this is just a temp 
-    public GameObject[] fireobj = new GameObject[1];
+    public GameObject[] fireobj = new GameObject[2];
     //this is just for the fired gameobjs
     GameObject[] firedobj = new GameObject[2];
 
@@ -40,6 +40,12 @@ public class Player : MonoBehaviour
     bool handinmotion;
     public bool handattack;
     //*-------------------------------------*
+
+    //peashooters values --------
+    float rof = .5f; //rof = rate of fire
+    GameObject bullet;
+    //*--------------------------*
+
 
     private GameObject gameManager; //The manager of course -Jon
     private GameObject camera; //The camera of course -Jon
@@ -150,9 +156,12 @@ public class Player : MonoBehaviour
                 if (gameManager.GetComponent<GameManagerScript>().pagesCollected >= 1)
                     jumpSpeed = 20;
 
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonDown(0) && rof <= 0)
                 {
-
+                    bullet = Instantiate(fireobj[1], new Vector3 (this.gameObject.transform.position.x, this.gameObject.transform.position.y + 3, 
+                        this.gameObject.transform.position.z + 2), Quaternion.identity);
+                    bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 500);
+                    rof = .5f;
                 }
             }
             if (this.gameObject.name == "HandMan")
@@ -160,7 +169,8 @@ public class Player : MonoBehaviour
 
                 if (Input.GetMouseButtonDown(0) && punch_time < 0)
                 {
-                    hand = Instantiate(fireobj[0], this.gameObject.transform.position, Quaternion.identity);
+                    hand = Instantiate(fireobj[0], new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 2,
+                        this.gameObject.transform.position.z + 3), Quaternion.identity);
                     punch_time = .5f;
                     handinmotion = true;
                 }
@@ -188,7 +198,8 @@ public class Player : MonoBehaviour
             switchtime -= Time.deltaTime;
         if (punch_time >= -1)
             punch_time -= Time.deltaTime;
-
+        if (rof >= -1)
+            rof -= Time.deltaTime;
         if (hit_timer >= -1)
             hit_timer -= Time.deltaTime;
         #endregion

@@ -21,5 +21,9 @@ public class Player_Attack : MonoBehaviour
             Destroy(Col.gameObject);
             Destroy(this.gameObject);
         }
+        if (this.gameObject.name == ("bullet(Clone)"))
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
