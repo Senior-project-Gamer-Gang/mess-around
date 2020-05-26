@@ -126,7 +126,7 @@ public class Player : MonoBehaviour
                 activeplayer = false;
             }
   
-                text.text = this.hp.ToString();
+                //text.text = this.hp.ToString();
 
             //this.gameObject.GetComponentInChildren<Camera>().enabled = true; (Commented out for now -Jon)
             //Tells the camera to now focus on this active player -Jon
