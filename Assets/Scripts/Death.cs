@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class Death : MonoBehaviour
 {
-    public bool Dead;
+    public bool lose_Hp;
     public bool IsFloor;
+    public int Hp = 1;
     void OnTriggerEnter(Collider Col)
     {
         //checks if players collides with checkpoints 
         if (Col.gameObject.tag == "Player" && IsFloor == false)
         {
             //if player collides with checkpoint triggered is true 
-            Dead = true;
+            lose_Hp = true;
+        }
+        if (Col.gameObject.tag == "Player_Hit" && IsFloor == false)
+        {
+
         }
     }
     //this is for a box around the level
@@ -21,7 +26,17 @@ public class Death : MonoBehaviour
     {
         if (IsFloor == true)
         {
-            Dead = true;
+            lose_Hp = true;
         }
     }
+    void Update()
+    {
+        //if this gameobjects hp is zero destroy gameobject
+        if (this.Hp <= 0)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+
 }
