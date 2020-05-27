@@ -14,8 +14,7 @@ public class EnemyTerritory : MonoBehaviour
     GameObject playerinzone;
 
     void Start()
-    {
-        enemy = this.gameObject;
+    { 
         jeff = GameObject.Find("Jeff");
         handman = GameObject.Find("HandMan");
         shooter = GameObject.Find("Shooter");

@@ -158,7 +158,7 @@ public class Player : MonoBehaviour
 
                 if (Input.GetMouseButtonDown(0) && rof <= 0)
                 {
-                    bullet = Instantiate(fireobj[1], new Vector3 (this.gameObject.transform.position.x, this.gameObject.transform.position.y + 3, 
+                    bullet = Instantiate(fireobj[1], new Vector3 (this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1, 
                         this.gameObject.transform.position.z + 2), Quaternion.identity);
                     bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 500);
                     rof = .5f;
@@ -169,7 +169,7 @@ public class Player : MonoBehaviour
 
                 if (Input.GetMouseButtonDown(0) && punch_time < 0)
                 {
-                    hand = Instantiate(fireobj[0], new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 2,
+                    hand = Instantiate(fireobj[0], new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1,
                         this.gameObject.transform.position.z + 3), Quaternion.identity);
                     punch_time = .5f;
                     handinmotion = true;
