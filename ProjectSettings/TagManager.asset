@@ -12,7 +12,6 @@ TagManager:
   - ComicPage
   - Wall
   - enemy
-  - enemy_Box
   layers:
   - Default
   - TransparentFX
