@@ -7,12 +7,15 @@ public class Death : MonoBehaviour
     public bool lose_Hp;
     public bool IsFloor;
     public int Hp = 1;
+
+    float timer = 2;
     void OnTriggerEnter(Collider Col)
     {
         //checks if players collides with checkpoints 
         if (Col.gameObject.tag == "Player" && IsFloor == false)
         { 
             lose_Hp = true;
+            Destroy(this.gameObject);
         }
        
     }
@@ -27,8 +30,10 @@ public class Death : MonoBehaviour
     }
     void Update()
     {
-        //if this gameobjects hp is zero destroy gameobject
-        if (this.Hp <= 0)
+        timer -= Time.deltaTime;
+
+        //if tiemr is less then zero destroy bullet
+        if (timer <= 0 && IsFloor == false)
         {
             Destroy(this.gameObject);
         }

@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     CharacterController characterController;
     private Vector3 moveDirection = Vector3.zero;
     private bool moving;
-    GameObject[] DeathObjs = new GameObject[20];
+    GameObject[] DeathObjs = new GameObject[50];
     //just a temp obj
     public GameObject obj;
     public Text text;
@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
     {
         //gets the CharacterController 
         characterController = GetComponent<CharacterController>();
-        DeathObjs = GameObject.FindGameObjectsWithTag("Death");
+        
 
         //gets the game manager + camera -Jon
         gameManager = GameObject.FindGameObjectWithTag("GameManager");
@@ -109,6 +109,10 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+
+        DeathObjs = GameObject.FindGameObjectsWithTag("Death");
+
+
         distbetweenobj[0] = Vector3.Distance(players[0].transform.position, transform.position);
         distbetweenobj[1] = Vector3.Distance(players[1].transform.position, transform.position);
 

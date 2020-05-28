@@ -10,11 +10,11 @@ public class EnemyTerritory : MonoBehaviour
     public GameObject enemy;
     Enemy_AI basicenemy;
     GameObject playerinzone;
-
+    
     List<Collider> PlayerColliding = new List<Collider>();
 
     void Start()
-    { 
+    {
         jeff = GameObject.Find("Jeff");
         handman = GameObject.Find("HandMan");
         shooter = GameObject.Find("Shooter");
@@ -26,12 +26,19 @@ public class EnemyTerritory : MonoBehaviour
     {
         if (interritory == true)
         {
-            basicenemy.MoveToPlayer(playerinzone.transform);
-            for(int i = 0; i < PlayerColliding.Count; i++)
+            if (basicenemy.enemyshooter == false)
+            {
+                basicenemy.MoveToPlayer(playerinzone.transform);
+            }
+            if(basicenemy.enemyshooter == true)
+            {
+                basicenemy.shootAtPlayer(playerinzone.transform);                
+            }
+            for (int i = 0; i < PlayerColliding.Count; i++)
             {
                 //changes the player that the enemies are lookign at based
                 //on who's the active player 
-                if(PlayerColliding[i].GetComponent<Player>().activeplayer == true)
+                if (PlayerColliding[i].GetComponent<Player>().activeplayer == true)
                 {
                     playerinzone = PlayerColliding[i].gameObject;
                 }
@@ -50,7 +57,7 @@ public class EnemyTerritory : MonoBehaviour
     {
         //if the player enters the box and it isn't 
         //already in the list it get added to it
-        if(!PlayerColliding.Contains(col) && 
+        if (!PlayerColliding.Contains(col) &&
             col.gameObject.tag == "Player")
         {
             PlayerColliding.Add(col);
@@ -61,8 +68,8 @@ public class EnemyTerritory : MonoBehaviour
             playerinzone = jeff;
             interritory = true;
         }
-        
-        if(handman.GetComponent<Player>().activeplayer == true && col.gameObject == handman)
+
+        if (handman.GetComponent<Player>().activeplayer == true && col.gameObject == handman)
         {
             playerinzone = handman;
             interritory = true;

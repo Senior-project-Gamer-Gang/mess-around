@@ -8,6 +8,12 @@ public class Enemy_AI : MonoBehaviour
     public float attackRange = 1f;
     public int attackDamage = 1;
     public float timeBetweenAttacks;
+    public GameObject bullet;
+    GameObject temp;
+    public bool enemyshooter = false;
+
+    float timer;
+
     void Start()
     {
         
@@ -16,7 +22,7 @@ public class Enemy_AI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        timer -= Time.deltaTime;
     }
 
     public void MoveToPlayer(Transform player)
@@ -30,7 +36,19 @@ public class Enemy_AI : MonoBehaviour
             transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
         }
     }
+    public void shootAtPlayer(Transform player)
+    {
+        transform.LookAt(player.position);
+        //transform.Rotate(new Vector3(0, -90, 0), Space.Self);
+        if (timer <= 0)
+        {
+            temp = Instantiate(bullet, transform.position,
+            Quaternion.identity);
 
+            temp.GetComponent<Rigidbody>().AddForce(transform.forward * 500);
+            timer = .5f;
+        }
+    }
     public void wonder()
     {
         //for later
