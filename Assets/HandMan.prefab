@@ -1,5 +1,48 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &110150547698013090
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3085988527194212583}
+  - component: {fileID: 8254790096616916538}
+  m_Layer: 0
+  m_Name: pivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3085988527194212583
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 110150547698013090}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5948592771359698339}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8254790096616916538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 110150547698013090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ce552081aae23944839fad83e085794, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5948592771359994241
 GameObject:
   m_ObjectHideFlags: 0
@@ -29,7 +72,7 @@ Transform:
   m_Children:
   - {fileID: 5948592771359698389}
   m_Father: {fileID: 5948592771359698339}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5948592771359994243
 GameObject:
@@ -61,6 +104,7 @@ Transform:
   m_LocalPosition: {x: -16.13, y: 10.6, z: -0.73}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 3085988527194212583}
   - {fileID: 5948592771359698341}
   - {fileID: 5948592771359698337}
   m_Father: {fileID: 0}
@@ -96,13 +140,13 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2
+  m_Height: 3.5
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 1.53, z: 1.85}
 --- !u!114 &5948592772021152440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,6 +174,8 @@ MonoBehaviour:
   fireobj:
   - {fileID: 0}
   hp: 6
+  gravityScale: 1.5
+  rotationSpeed: 1
   punch_time: 0
   handattack: 0
 --- !u!1 &5948592771359994245
@@ -161,7 +207,7 @@ Transform:
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children: []
   m_Father: {fileID: 5948592771359698339}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &5948592771363175631
 SkinnedMeshRenderer:

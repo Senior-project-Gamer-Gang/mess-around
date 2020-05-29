@@ -30,7 +30,8 @@ public class Player : MonoBehaviour
     public int hp;
     private float speed;
     private float jumpSpeed;
-    private float gravity = 20.0f;
+    public float gravityScale; //I changed gravity to gravity scale cause Physics.Gravity is Unity's built in gravity. We should use that instead.
+    public float rotationSpeed; //How fast the player rotate towards the direction they're moving
     //*------------------------------*
 
     //big handmans varibles
@@ -49,6 +50,7 @@ public class Player : MonoBehaviour
 
     private GameObject gameManager; //The manager of course -Jon
     private GameObject camera; //The camera of course -Jon
+    private Transform pivot; //what the player uses to determine camera's rotation -Jon
     #endregion
 
     void Start()
@@ -57,9 +59,10 @@ public class Player : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         
 
-        //gets the game manager + camera -Jon
+        //gets the game manager + camera + pivot -Jon
         gameManager = GameObject.FindGameObjectWithTag("GameManager");
         camera = GameObject.FindGameObjectWithTag("MainCamera");
+        pivot = GetComponentInChildren<PivotScript>().transform;
 
 
         List<GameObject> PlayerList = new List<GameObject>(GameObject.FindGameObjectsWithTag("Player"));
@@ -75,21 +78,18 @@ public class Player : MonoBehaviour
         {
             speed = 12.0f;
             jumpSpeed = 8;
-            gravity = 20;
             hp = 3;
         }
         if (this.gameObject.name == "Shooter")
         {
             speed = 8.0f;
             jumpSpeed = 12;
-            gravity = 20;
             hp = 4;
         }
         if (this.gameObject.name == "HandMan")
         {
             speed = 4.0f;
             jumpSpeed = 4;
-            gravity = 20;
             hp = 6;
         }
         #endregion
@@ -210,23 +210,29 @@ public class Player : MonoBehaviour
         #region PlayerMovement
         if (activeplayer == true)
         {
-            //you can move if your characters grounded 
+
+            //moves the player 
+            moveDirection = (pivot.forward * Input.GetAxis("Vertical")) + (pivot.right * Input.GetAxis("Horizontal"));
+            moveDirection = moveDirection.normalized * speed; //This is so moving diagonally is not faster than moving...well not diagonally -Jon
+            //moveDirection *= speed;
+
+            //you can jump if your characters grounded 
             if (characterController.isGrounded)
             {
-                //moves the player 
-                moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
-                moveDirection *= speed;
-
                 //jump if you press space 
                 if (Input.GetButton("Jump"))
                 {
                     moveDirection.y = jumpSpeed;
                 }
             }
+            else //added an else so it will only push the player down with gravity only if it is not grounded. -Jon
+            {
+                //the players always getting effected by gravity when off the ground
+                moveDirection.y = moveDirection.y + (Physics.gravity.y * gravityScale * Time.deltaTime);
+            }
 
-            //the players always getting effected by gravity
-            moveDirection.y -= gravity * Time.deltaTime;
-
+            //Player's rotation
+            transform.eulerAngles = Vector3.RotateTowards(transform.eulerAngles, moveDirection, rotationSpeed, 0f); //This rotation straight up doesn't happen, ignore this for now -Jon
             // Moves the controller
             characterController.Move(moveDirection * Time.deltaTime);
         }
