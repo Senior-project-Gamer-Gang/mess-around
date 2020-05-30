@@ -218,6 +218,49 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300012, guid: 7845f1984193c5840b66ba175a71313b, type: 3}
+--- !u!1 &34962529
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 34962530}
+  - component: {fileID: 34962531}
+  m_Layer: 0
+  m_Name: pivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &34962530
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 34962529}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
+  m_Children: []
+  m_Father: {fileID: 1992543530}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &34962531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 34962529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ce552081aae23944839fad83e085794, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &35977392
 GameObject:
   m_ObjectHideFlags: 0
@@ -5805,6 +5848,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 5050015057721869768, guid: 18d55ad7038121a47bf974365b0e2012, type: 3}
   hp: 0
+  speed: 0
+  gravityScale: 0
+  rotationSpeed: 0
   punch_time: 0.5
   handattack: 0
 --- !u!143 &1992543528
@@ -5825,6 +5871,12 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1.11, z: 0}
+--- !u!4 &1992543530 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400054, guid: 765c0395999bfc74996dcf3bb756342f,
+    type: 3}
+  m_PrefabInstance: {fileID: 68287974}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2002386108 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100060, guid: 7845f1984193c5840b66ba175a71313b,
