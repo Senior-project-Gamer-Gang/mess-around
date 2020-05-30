@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
 
     //each player will ahev these varibles 
     public int hp;
-    private float speed;
+    public float speed; //I made this variable public so the camera can see it -Jon
     private float jumpSpeed;
     public float gravityScale; //I changed gravity to gravity scale cause Physics.Gravity is Unity's built in gravity. We should use that instead.
     public float rotationSpeed; //How fast the player rotate towards the direction they're moving
@@ -210,7 +210,6 @@ public class Player : MonoBehaviour
         #region PlayerMovement
         if (activeplayer == true)
         {
-
             //moves the player 
             moveDirection = (pivot.forward * Input.GetAxis("Vertical")) + (pivot.right * Input.GetAxis("Horizontal"));
             moveDirection = moveDirection.normalized * speed; //This is so moving diagonally is not faster than moving...well not diagonally -Jon
@@ -232,9 +231,18 @@ public class Player : MonoBehaviour
             }
 
             //Player's rotation
-            transform.eulerAngles = Vector3.RotateTowards(transform.eulerAngles, moveDirection, rotationSpeed, 0f); //This rotation straight up doesn't happen, ignore this for now -Jon
+            Quaternion desiredRotation;
+            if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
+            {
+                desiredRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0f, moveDirection.z)); //Uses moveDirection to determine where the player would want to rotate towards -Jon
+            }
+            else { desiredRotation = transform.rotation; } //It will not try to rotate if player is not moving -Jon
+            transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, rotationSpeed * Time.deltaTime); //Gradually rotates towards desiredRotation -Jon
+
             // Moves the controller
             characterController.Move(moveDirection * Time.deltaTime);
+
+            
         }
         #endregion
         #region playerHit

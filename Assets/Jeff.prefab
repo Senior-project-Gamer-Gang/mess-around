@@ -138,7 +138,7 @@ MonoBehaviour:
   - {fileID: 0}
   hp: 6
   gravityScale: 1.5
-  rotationSpeed: 1
+  rotationSpeed: 10
   punch_time: 0
   handattack: 0
 --- !u!1 &4881992330830187419
