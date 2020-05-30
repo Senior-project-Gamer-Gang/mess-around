@@ -391,7 +391,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400054, guid: 765c0395999bfc74996dcf3bb756342f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 71.48553
+      value: 72.45
       objectReference: {fileID: 0}
     - target: {fileID: 400054, guid: 765c0395999bfc74996dcf3bb756342f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5849,6 +5849,7 @@ MonoBehaviour:
   - {fileID: 5050015057721869768, guid: 18d55ad7038121a47bf974365b0e2012, type: 3}
   hp: 0
   speed: 0
+  jumpSpeed: 0
   gravityScale: 0
   rotationSpeed: 0
   punch_time: 0.5

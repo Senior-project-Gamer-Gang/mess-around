@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
     //each player will ahev these varibles 
     public int hp;
     public float speed; //I made this variable public so the camera can see it -Jon
-    private float jumpSpeed;
+    public float jumpSpeed;
     public float gravityScale; //I changed gravity to gravity scale cause Physics.Gravity is Unity's built in gravity. We should use that instead.
     public float rotationSpeed; //How fast the player rotate towards the direction they're moving
     //*------------------------------*
@@ -109,9 +109,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-
         DeathObjs = GameObject.FindGameObjectsWithTag("Death");
-
 
         distbetweenobj[0] = Vector3.Distance(players[0].transform.position, transform.position);
         distbetweenobj[1] = Vector3.Distance(players[1].transform.position, transform.position);
@@ -158,7 +156,16 @@ public class Player : MonoBehaviour
             if (this.gameObject.name == "Shooter")
             {
                 if (gameManager.GetComponent<GameManagerScript>().pagesCollected >= 1)
-                    jumpSpeed = 20;
+                {
+                    #region Dontlook@this
+                    if (players[0].gameObject.name == "HandMan" && distbetweenobj[0] <= 3)
+                        jumpSpeed = 20;
+                    if (players[1].gameObject.name == "HandMan" && distbetweenobj[1] <= 3)
+                        jumpSpeed = 20;
+                    if (distbetweenobj[1] >= 3)
+                        jumpSpeed = 12;
+                    #endregion
+                }
 
                 if (Input.GetMouseButtonDown(0) && rof <= 0)
                 {
@@ -190,10 +197,6 @@ public class Player : MonoBehaviour
                     handattack = true;
             }
         }
-
-
-
-
 
         //if (activeplayer == false)
         //this.gameObject.GetComponentInChildren<Camera>().enabled = false; (Commentated out for now -Jon)
