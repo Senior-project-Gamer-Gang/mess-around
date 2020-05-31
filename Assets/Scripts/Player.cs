@@ -32,6 +32,7 @@ public class Player : MonoBehaviour
     public float jumpSpeed;
     public float gravityScale; //I changed gravity to gravity scale cause Physics.Gravity is Unity's built in gravity. We should use that instead.
     public float rotationSpeed; //How fast the player rotate towards the direction they're moving
+    private Animator anim;
     //*------------------------------*
 
     //big handmans varibles
@@ -57,7 +58,8 @@ public class Player : MonoBehaviour
     {
         //gets the CharacterController 
         characterController = GetComponent<CharacterController>();
-        
+
+        anim = gameObject.GetComponent<Animator>();
 
         //gets the game manager + camera + pivot -Jon
         gameManager = GameObject.FindGameObjectWithTag("GameManager");
@@ -77,7 +79,7 @@ public class Player : MonoBehaviour
         if (this.gameObject.name == "Jeff")
         {
             speed = 12.0f;
-            jumpSpeed = 8;
+            jumpSpeed = 10;
             hp = 3;
         }
         if (this.gameObject.name == "Shooter")
@@ -88,8 +90,9 @@ public class Player : MonoBehaviour
         }
         if (this.gameObject.name == "HandMan")
         {
+            anim.Play("ide");
             speed = 4.0f;
-            jumpSpeed = 4;
+            jumpSpeed = 8;
             hp = 6;
         }
         #endregion
@@ -180,6 +183,9 @@ public class Player : MonoBehaviour
 
                 if (Input.GetMouseButtonDown(0) && punch_time < 0)
                 {
+                    //plays attack
+                    anim.Play("attack");
+
                     hand = Instantiate(fireobj[0], new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1,
                         this.gameObject.transform.position.z + 3), Quaternion.identity);
                     punch_time = .5f;
@@ -225,12 +231,16 @@ public class Player : MonoBehaviour
                 if (Input.GetButton("Jump"))
                 {
                     moveDirection.y = jumpSpeed;
+                    if(this.gameObject.name == "HandMan")
+                    {
+                        anim.Play("jump");
+                    }
                 }
             }
             else //added an else so it will only push the player down with gravity only if it is not grounded. -Jon
             {
                 //the players always getting effected by gravity when off the ground
-                moveDirection.y = moveDirection.y + (Physics.gravity.y * gravityScale * Time.deltaTime);
+                moveDirection.y = moveDirection.y + (Physics.gravity.y * gravityScale + 6 * Time.deltaTime);
             }
 
             //Player's rotation
@@ -238,6 +248,11 @@ public class Player : MonoBehaviour
             if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
             {
                 desiredRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0f, moveDirection.z)); //Uses moveDirection to determine where the player would want to rotate towards -Jon
+                if (this.gameObject.name == "HandMan")
+                {
+                    if(!anim.GetCurrentAnimatorStateInfo(0).IsName("walk"))
+                        anim.Play("walk");
+                }
             }
             else { desiredRotation = transform.rotation; } //It will not try to rotate if player is not moving -Jon
             transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, rotationSpeed * Time.deltaTime); //Gradually rotates towards desiredRotation -Jon
