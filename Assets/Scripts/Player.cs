@@ -187,7 +187,7 @@ public class Player : MonoBehaviour
                     anim.Play("attack");
 
                     hand = Instantiate(fireobj[0], new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1,
-                        this.gameObject.transform.position.z + 3), Quaternion.identity);
+                        this.gameObject.transform.position.z), Quaternion.identity);
                     punch_time = .5f;
                     handinmotion = true;
                 }
@@ -240,7 +240,7 @@ public class Player : MonoBehaviour
             else //added an else so it will only push the player down with gravity only if it is not grounded. -Jon
             {
                 //the players always getting effected by gravity when off the ground
-                moveDirection.y = moveDirection.y + (Physics.gravity.y * gravityScale + 6 * Time.deltaTime);
+                moveDirection.y = moveDirection.y + (Physics.gravity.y * gravityScale * Time.deltaTime);
             }
 
             //Player's rotation
