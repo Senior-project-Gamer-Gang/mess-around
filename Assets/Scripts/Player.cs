@@ -117,9 +117,15 @@ public class Player : MonoBehaviour
         distbetweenobj[0] = Vector3.Distance(players[0].transform.position, transform.position);
         distbetweenobj[1] = Vector3.Distance(players[1].transform.position, transform.position);
 
+        if (this.hp <= 0)
+        {
+            Dead();
+        }
+
         //switchs player
         if (activeplayer == true)
         {
+            
             if (Input.GetKeyDown(KeyCode.E) && distbetweenobj[0] < 3 && switchtime < 0)
             {
                 players[0].GetComponent<Player>().activeplayer = true;
@@ -320,6 +326,8 @@ public class Player : MonoBehaviour
     }
     public void Dead()
     {
-        //for later when we have lives and stuff
+        this.gameObject.transform.position = obj.GetComponent<CheckPoints>().checkpointpos[
+                    obj.GetComponent<CheckPoints>().currentcheckpoint];
+        hp = 5;
     }
 }

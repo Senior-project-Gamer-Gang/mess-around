@@ -12,10 +12,10 @@ public class Enemy_AI : MonoBehaviour
     GameObject temp;
     public bool enemyshooter = false;
     public GameObject collider;
-    float timer;
+    float timer, hittimer;
     public float wonderTime;
 
-
+    GameObject curplay;
     void Start()
     {
         
@@ -38,11 +38,14 @@ public class Enemy_AI : MonoBehaviour
             }
         }
         timer -= Time.deltaTime;
-
+        hittimer -= Time.deltaTime;
     }
 
-    public void MoveToPlayer(Vector3 player)
+    public void MoveToPlayer(Vector3 player, string playname)
     {
+        if(playname != "")
+            curplay = GameObject.Find(playname);
+
         transform.LookAt(player);
         transform.Rotate(new Vector3(0, -90, 0), Space.Self);
 
@@ -50,9 +53,17 @@ public class Enemy_AI : MonoBehaviour
         if (Vector3.Distance(transform.position, player) > attackRange)
         {
             transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
-        } 
+        }
+        if (Vector3.Distance(transform.position, player) <= attackRange && hittimer <= 0)
+        {
+            curplay.GetComponent<Player>().hp -= 1;
+            hittimer = 2;
+        }
+
+
+            
     }
-    public void shootAtPlayer(Vector3 player)
+    public void shootAtPlayer(Vector3 player, string playname)
     {
         transform.LookAt(player);
         //transform.Rotate(new Vector3(0, -90, 0), Space.Self);

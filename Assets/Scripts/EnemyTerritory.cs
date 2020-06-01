@@ -10,7 +10,7 @@ public class EnemyTerritory : MonoBehaviour
     public GameObject enemy;
     Enemy_AI basicenemy;
     GameObject playerinzone;
-    
+    string playername;
     List<Collider> PlayerColliding = new List<Collider>();
 
     void Start()
@@ -30,11 +30,11 @@ public class EnemyTerritory : MonoBehaviour
             {
                 if (basicenemy.enemyshooter == false)
                 {
-                    basicenemy.MoveToPlayer(playerinzone.transform.position);
+                    basicenemy.MoveToPlayer(playerinzone.transform.position, playername);
                 }
                 if (basicenemy.enemyshooter == true)
                 {
-                    basicenemy.shootAtPlayer(playerinzone.transform.position);
+                    basicenemy.shootAtPlayer(playerinzone.transform.position, playername);
                 }
             }
             if(playerinzone == handman)
@@ -43,12 +43,12 @@ public class EnemyTerritory : MonoBehaviour
                 if (basicenemy.enemyshooter == false)
                 {
                     basicenemy.MoveToPlayer(handman.transform.position + 
-                        handman.GetComponent<CapsuleCollider>().center);
+                        handman.GetComponent<CapsuleCollider>().center, playername);
                 }
                 if (basicenemy.enemyshooter == true)
                 {
                     basicenemy.shootAtPlayer(handman.transform.position +
-                        handman.GetComponent<CapsuleCollider>().center);
+                        handman.GetComponent<CapsuleCollider>().center, playername);
                 }
             }
             for (int i = 0; i < PlayerColliding.Count; i++)
@@ -75,23 +75,27 @@ public class EnemyTerritory : MonoBehaviour
         if (!PlayerColliding.Contains(col) &&
             col.gameObject.tag == "Player")
         {
+            playername = col.name;
             PlayerColliding.Add(col);
         }
 
         if (jeff.GetComponent<Player>().activeplayer == true && col.gameObject == jeff)
         {
+            
             playerinzone = jeff;
             interritory = true;
         }
 
         if (handman.GetComponent<Player>().activeplayer == true && col.gameObject == handman)
         {
+            
             playerinzone = handman;
             interritory = true;
         }
 
         if (shooter.GetComponent<Player>().activeplayer == true && col.gameObject == shooter)
         {
+            
             playerinzone = shooter;
             interritory = true;
         }
@@ -110,14 +114,17 @@ public class EnemyTerritory : MonoBehaviour
 
         if (jeff.GetComponent<Player>().activeplayer == true && col.gameObject == jeff)
         {
+            playername = "";
             interritory = false;
         }
         if (handman.GetComponent<Player>().activeplayer == true && col.gameObject == handman)
         {
+            playername = "";
             interritory = false;
         }
         if (shooter.GetComponent<Player>().activeplayer == true && col.gameObject == shooter)
         {
+            playername = "";
             interritory = false;
         }
     }
