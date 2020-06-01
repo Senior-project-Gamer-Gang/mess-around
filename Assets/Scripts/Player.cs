@@ -252,15 +252,19 @@ public class Player : MonoBehaviour
                 desiredRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0f, moveDirection.z)); //Uses moveDirection to determine where the player would want to rotate towards -Jon
                 if (this.gameObject.name == "HandMan")
                 {
-                    if(!anim.GetCurrentAnimatorStateInfo(0).IsName("walk"))
-                        anim.Play("walk");
+                    
+                        anim.SetInteger("Walking",1);
+                    
                 }
             }
             else { desiredRotation = transform.rotation; } //It will not try to rotate if player is not moving -Jon
             transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, rotationSpeed * Time.deltaTime); //Gradually rotates towards desiredRotation -Jon
-
-            // Moves the controller
-            characterController.Move(moveDirection * Time.deltaTime);
+            if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0)
+            {
+                anim.SetInteger("Walking", 0);
+            }
+                // Moves the controller
+                characterController.Move(moveDirection * Time.deltaTime);
 
             
         }
