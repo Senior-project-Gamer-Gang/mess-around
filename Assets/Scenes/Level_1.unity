@@ -10508,6 +10508,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5975811718140597149, guid: 6bd2eeee89b82d346912c9efb5e74581,
+        type: 3}
+      propertyPath: collider
+      value: 
+      objectReference: {fileID: 1333075859}
     - target: {fileID: 5975811718140597152, guid: 6bd2eeee89b82d346912c9efb5e74581,
         type: 3}
       propertyPath: m_RootOrder
@@ -12369,6 +12374,12 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300026, guid: 7845f1984193c5840b66ba175a71313b, type: 3}
+--- !u!1 &1333075859 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5975811717777148002, guid: 6bd2eeee89b82d346912c9efb5e74581,
+    type: 3}
+  m_PrefabInstance: {fileID: 869971701}
+  m_PrefabAsset: {fileID: 0}
 --- !u!64 &1354496040
 MeshCollider:
   m_ObjectHideFlags: 0

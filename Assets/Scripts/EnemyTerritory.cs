@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyTerritory : MonoBehaviour
 {
     GameObject jeff, handman, shooter;
-    bool interritory = false;
+    public bool interritory = false;
     public BoxCollider territory;
     public GameObject enemy;
     Enemy_AI basicenemy;
@@ -47,16 +47,14 @@ public class EnemyTerritory : MonoBehaviour
             }
         }
 
-        if (interritory == false)
-        {
-            basicenemy.wonder();
-        }
-
     }
     void OnTriggerEnter(Collider col)
     {
+
+        
         //if the player enters the box and it isn't 
         //already in the list it get added to it
+
         if (!PlayerColliding.Contains(col) &&
             col.gameObject.tag == "Player")
         {
@@ -84,6 +82,8 @@ public class EnemyTerritory : MonoBehaviour
 
     void OnTriggerExit(Collider col)
     {
+
+
         //if the player leaves the box take it out of the list 
         if (PlayerColliding.Contains(col))
         {

@@ -185,7 +185,6 @@ public class Player : MonoBehaviour
                 {
                     //plays attack
                     anim.Play("attack");
-
                     hand = Instantiate(fireobj[0], new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1,
                         this.gameObject.transform.position.z), Quaternion.identity);
                     punch_time = .5f;
@@ -203,7 +202,6 @@ public class Player : MonoBehaviour
                     handattack = true;
             }
         }
-
         //if (activeplayer == false)
         //this.gameObject.GetComponentInChildren<Camera>().enabled = false; (Commentated out for now -Jon)
         #region tiemrs
@@ -252,9 +250,7 @@ public class Player : MonoBehaviour
                 desiredRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0f, moveDirection.z)); //Uses moveDirection to determine where the player would want to rotate towards -Jon
                 if (this.gameObject.name == "HandMan")
                 {
-                    
                         anim.SetInteger("Walking",1);
-                    
                 }
             }
             else { desiredRotation = transform.rotation; } //It will not try to rotate if player is not moving -Jon

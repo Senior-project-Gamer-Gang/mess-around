@@ -99,6 +99,8 @@ MonoBehaviour:
   timeBetweenAttacks: 0
   bullet: {fileID: 1273628422158943838, guid: 891b6165e6a19714c8ec7169e7b6524b, type: 3}
   enemyshooter: 1
+  collider: {fileID: 3579429397092125060}
+  wonderTime: 0
 --- !u!65 &3579429396728910460
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -185,5 +187,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7f62adcac75cac49a9de0f816daa0a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interritory: 0
   territory: {fileID: 3579429397092125057}
   enemy: {fileID: 3579429396728910462}
