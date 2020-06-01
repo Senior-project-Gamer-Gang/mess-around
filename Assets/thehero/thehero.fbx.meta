@@ -1,0 +1,170 @@
+fileFormatVersion: 2
+guid: 2cf2b11616322924d9628eb9bb3acd93
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: mixamorig:hero
+    100002: mixamorig:hero 1
+    100004: mixamorig:hero 10
+    100006: mixamorig:hero 11
+    100008: mixamorig:hero 12
+    100010: mixamorig:hero 13
+    100012: mixamorig:hero 14
+    100014: mixamorig:hero 15
+    100016: mixamorig:hero 16
+    100018: mixamorig:hero 17
+    100020: mixamorig:hero 18
+    100022: mixamorig:hero 19
+    100024: mixamorig:hero 2
+    100026: mixamorig:hero 20
+    100028: mixamorig:hero 21
+    100030: mixamorig:hero 22
+    100032: mixamorig:hero 23
+    100034: mixamorig:hero 24
+    100036: mixamorig:hero 25
+    100038: mixamorig:hero 26
+    100040: mixamorig:hero 27
+    100042: mixamorig:hero 28
+    100044: mixamorig:hero 29
+    100046: mixamorig:hero 3
+    100048: mixamorig:hero 30
+    100050: mixamorig:hero 31
+    100052: mixamorig:hero 32
+    100054: mixamorig:hero 4
+    100056: mixamorig:hero 5
+    100058: mixamorig:hero 6
+    100060: mixamorig:hero 7
+    100062: mixamorig:hero 8
+    100064: mixamorig:hero 9
+    100066: //RootNode
+    100068: unamed
+    400000: mixamorig:hero
+    400002: mixamorig:hero 1
+    400004: mixamorig:hero 10
+    400006: mixamorig:hero 11
+    400008: mixamorig:hero 12
+    400010: mixamorig:hero 13
+    400012: mixamorig:hero 14
+    400014: mixamorig:hero 15
+    400016: mixamorig:hero 16
+    400018: mixamorig:hero 17
+    400020: mixamorig:hero 18
+    400022: mixamorig:hero 19
+    400024: mixamorig:hero 2
+    400026: mixamorig:hero 20
+    400028: mixamorig:hero 21
+    400030: mixamorig:hero 22
+    400032: mixamorig:hero 23
+    400034: mixamorig:hero 24
+    400036: mixamorig:hero 25
+    400038: mixamorig:hero 26
+    400040: mixamorig:hero 27
+    400042: mixamorig:hero 28
+    400044: mixamorig:hero 29
+    400046: mixamorig:hero 3
+    400048: mixamorig:hero 30
+    400050: mixamorig:hero 31
+    400052: mixamorig:hero 32
+    400054: mixamorig:hero 4
+    400056: mixamorig:hero 5
+    400058: mixamorig:hero 6
+    400060: mixamorig:hero 7
+    400062: mixamorig:hero 8
+    400064: mixamorig:hero 9
+    400066: //RootNode
+    400068: unamed
+    2100000: No Name
+    4300000: unamed
+    7400000: tpose
+    7400002: idle
+    7400004: run
+    7400006: punch
+    7400008: death
+    9500000: //RootNode
+    13700000: unamed
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

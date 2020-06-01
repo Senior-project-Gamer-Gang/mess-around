@@ -61,6 +61,7 @@
      <Compile Include="Assets\Scripts\Enemy_AI.cs" />
      <Compile Include="Assets\Scripts\EnemyTerritory.cs" />
      <Compile Include="Assets\Scripts\GameManagerScript.cs" />
+     <Compile Include="Assets\Scripts\Hero_AI.cs" />
      <Compile Include="Assets\Scripts\PauseScript.cs" />
      <Compile Include="Assets\Scripts\PivotScript.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />

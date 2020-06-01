@@ -137,7 +137,7 @@ public class Player : MonoBehaviour
                 activeplayer = false;
             }
             //if(text.gameObject != null)
-               // text.text = this.hp.ToString();
+            // text.text = this.hp.ToString();
 
             //this.gameObject.GetComponentInChildren<Camera>().enabled = true; (Commented out for now -Jon)
             //Tells the camera to now focus on this active player -Jon
@@ -172,7 +172,7 @@ public class Player : MonoBehaviour
 
                 if (Input.GetMouseButtonDown(0) && rof <= 0)
                 {
-                    bullet = Instantiate(fireobj[1], new Vector3 (this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1, 
+                    bullet = Instantiate(fireobj[1], new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1,
                         this.gameObject.transform.position.z + 2), Quaternion.identity);
                     bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 500);
                     rof = .5f;
@@ -231,18 +231,12 @@ public class Player : MonoBehaviour
                 if (Input.GetButton("Jump"))
                 {
                     moveDirection.y = jumpSpeed;
-                    if(this.gameObject.name == "HandMan")
+                    if (this.gameObject.name == "HandMan")
                     {
                         anim.Play("jump");
                     }
                 }
             }
-            else //added an else so it will only push the player down with gravity only if it is not grounded. -Jon
-            {
-                //the players always getting effected by gravity when off the ground
-                moveDirection.y = moveDirection.y + (Physics.gravity.y * gravityScale * Time.deltaTime);
-            }
-
             //Player's rotation
             Quaternion desiredRotation;
             if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
@@ -250,7 +244,7 @@ public class Player : MonoBehaviour
                 desiredRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0f, moveDirection.z)); //Uses moveDirection to determine where the player would want to rotate towards -Jon
                 if (this.gameObject.name == "HandMan")
                 {
-                        anim.SetInteger("Walking",1);
+                    anim.SetInteger("Walking", 1);
                 }
             }
             else { desiredRotation = transform.rotation; } //It will not try to rotate if player is not moving -Jon
@@ -259,10 +253,15 @@ public class Player : MonoBehaviour
             {
                 anim.SetInteger("Walking", 0);
             }
-                // Moves the controller
-                characterController.Move(moveDirection * Time.deltaTime);
+            // Moves the controller
+            characterController.Move(moveDirection * Time.deltaTime);
 
-            
+
+        }
+        if (!characterController.isGrounded)
+        {
+            //the players always getting effected by gravity when off the ground
+            moveDirection.y = moveDirection.y + (Physics.gravity.y * gravityScale * Time.deltaTime);
         }
         #endregion
         #region playerHit
