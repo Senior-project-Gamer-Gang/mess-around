@@ -9296,8 +9296,8 @@ MonoBehaviour:
   hp: 0
   speed: 0
   jumpSpeed: 0
-  gravityScale: 0
-  rotationSpeed: 0
+  gravityScale: 1.5
+  rotationSpeed: 10
   punch_time: 0.5
   handattack: 0
 --- !u!143 &498408872

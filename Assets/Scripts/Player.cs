@@ -202,7 +202,10 @@ public class Player : MonoBehaviour
                     handattack = true;
             }
         }
-        //if (activeplayer == false)
+        //this is so the handman wont keep walking after he's deactivated
+        if (activeplayer == false && this.gameObject.name == "HandMan")
+            anim.SetInteger("Walking", 0);
+
         //this.gameObject.GetComponentInChildren<Camera>().enabled = false; (Commentated out for now -Jon)
         #region tiemrs
         if (switchtime >= -1)
