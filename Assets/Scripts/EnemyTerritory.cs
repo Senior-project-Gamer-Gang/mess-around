@@ -26,13 +26,30 @@ public class EnemyTerritory : MonoBehaviour
     {
         if (interritory == true)
         {
-            if (basicenemy.enemyshooter == false)
+            if (playerinzone != handman)
             {
-                basicenemy.MoveToPlayer(playerinzone.transform);
+                if (basicenemy.enemyshooter == false)
+                {
+                    basicenemy.MoveToPlayer(playerinzone.transform.position);
+                }
+                if (basicenemy.enemyshooter == true)
+                {
+                    basicenemy.shootAtPlayer(playerinzone.transform.position);
+                }
             }
-            if(basicenemy.enemyshooter == true)
+            if(playerinzone == handman)
             {
-                basicenemy.shootAtPlayer(playerinzone.transform);                
+                
+                if (basicenemy.enemyshooter == false)
+                {
+                    basicenemy.MoveToPlayer(handman.transform.position + 
+                        handman.GetComponent<CapsuleCollider>().center);
+                }
+                if (basicenemy.enemyshooter == true)
+                {
+                    basicenemy.shootAtPlayer(handman.transform.position +
+                        handman.GetComponent<CapsuleCollider>().center);
+                }
             }
             for (int i = 0; i < PlayerColliding.Count; i++)
             {

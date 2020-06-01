@@ -18,13 +18,10 @@ public class CheckPoints : MonoBehaviour
         {
             checkpointpos[i] = checkpointamount[i].transform.position;
         }
-        //finds the player 
-        player = GameObject.FindGameObjectWithTag("Player");
+        
         //the player position = the first checkpoint position 
         //this will change when we have save files
         player.transform.position = checkpointpos[0];
-
-
     }
 
     void Update()

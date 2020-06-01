@@ -9786,6 +9786,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: ddf044a5766275c499dc59bbdd3c0de8, type: 2}
+    - target: {fileID: 9500000, guid: 71ac1291fb0dd454d92c79a0deb04ae5, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71ac1291fb0dd454d92c79a0deb04ae5, type: 3}
 --- !u!1001 &713648094
@@ -10776,7 +10780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f838f125f0880684c9a757fe407f81fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 1377648688}
   checkpointamount:
   - {fileID: 0}
   - {fileID: 0}
@@ -11868,6 +11872,20 @@ MonoBehaviour:
   rotationSpeed: 10
   punch_time: 0
   handattack: 0
+--- !u!136 &1377648691
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1377648688}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.25
+  m_Height: 0.53
+  m_Direction: 1
+  m_Center: {x: 0.03, y: 0.5, z: 1.87}
 --- !u!4 &1377648692 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 71ac1291fb0dd454d92c79a0deb04ae5,

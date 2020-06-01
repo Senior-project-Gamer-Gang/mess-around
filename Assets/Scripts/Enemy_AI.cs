@@ -41,20 +41,20 @@ public class Enemy_AI : MonoBehaviour
 
     }
 
-    public void MoveToPlayer(Transform player)
+    public void MoveToPlayer(Vector3 player)
     {
-        transform.LookAt(player.position);
+        transform.LookAt(player);
         transform.Rotate(new Vector3(0, -90, 0), Space.Self);
 
         //move towards player
-        if (Vector3.Distance(transform.position, player.position) > attackRange)
+        if (Vector3.Distance(transform.position, player) > attackRange)
         {
             transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
         } 
     }
-    public void shootAtPlayer(Transform player)
+    public void shootAtPlayer(Vector3 player)
     {
-        transform.LookAt(player.position);
+        transform.LookAt(player);
         //transform.Rotate(new Vector3(0, -90, 0), Space.Self);
         if (timer <= 0)
         {
