@@ -25,7 +25,7 @@ public class CameraScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         isPaused = pauseObject.GetComponent<PauseScript>().isPaused;
         if (!isPaused || player != null) //As long as it is not paused or the player is not null, it will begin to do its thing
@@ -35,6 +35,7 @@ public class CameraScript : MonoBehaviour
             CameraSpeed();
 
             transform.LookAt(new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
+            
         }
     }
 
@@ -105,18 +106,18 @@ public class CameraScript : MonoBehaviour
             //so I need to figure out how far the camera can be from the player without choosing its own max speed
             maxSpeed = player.GetComponent<Player>().speed; //max speed should match the player's speed every time isMoving becomes true
 
-
-
             cameraSpeed += Time.deltaTime * cameraAcceleration;
             if(distanceBetweenCameraAndPlayer > tooFarDistance || maxSpeed > maxFollowSpeed)
             {
                 maxSpeed = maxFollowSpeed;
             }
+            
             if (cameraSpeed > maxFollowSpeed)
             {
                 cameraSpeed = maxFollowSpeed;
             }
-            
+
+            print(cameraSpeed);
         }
         else
         {

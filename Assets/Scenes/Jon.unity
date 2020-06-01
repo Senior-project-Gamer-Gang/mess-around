@@ -1029,8 +1029,8 @@ MonoBehaviour:
   pauseObject: {fileID: 1359479651}
   zoomDistance: 8
   tooCloseDistance: 2
-  tooFarDistance: 0
-  maxFollowSpeed: 6
+  tooFarDistance: 12
+  maxFollowSpeed: 4
   cameraAcceleration: 0.8
   cameraHeight: 3
 --- !u!1 &1700540078

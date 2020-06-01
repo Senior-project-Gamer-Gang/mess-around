@@ -220,8 +220,10 @@ public class Player : MonoBehaviour
         if (activeplayer == true)
         {
             //moves the player 
+            float yStore = moveDirection.y; //Saving the y data before it gets manipulated -Jon
             moveDirection = (pivot.forward * Input.GetAxis("Vertical")) + (pivot.right * Input.GetAxis("Horizontal"));
             moveDirection = moveDirection.normalized * speed; //This is so moving diagonally is not faster than moving...well not diagonally -Jon
+            moveDirection.y = yStore; //Applying the y data after moveDirection is manipulated -Jon
             //moveDirection *= speed;
 
             //you can jump if your characters grounded 
