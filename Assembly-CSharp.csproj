@@ -65,6 +65,7 @@
      <Compile Include="Assets\Scripts\PivotScript.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\Player_Attack.cs" />
+     <Compile Include="Assets\Scripts\Swinging_Platforms.cs" />
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>C:/Users/Brandon/mess around/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
