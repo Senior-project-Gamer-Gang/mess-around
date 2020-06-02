@@ -10,8 +10,7 @@ public class Player : MonoBehaviour
     private Vector3 moveDirection = Vector3.zero;
     private bool moving;
     GameObject[] DeathObjs = new GameObject[50];
-    //just a temp obj
-    public GameObject obj;
+
     public Text text;
     float hit_timer;
     bool playerDead;
@@ -29,9 +28,11 @@ public class Player : MonoBehaviour
     //each player will ahev these varibles 
     public int hp;
     public float speed; //I made this variable public so the camera can see it -Jon
-    private float jumpSpeed;
+    public float jumpSpeed;
     public float gravityScale; //I changed gravity to gravity scale cause Physics.Gravity is Unity's built in gravity. We should use that instead.
     public float rotationSpeed; //How fast the player rotate towards the direction they're moving
+    private Animator anim;
+    public CheckPoints Cp;
     //*------------------------------*
 
     //big handmans varibles
@@ -57,7 +58,8 @@ public class Player : MonoBehaviour
     {
         //gets the CharacterController 
         characterController = GetComponent<CharacterController>();
-        
+
+        anim = gameObject.GetComponent<Animator>();
 
         //gets the game manager + camera + pivot -Jon
         gameManager = GameObject.FindGameObjectWithTag("GameManager");
@@ -77,19 +79,21 @@ public class Player : MonoBehaviour
         if (this.gameObject.name == "Jeff")
         {
             speed = 12.0f;
-            jumpSpeed = 8;
+            jumpSpeed = 10;
             hp = 3;
         }
         if (this.gameObject.name == "Shooter")
         {
+            anim.Play("idle");
             speed = 8.0f;
             jumpSpeed = 12;
             hp = 4;
         }
         if (this.gameObject.name == "HandMan")
         {
+            anim.Play("ide");
             speed = 4.0f;
-            jumpSpeed = 4;
+            jumpSpeed = 8;
             hp = 6;
         }
         #endregion
@@ -109,16 +113,20 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-
         DeathObjs = GameObject.FindGameObjectsWithTag("Death");
-
 
         distbetweenobj[0] = Vector3.Distance(players[0].transform.position, transform.position);
         distbetweenobj[1] = Vector3.Distance(players[1].transform.position, transform.position);
 
+        if (this.hp <= 0)
+        {
+            Dead();
+        }
+
         //switchs player
         if (activeplayer == true)
         {
+            
             if (Input.GetKeyDown(KeyCode.E) && distbetweenobj[0] < 3 && switchtime < 0)
             {
                 players[0].GetComponent<Player>().activeplayer = true;
@@ -136,7 +144,7 @@ public class Player : MonoBehaviour
                 activeplayer = false;
             }
             //if(text.gameObject != null)
-               // text.text = this.hp.ToString();
+            // text.text = this.hp.ToString();
 
             //this.gameObject.GetComponentInChildren<Camera>().enabled = true; (Commented out for now -Jon)
             //Tells the camera to now focus on this active player -Jon
@@ -158,11 +166,21 @@ public class Player : MonoBehaviour
             if (this.gameObject.name == "Shooter")
             {
                 if (gameManager.GetComponent<GameManagerScript>().pagesCollected >= 1)
-                    jumpSpeed = 20;
+                {
+                    #region Dontlook@this
+                    if (players[0].gameObject.name == "HandMan" && distbetweenobj[0] <= 3)
+                        jumpSpeed = 20;
+                    if (players[1].gameObject.name == "HandMan" && distbetweenobj[1] <= 3)
+                        jumpSpeed = 20;
+                    if (distbetweenobj[1] >= 3)
+                        jumpSpeed = 12;
+                    #endregion
+                }
 
                 if (Input.GetMouseButtonDown(0) && rof <= 0)
                 {
-                    bullet = Instantiate(fireobj[1], new Vector3 (this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1, 
+                    anim.Play("attack");
+                    bullet = Instantiate(fireobj[1], new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1,
                         this.gameObject.transform.position.z + 2), Quaternion.identity);
                     bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 500);
                     rof = .5f;
@@ -173,8 +191,10 @@ public class Player : MonoBehaviour
 
                 if (Input.GetMouseButtonDown(0) && punch_time < 0)
                 {
+                    //plays attack
+                    anim.Play("attack");
                     hand = Instantiate(fireobj[0], new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1,
-                        this.gameObject.transform.position.z + 3), Quaternion.identity);
+                        this.gameObject.transform.position.z), Quaternion.identity);
                     punch_time = .5f;
                     handinmotion = true;
                 }
@@ -189,13 +209,47 @@ public class Player : MonoBehaviour
                 if (gameManager.GetComponent<GameManagerScript>().pagesCollected >= 1)
                     handattack = true;
             }
+            #region playerHit
+            //keeps running through the for loop to see if the player collides with the DeathObjs
+            for (int i = 0; i < DeathObjs.Length; i++)
+            {
+                if (DeathObjs[i].GetComponent<Death>().lose_Hp == true)
+                {
+
+                    //this is for if you fall off the map
+                    if (DeathObjs[i].GetComponent<Death>().IsFloor == true)
+                    {
+                        //repositions you at the most recent checkpoint
+                        Dead();
+
+                        hp -= 1;
+                        //player loses hp
+                        DeathObjs[i].GetComponent<Death>().lose_Hp = false;
+                    }
+                    //this is for every other type of damage 
+                    if (DeathObjs[i].GetComponent<Death>().IsFloor == false && hit_timer < 0)
+                    {
+                        hp -= 1;
+                        // so you cant keep taking damage from getting hit or iframes for the youngsters 
+                        hit_timer = 2;
+
+                        DeathObjs[i].GetComponent<Death>().lose_Hp = false;
+                    }
+                }
+                //resets after it loops through the all the deathobjs
+                if (i >= DeathObjs.Length)
+                {
+                    i = 0;
+                }
+            }
+
+            #endregion
         }
-
-
-
-
-
-        //if (activeplayer == false)
+        //this is so the handman wont keep walking after he's deactivated
+        if (activeplayer == false && this.gameObject.name == "HandMan")
+            anim.SetInteger("Walking", 0);
+        if (activeplayer == false && this.gameObject.name == "Shooter")
+            anim.SetBool("run", false);
         //this.gameObject.GetComponentInChildren<Camera>().enabled = false; (Commentated out for now -Jon)
         #region tiemrs
         if (switchtime >= -1)
@@ -211,8 +265,10 @@ public class Player : MonoBehaviour
         if (activeplayer == true)
         {
             //moves the player 
+            float yStore = moveDirection.y; //Saving the y data before it gets manipulated -Jon
             moveDirection = (pivot.forward * Input.GetAxis("Vertical")) + (pivot.right * Input.GetAxis("Horizontal"));
             moveDirection = moveDirection.normalized * speed; //This is so moving diagonally is not faster than moving...well not diagonally -Jon
+            moveDirection.y = yStore; //Applying the y data after moveDirection is manipulated -Jon
             //moveDirection *= speed;
 
             //you can jump if your characters grounded 
@@ -222,67 +278,56 @@ public class Player : MonoBehaviour
                 if (Input.GetButton("Jump"))
                 {
                     moveDirection.y = jumpSpeed;
+                    if (this.gameObject.name == "HandMan")
+                    {
+                        anim.Play("jump");
+                    }
+                    if (this.gameObject.name == "Shooter")
+                    {
+                        anim.Play("Jump");
+                    }
                 }
             }
-            else //added an else so it will only push the player down with gravity only if it is not grounded. -Jon
-            {
-                //the players always getting effected by gravity when off the ground
-                moveDirection.y = moveDirection.y + (Physics.gravity.y * gravityScale * Time.deltaTime);
-            }
-
             //Player's rotation
             Quaternion desiredRotation;
             if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
             {
                 desiredRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0f, moveDirection.z)); //Uses moveDirection to determine where the player would want to rotate towards -Jon
+                if (this.gameObject.name == "HandMan")
+                {
+                    anim.SetInteger("Walking", 1);
+                }
+                if (this.gameObject.name == "Shooter")
+                {
+                    anim.SetBool("run", true);
+                }
             }
             else { desiredRotation = transform.rotation; } //It will not try to rotate if player is not moving -Jon
             transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, rotationSpeed * Time.deltaTime); //Gradually rotates towards desiredRotation -Jon
-
+            if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0 && this.gameObject.name == "HandMan")
+            {
+                anim.SetInteger("Walking", 0);
+            }
+            if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0 && this.gameObject.name == "Shooter")
+            {
+                anim.SetBool("run", false);
+            }
             // Moves the controller
             characterController.Move(moveDirection * Time.deltaTime);
 
-            
+
+        }
+        if (!characterController.isGrounded)
+        {
+            //the players always getting effected by gravity when off the ground
+            moveDirection.y = moveDirection.y + (Physics.gravity.y * gravityScale * Time.deltaTime);
         }
         #endregion
-        #region playerHit
-        //keeps running through the for loop to see if the player collides with the DeathObjs
-        for (int i = 0; i < DeathObjs.Length; i++)
-        {
-            if (DeathObjs[i].GetComponent<Death>().lose_Hp == true && activeplayer == true)
-            {
-                //this is for if you fall off the map
-                if (DeathObjs[i].GetComponent<Death>().IsFloor == true)
-                {
-                    //repositions you at the most recent checkpoint
-                    this.gameObject.transform.position = obj.GetComponent<CheckPoints>().checkpointpos[
-                    obj.GetComponent<CheckPoints>().currentcheckpoint];
 
-                    hp -= 1;
-                    //player loses hp
-                    DeathObjs[i].GetComponent<Death>().lose_Hp = false;
-                }
-                //this is for every other type of damage 
-                if (DeathObjs[i].GetComponent<Death>().IsFloor == false && hit_timer < 0)
-                {
-                    hp -= 1;
-                    // so you cant keep taking damage from getting hit or iframes for the youngsters 
-                    hit_timer = 2;
-
-                    DeathObjs[i].GetComponent<Death>().lose_Hp = false;
-                }
-            }
-            //resets after it loops through the all the checkpoints 
-            if (i >= DeathObjs.Length)
-            {
-                i = 0;
-            }
-        }
         if (hp <= 0)
         {
             Dead();
         }
-        #endregion
     }
     //this scales jeff down 
     void jeffscale(Vector3 scale)
@@ -298,6 +343,9 @@ public class Player : MonoBehaviour
     }
     public void Dead()
     {
-        //for later when we have lives and stuff
+        this.gameObject.transform.position = Cp.checkpointpos[Cp.currentcheckpoint];
+
+        if(hp <= 0)
+            hp = 5;
     }
 }

@@ -11,9 +11,11 @@ public class Enemy_AI : MonoBehaviour
     public GameObject bullet;
     GameObject temp;
     public bool enemyshooter = false;
+    public GameObject collider;
+    float timer, hittimer;
+    public float wonderTime;
 
-    float timer;
-
+    GameObject curplay;
     void Start()
     {
         
@@ -22,23 +24,48 @@ public class Enemy_AI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (collider.GetComponent<EnemyTerritory>().interritory == false)
+        {
+            if (wonderTime > 0)
+            {
+                transform.Translate(Vector3.forward * .04f);
+                wonderTime -= Time.deltaTime;
+            }
+            if (wonderTime <= 0)
+            {
+                wonderTime = Random.Range(5.0f, 15.0f);
+                wonder();
+            }
+        }
         timer -= Time.deltaTime;
+        hittimer -= Time.deltaTime;
     }
 
-    public void MoveToPlayer(Transform player)
+    public void MoveToPlayer(Vector3 player, string playname)
     {
-        transform.LookAt(player.position);
+        if(playname != "")
+            curplay = GameObject.Find(playname);
+
+        transform.LookAt(player);
         transform.Rotate(new Vector3(0, -90, 0), Space.Self);
 
         //move towards player
-        if (Vector3.Distance(transform.position, player.position) > attackRange)
+        if (Vector3.Distance(transform.position, player) > attackRange)
         {
             transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
         }
+        if (Vector3.Distance(transform.position, player) <= attackRange && hittimer <= 0)
+        {
+            curplay.GetComponent<Player>().hp -= 1;
+            hittimer = 2;
+        }
+
+
+            
     }
-    public void shootAtPlayer(Transform player)
+    public void shootAtPlayer(Vector3 player, string playname)
     {
-        transform.LookAt(player.position);
+        transform.LookAt(player);
         //transform.Rotate(new Vector3(0, -90, 0), Space.Self);
         if (timer <= 0)
         {
@@ -49,9 +76,9 @@ public class Enemy_AI : MonoBehaviour
             timer = .5f;
         }
     }
-    public void wonder()
+    void wonder()
     {
-        //for later
+        transform.eulerAngles = new Vector3(0, Random.Range(0, 360), 0);
     }
 
 }

@@ -5,12 +5,12 @@ using UnityEngine;
 public class EnemyTerritory : MonoBehaviour
 {
     GameObject jeff, handman, shooter;
-    bool interritory = false;
+    public bool interritory = false;
     public BoxCollider territory;
     public GameObject enemy;
     Enemy_AI basicenemy;
     GameObject playerinzone;
-    
+    string playername;
     List<Collider> PlayerColliding = new List<Collider>();
 
     void Start()
@@ -26,13 +26,30 @@ public class EnemyTerritory : MonoBehaviour
     {
         if (interritory == true)
         {
-            if (basicenemy.enemyshooter == false)
+            if (playerinzone != handman)
             {
-                basicenemy.MoveToPlayer(playerinzone.transform);
+                if (basicenemy.enemyshooter == false)
+                {
+                    basicenemy.MoveToPlayer(playerinzone.transform.position, playername);
+                }
+                if (basicenemy.enemyshooter == true)
+                {
+                    basicenemy.shootAtPlayer(playerinzone.transform.position, playername);
+                }
             }
-            if(basicenemy.enemyshooter == true)
+            if(playerinzone == handman)
             {
-                basicenemy.shootAtPlayer(playerinzone.transform);                
+                
+                if (basicenemy.enemyshooter == false)
+                {
+                    basicenemy.MoveToPlayer(handman.transform.position + 
+                        handman.GetComponent<CapsuleCollider>().center, playername);
+                }
+                if (basicenemy.enemyshooter == true)
+                {
+                    basicenemy.shootAtPlayer(handman.transform.position +
+                        handman.GetComponent<CapsuleCollider>().center, playername);
+                }
             }
             for (int i = 0; i < PlayerColliding.Count; i++)
             {
@@ -47,36 +64,38 @@ public class EnemyTerritory : MonoBehaviour
             }
         }
 
-        if (interritory == false)
-        {
-            basicenemy.wonder();
-        }
-
     }
     void OnTriggerEnter(Collider col)
     {
+
+        
         //if the player enters the box and it isn't 
         //already in the list it get added to it
+
         if (!PlayerColliding.Contains(col) &&
             col.gameObject.tag == "Player")
         {
+            playername = col.name;
             PlayerColliding.Add(col);
         }
 
         if (jeff.GetComponent<Player>().activeplayer == true && col.gameObject == jeff)
         {
+            
             playerinzone = jeff;
             interritory = true;
         }
 
         if (handman.GetComponent<Player>().activeplayer == true && col.gameObject == handman)
         {
+            
             playerinzone = handman;
             interritory = true;
         }
 
         if (shooter.GetComponent<Player>().activeplayer == true && col.gameObject == shooter)
         {
+            
             playerinzone = shooter;
             interritory = true;
         }
@@ -84,6 +103,8 @@ public class EnemyTerritory : MonoBehaviour
 
     void OnTriggerExit(Collider col)
     {
+
+
         //if the player leaves the box take it out of the list 
         if (PlayerColliding.Contains(col))
         {
@@ -93,14 +114,17 @@ public class EnemyTerritory : MonoBehaviour
 
         if (jeff.GetComponent<Player>().activeplayer == true && col.gameObject == jeff)
         {
+            playername = "";
             interritory = false;
         }
         if (handman.GetComponent<Player>().activeplayer == true && col.gameObject == handman)
         {
+            playername = "";
             interritory = false;
         }
         if (shooter.GetComponent<Player>().activeplayer == true && col.gameObject == shooter)
         {
+            playername = "";
             interritory = false;
         }
     }
