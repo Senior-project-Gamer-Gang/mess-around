@@ -53,6 +53,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\CameraPivotScript.cs" />
      <Compile Include="Assets\Scripts\CameraScript.cs" />
      <Compile Include="Assets\Scripts\Checkpoint_Collider.cs" />
      <Compile Include="Assets\Scripts\CheckPoints.cs" />
@@ -67,6 +68,25 @@
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\Player_Attack.cs" />
      <Compile Include="Assets\Scripts\Swinging_Platforms.cs" />
+     <None Include="Assets\_MK\MKToonFree\Shader\Inc\Outline\MKToonOutlineOnlyIO.cginc" />
+     <None Include="Assets\_MK\MKToonFree\Shader\MKToonFreeOutlineOnly.shader" />
+     <None Include="Assets\_MK\MKToonFree\Shader\Inc\Outline\MKToonOutlineOnlySetup.cginc" />
+     <None Include="Assets\_MK\MKToonFree\Shader\Inc\Common\MKToonInc.cginc" />
+     <None Include="Assets\_MK\MKToonFree\Shader\Inc\Outline\MKToonOutlineOnlyBase.cginc" />
+     <None Include="Assets\_MK\MKToonFree\Shader\Inc\ShadowCaster\MKToonShadowCasterIO.cginc" />
+     <None Include="Assets\_MK\MKToonFree\Shader\Inc\Forward\MKToonForwardAddSetup.cginc" />
+     <None Include="Assets\_MK\MKToonFree\Shader\Inc\Forward\MKToonForwardIO.cginc" />
+     <None Include="Assets\_MK\MKToonFree\Shader\MKToonFreeMobile.shader" />
+     <None Include="Assets\_MK\MKToonFree\Shader\Inc\Common\MKToonDef.cginc" />
+     <None Include="Assets\_MK\MKToonFree\Shader\Inc\Surface\MKToonSurfaceIO.cginc" />
+     <None Include="Assets\_MK\MKToonFree\Shader\Inc\ShadowCaster\MKToonShadowCasterSetup.cginc" />
+     <None Include="Assets\_MK\MKToonFree\Shader\Inc\Forward\MKToonForwardBaseSetup.cginc" />
+     <None Include="Assets\_MK\MKToonFree\Shader\Inc\Common\MKToonLight.cginc" />
+     <None Include="Assets\_MK\MKToonFree\Shader\MKToonFree.shader" />
+     <None Include="Assets\_MK\MKToonFree\Shader\Inc\Forward\MKToonForward.cginc" />
+     <None Include="Assets\_MK\MKToonFree\Shader\Inc\Common\MKToonV.cginc" />
+     <None Include="Assets\_MK\MKToonFree\Shader\Inc\Surface\MKToonSurface.cginc" />
+     <None Include="Assets\_MK\MKToonFree\Shader\Inc\ShadowCaster\MKToonShadowCaster.cginc" />
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>C:/Users/Brandon/mess around/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>

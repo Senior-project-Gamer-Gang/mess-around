@@ -10,8 +10,7 @@ public class Player : MonoBehaviour
     private Vector3 moveDirection = Vector3.zero;
     private bool moving;
     GameObject[] DeathObjs = new GameObject[50];
-    //just a temp obj
-    public GameObject obj;
+
     public Text text;
     float hit_timer;
     bool playerDead;
@@ -33,6 +32,7 @@ public class Player : MonoBehaviour
     public float gravityScale; //I changed gravity to gravity scale cause Physics.Gravity is Unity's built in gravity. We should use that instead.
     public float rotationSpeed; //How fast the player rotate towards the direction they're moving
     private Animator anim;
+    public CheckPoints Cp;
     //*------------------------------*
 
     //big handmans varibles
@@ -84,6 +84,7 @@ public class Player : MonoBehaviour
         }
         if (this.gameObject.name == "Shooter")
         {
+            anim.Play("idle");
             speed = 8.0f;
             jumpSpeed = 12;
             hp = 4;
@@ -178,6 +179,7 @@ public class Player : MonoBehaviour
 
                 if (Input.GetMouseButtonDown(0) && rof <= 0)
                 {
+                    anim.Play("attack");
                     bullet = Instantiate(fireobj[1], new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1,
                         this.gameObject.transform.position.z + 2), Quaternion.identity);
                     bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 500);
@@ -207,11 +209,47 @@ public class Player : MonoBehaviour
                 if (gameManager.GetComponent<GameManagerScript>().pagesCollected >= 1)
                     handattack = true;
             }
+            #region playerHit
+            //keeps running through the for loop to see if the player collides with the DeathObjs
+            for (int i = 0; i < DeathObjs.Length; i++)
+            {
+                if (DeathObjs[i].GetComponent<Death>().lose_Hp == true)
+                {
+
+                    //this is for if you fall off the map
+                    if (DeathObjs[i].GetComponent<Death>().IsFloor == true)
+                    {
+                        //repositions you at the most recent checkpoint
+                        Dead();
+
+                        hp -= 1;
+                        //player loses hp
+                        DeathObjs[i].GetComponent<Death>().lose_Hp = false;
+                    }
+                    //this is for every other type of damage 
+                    if (DeathObjs[i].GetComponent<Death>().IsFloor == false && hit_timer < 0)
+                    {
+                        hp -= 1;
+                        // so you cant keep taking damage from getting hit or iframes for the youngsters 
+                        hit_timer = 2;
+
+                        DeathObjs[i].GetComponent<Death>().lose_Hp = false;
+                    }
+                }
+                //resets after it loops through the all the deathobjs
+                if (i >= DeathObjs.Length)
+                {
+                    i = 0;
+                }
+            }
+
+            #endregion
         }
         //this is so the handman wont keep walking after he's deactivated
         if (activeplayer == false && this.gameObject.name == "HandMan")
             anim.SetInteger("Walking", 0);
-
+        if (activeplayer == false && this.gameObject.name == "Shooter")
+            anim.SetBool("run", false);
         //this.gameObject.GetComponentInChildren<Camera>().enabled = false; (Commentated out for now -Jon)
         #region tiemrs
         if (switchtime >= -1)
@@ -244,6 +282,10 @@ public class Player : MonoBehaviour
                     {
                         anim.Play("jump");
                     }
+                    if (this.gameObject.name == "Shooter")
+                    {
+                        anim.Play("Jump");
+                    }
                 }
             }
             //Player's rotation
@@ -255,12 +297,20 @@ public class Player : MonoBehaviour
                 {
                     anim.SetInteger("Walking", 1);
                 }
+                if (this.gameObject.name == "Shooter")
+                {
+                    anim.SetBool("run", true);
+                }
             }
             else { desiredRotation = transform.rotation; } //It will not try to rotate if player is not moving -Jon
             transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, rotationSpeed * Time.deltaTime); //Gradually rotates towards desiredRotation -Jon
-            if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0)
+            if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0 && this.gameObject.name == "HandMan")
             {
                 anim.SetInteger("Walking", 0);
+            }
+            if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0 && this.gameObject.name == "Shooter")
+            {
+                anim.SetBool("run", false);
             }
             // Moves the controller
             characterController.Move(moveDirection * Time.deltaTime);
@@ -273,44 +323,11 @@ public class Player : MonoBehaviour
             moveDirection.y = moveDirection.y + (Physics.gravity.y * gravityScale * Time.deltaTime);
         }
         #endregion
-        #region playerHit
-        //keeps running through the for loop to see if the player collides with the DeathObjs
-        for (int i = 0; i < DeathObjs.Length; i++)
-        {
-            if (DeathObjs[i].GetComponent<Death>().lose_Hp == true && activeplayer == true)
-            {
-                //this is for if you fall off the map
-                if (DeathObjs[i].GetComponent<Death>().IsFloor == true)
-                {
-                    //repositions you at the most recent checkpoint
-                    this.gameObject.transform.position = obj.GetComponent<CheckPoints>().checkpointpos[
-                    obj.GetComponent<CheckPoints>().currentcheckpoint];
 
-                    hp -= 1;
-                    //player loses hp
-                    DeathObjs[i].GetComponent<Death>().lose_Hp = false;
-                }
-                //this is for every other type of damage 
-                if (DeathObjs[i].GetComponent<Death>().IsFloor == false && hit_timer < 0)
-                {
-                    hp -= 1;
-                    // so you cant keep taking damage from getting hit or iframes for the youngsters 
-                    hit_timer = 2;
-
-                    DeathObjs[i].GetComponent<Death>().lose_Hp = false;
-                }
-            }
-            //resets after it loops through the all the checkpoints 
-            if (i >= DeathObjs.Length)
-            {
-                i = 0;
-            }
-        }
         if (hp <= 0)
         {
             Dead();
         }
-        #endregion
     }
     //this scales jeff down 
     void jeffscale(Vector3 scale)
@@ -326,8 +343,9 @@ public class Player : MonoBehaviour
     }
     public void Dead()
     {
-        this.gameObject.transform.position = obj.GetComponent<CheckPoints>().checkpointpos[
-                    obj.GetComponent<CheckPoints>().currentcheckpoint];
-        hp = 5;
+        this.gameObject.transform.position = Cp.checkpointpos[Cp.currentcheckpoint];
+
+        if(hp <= 0)
+            hp = 5;
     }
 }
