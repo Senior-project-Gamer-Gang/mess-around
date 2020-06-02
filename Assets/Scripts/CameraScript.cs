@@ -104,9 +104,13 @@ public class CameraScript : MonoBehaviour
             //this is unless the player is too far, then it should change its max speed to its own max speed rather than the player's.
             //reentering the zone makes it match the player's speed again.
             //so I need to figure out how far the camera can be from the player without choosing its own max speed
-            maxSpeed = player.GetComponent<Player>().speed; //max speed should match the player's speed every time isMoving becomes true
+            maxSpeed = player.GetComponent<Player>().speed / 94; //max speed should match the player's speed every time isMoving becomes true
 
             cameraSpeed += Time.deltaTime * cameraAcceleration;
+            if (cameraSpeed > maxSpeed)
+            {
+                cameraSpeed = maxSpeed;
+            }
             if(distanceBetweenCameraAndPlayer > tooFarDistance || maxSpeed > maxFollowSpeed)
             {
                 maxSpeed = maxFollowSpeed;
