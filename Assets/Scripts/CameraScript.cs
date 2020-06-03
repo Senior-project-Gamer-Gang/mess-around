@@ -13,7 +13,7 @@ public class CameraScript : MonoBehaviour
     public float cameraAcceleration; //How much acceleration the camera has.
     public float cameraHeight; //How high the camera will position itself relative to the player
 
-    private float cameraSpeed; //How fast the camera is moving.
+    private float cameraSpeed; //How fast the camera is moving. (made it public for cameraPivot)
     private float maxSpeed; //This max speed gets chosen by the camera when following player. 
     private bool isMoving;
     private bool isPaused;
