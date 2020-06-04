@@ -43,12 +43,12 @@ public class EnemyTerritory : MonoBehaviour
                 if (basicenemy.enemyshooter == false)
                 {
                     basicenemy.MoveToPlayer(handman.transform.position + 
-                        handman.GetComponent<CapsuleCollider>().center, playername);
+                        handman.GetComponent<CharacterController>().center, playername);
                 }
                 if (basicenemy.enemyshooter == true)
                 {
                     basicenemy.shootAtPlayer(handman.transform.position +
-                        handman.GetComponent<CapsuleCollider>().center, playername);
+                        handman.GetComponent<CharacterController>().center, playername);
                 }
             }
             for (int i = 0; i < PlayerColliding.Count; i++)

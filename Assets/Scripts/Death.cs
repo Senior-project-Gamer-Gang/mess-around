@@ -15,7 +15,6 @@ public class Death : MonoBehaviour
         if (Col.gameObject.tag == "Player" && IsFloor == false)
         { 
             lose_Hp = true;
-            Destroy(this.gameObject);
         }
        
     }
@@ -32,7 +31,7 @@ public class Death : MonoBehaviour
     {
         timer -= Time.deltaTime;
 
-        //if tiemr is less then zero destroy bullet
+        //for bullets
         if (timer <= 0 && IsFloor == false)
         {
             Destroy(this.gameObject);

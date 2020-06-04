@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     CharacterController characterController;
     private Vector3 moveDirection = Vector3.zero;
     private bool moving;
-    GameObject[] DeathObjs = new GameObject[50];
+    public GameObject[] DeathObjs = new GameObject[50];
 
     public Text text;
     float hit_timer;
@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
     public float gravityScale; //I changed gravity to gravity scale cause Physics.Gravity is Unity's built in gravity. We should use that instead.
     public float rotationSpeed; //How fast the player rotate towards the direction they're moving
     private Animator anim;
-    public CheckPoints Cp;
+    public GameObject Cp;
     //*------------------------------*
 
     //big handmans varibles
@@ -126,7 +126,7 @@ public class Player : MonoBehaviour
         //switchs player
         if (activeplayer == true)
         {
-            
+
             if (Input.GetKeyDown(KeyCode.E) && distbetweenobj[0] < 3 && switchtime < 0)
             {
                 players[0].GetComponent<Player>().activeplayer = true;
@@ -165,17 +165,17 @@ public class Player : MonoBehaviour
             }
             if (this.gameObject.name == "Shooter")
             {
-                if (gameManager.GetComponent<GameManagerScript>().pagesCollected >= 1)
-                {
-                    #region Dontlook@this
-                    if (players[0].gameObject.name == "HandMan" && distbetweenobj[0] <= 3)
-                        jumpSpeed = 20;
-                    if (players[1].gameObject.name == "HandMan" && distbetweenobj[1] <= 3)
-                        jumpSpeed = 20;
-                    if (distbetweenobj[1] >= 3)
-                        jumpSpeed = 12;
-                    #endregion
-                }
+                //if (gameManager.GetComponent<GameManagerScript>().pagesCollected >= 1)
+                //{
+                //    #region Dontlook@this
+                //    if (players[0].gameObject.name == "HandMan" && distbetweenobj[0] <= 3)
+                //        jumpSpeed = 20;
+                //    if (players[1].gameObject.name == "HandMan" && distbetweenobj[1] <= 3)
+                //        jumpSpeed = 20;
+                //    if (distbetweenobj[1] >= 3)
+                //        jumpSpeed = 12;
+                //    #endregion
+                //}
 
                 if (Input.GetMouseButtonDown(0) && rof <= 0)
                 {
@@ -210,39 +210,33 @@ public class Player : MonoBehaviour
                     handattack = true;
             }
             #region playerHit
-            //keeps running through the for loop to see if the player collides with the DeathObjs
-            for (int i = 0; i < DeathObjs.Length; i++)
+            if (DeathObjs != null)
             {
-                if (DeathObjs[i].GetComponent<Death>().lose_Hp == true)
+                foreach (GameObject badobj in DeathObjs)
                 {
-
-                    //this is for if you fall off the map
-                    if (DeathObjs[i].GetComponent<Death>().IsFloor == true)
+                    if (badobj.GetComponent<Death>().lose_Hp == true)
                     {
-                        //repositions you at the most recent checkpoint
-                        Dead();
+                        if (badobj.GetComponent<Death>().IsFloor == true)
+                        {
+                            hp -= 1;
+                            //repositions you at the most recent checkpoint
+                            Cp.GetComponent<CheckPoints>().RepoPlayer(this.gameObject);
 
-                        hp -= 1;
-                        //player loses hp
-                        DeathObjs[i].GetComponent<Death>().lose_Hp = false;
+                            badobj.GetComponent<Death>().lose_Hp = false;
+                        }
+                        if (badobj.GetComponent<Death>().IsFloor == false)
+                        {
+                            Destroy(badobj);
+                            if (hit_timer <= 0)
+                            {
+                                hp -= 1;
+                                hit_timer = 2;
+                            }
+                            badobj.GetComponent<Death>().lose_Hp = false;
+                        }
                     }
-                    //this is for every other type of damage 
-                    if (DeathObjs[i].GetComponent<Death>().IsFloor == false && hit_timer < 0)
-                    {
-                        hp -= 1;
-                        // so you cant keep taking damage from getting hit or iframes for the youngsters 
-                        hit_timer = 2;
-
-                        DeathObjs[i].GetComponent<Death>().lose_Hp = false;
-                    }
-                }
-                //resets after it loops through the all the deathobjs
-                if (i >= DeathObjs.Length)
-                {
-                    i = 0;
                 }
             }
-
             #endregion
         }
         //this is so the handman wont keep walking after he's deactivated
@@ -343,9 +337,10 @@ public class Player : MonoBehaviour
     }
     public void Dead()
     {
-        this.gameObject.transform.position = Cp.checkpointpos[Cp.currentcheckpoint];
 
-        if(hp <= 0)
+        Cp.GetComponent<CheckPoints>().RepoPlayer(this.gameObject);
+
+        if (hp <= 0)
             hp = 5;
     }
 }
