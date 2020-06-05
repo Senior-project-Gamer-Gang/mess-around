@@ -15,10 +15,13 @@ public class Enemy_AI : MonoBehaviour
     float timer, hittimer;
     public float wonderTime;
 
+    Animator anim;
+    float WaitTime;
     GameObject curplay;
     void Start()
     {
-        
+        anim = GetComponent<Animator>();
+        anim.Play("idle");
     }
 
     // Update is called once per frame
@@ -26,24 +29,33 @@ public class Enemy_AI : MonoBehaviour
     {
         if (collider.GetComponent<EnemyTerritory>().interritory == false)
         {
-            if (wonderTime > 0)
+            if (WaitTime <= 0 && wonderTime > 0)
             {
+                anim.Play("run");
+                anim.SetBool("run", true);
                 transform.Translate(Vector3.forward * .04f);
                 wonderTime -= Time.deltaTime;
             }
             if (wonderTime <= 0)
             {
+                anim.SetBool("run", false);
+                WaitTime = Random.Range(3.0f, 5.0f);
                 wonderTime = Random.Range(5.0f, 15.0f);
                 wonder();
             }
         }
+        #region Timers
+        WaitTime -= Time.deltaTime;
         timer -= Time.deltaTime;
         hittimer -= Time.deltaTime;
+        #endregion
     }
 
     public void MoveToPlayer(Vector3 player, string playname)
     {
-        if(playname != "")
+        anim.Play("run");
+        anim.SetBool("run", true);
+        if (playname != "")
             curplay = GameObject.Find(playname);
 
         transform.LookAt(player);
@@ -58,13 +70,12 @@ public class Enemy_AI : MonoBehaviour
         {
             curplay.GetComponent<Player>().hp -= 1;
             hittimer = 2;
-        }
-
-
-            
+        }      
     }
     public void shootAtPlayer(Vector3 player, string playname)
     {
+        anim.Play("idle");
+        anim.SetBool("run", false);
         transform.LookAt(player);
         //transform.Rotate(new Vector3(0, -90, 0), Space.Self);
         if (timer <= 0)

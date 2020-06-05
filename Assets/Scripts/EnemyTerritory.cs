@@ -7,7 +7,6 @@ public class EnemyTerritory : MonoBehaviour
     GameObject jeff, handman, shooter;
     public bool interritory = false;
     public BoxCollider territory;
-    public GameObject enemy;
     Enemy_AI basicenemy;
     GameObject playerinzone;
     string playername;
@@ -18,7 +17,8 @@ public class EnemyTerritory : MonoBehaviour
         jeff = GameObject.Find("Jeff");
         handman = GameObject.Find("HandMan");
         shooter = GameObject.Find("Shooter");
-        basicenemy = enemy.GetComponent<Enemy_AI>();
+        basicenemy = this.gameObject.transform.parent.gameObject.
+            GetComponent<Enemy_AI>();
     }
 
     // Update is called once per frame
