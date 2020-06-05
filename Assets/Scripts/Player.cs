@@ -118,11 +118,6 @@ public class Player : MonoBehaviour
         distbetweenobj[0] = Vector3.Distance(players[0].transform.position, transform.position);
         distbetweenobj[1] = Vector3.Distance(players[1].transform.position, transform.position);
 
-        if (this.hp <= 0)
-        {
-            Dead();
-        }
-
         //switchs player
         if (activeplayer == true)
         {
@@ -219,6 +214,7 @@ public class Player : MonoBehaviour
                         if (badobj.GetComponent<Death>().IsFloor == true)
                         {
                             hp -= 1;
+                            characterController.enabled = false;
                             //repositions you at the most recent checkpoint
                             Cp.GetComponent<CheckPoints>().RepoPlayer(this.gameObject);
 
@@ -320,6 +316,7 @@ public class Player : MonoBehaviour
 
         if (hp <= 0)
         {
+            characterController.enabled = false;
             Dead();
         }
     }
@@ -339,7 +336,7 @@ public class Player : MonoBehaviour
     {
 
         Cp.GetComponent<CheckPoints>().RepoPlayer(this.gameObject);
-
+        
         if (hp <= 0)
             hp = 5;
     }

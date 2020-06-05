@@ -33,6 +33,7 @@ public class CheckPoints : MonoBehaviour
     public void RepoPlayer(GameObject players)
     {
         players.transform.position = curCPpos;
+        players.GetComponent<CharacterController>().enabled = true;
         print(curCPpos);
     }
 
