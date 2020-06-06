@@ -18,6 +18,9 @@ public class Enemy_AI : MonoBehaviour
     Animator anim;
     float WaitTime;
     GameObject curplay;
+
+    bool collidingwithplayer;
+
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -57,20 +60,25 @@ public class Enemy_AI : MonoBehaviour
         anim.SetBool("run", true);
         if (playname != "")
             curplay = GameObject.Find(playname);
-
+    
         transform.LookAt(player);
         transform.Rotate(new Vector3(0, -90, 0), Space.Self);
+
 
         //move towards player
         if (Vector3.Distance(transform.position, player) > attackRange)
         {
+
             transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
         }
+
         if (Vector3.Distance(transform.position, player) <= attackRange && hittimer <= 0)
         {
+
             curplay.GetComponent<Player>().hp -= 1;
             hittimer = 2;
-        }      
+        }
+
     }
     public void shootAtPlayer(Vector3 player, string playname)
     {
@@ -91,5 +99,11 @@ public class Enemy_AI : MonoBehaviour
     {
         transform.eulerAngles = new Vector3(0, Random.Range(0, 360), 0);
     }
-
+    void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.tag != "Player" && col.gameObject.tag != "Floor")
+        {
+            wonder();
+        }
+    }
 }

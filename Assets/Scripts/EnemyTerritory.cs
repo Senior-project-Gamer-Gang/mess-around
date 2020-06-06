@@ -78,22 +78,25 @@ public class EnemyTerritory : MonoBehaviour
             playername = col.name;
             PlayerColliding.Add(col);
         }
-
-        if (jeff.GetComponent<Player>().activeplayer == true && col.gameObject == jeff)
+        
+        if (jeff.GetComponent<Player>().activeplayer == true && 
+            col.gameObject == jeff)
         {
             
             playerinzone = jeff;
             interritory = true;
         }
 
-        if (handman.GetComponent<Player>().activeplayer == true && col.gameObject == handman)
+        if (handman.GetComponent<Player>().activeplayer == true && 
+            col.gameObject == handman)
         {
             
             playerinzone = handman;
             interritory = true;
         }
 
-        if (shooter.GetComponent<Player>().activeplayer == true && col.gameObject == shooter)
+        if (shooter.GetComponent<Player>().activeplayer == true && 
+            col.gameObject == shooter)
         {
             
             playerinzone = shooter;
@@ -110,19 +113,22 @@ public class EnemyTerritory : MonoBehaviour
         {
             PlayerColliding.Remove(col);
         }
+        
 
-
-        if (jeff.GetComponent<Player>().activeplayer == true && col.gameObject == jeff)
+        if (jeff.GetComponent<Player>().activeplayer == true && 
+            col.gameObject == jeff)
         {
             playername = "";
             interritory = false;
         }
-        if (handman.GetComponent<Player>().activeplayer == true && col.gameObject == handman)
+        if (handman.GetComponent<Player>().activeplayer == true && 
+            col.gameObject == handman)
         {
             playername = "";
             interritory = false;
         }
-        if (shooter.GetComponent<Player>().activeplayer == true && col.gameObject == shooter)
+        if (shooter.GetComponent<Player>().activeplayer == true && 
+            col.gameObject == shooter)
         {
             playername = "";
             interritory = false;

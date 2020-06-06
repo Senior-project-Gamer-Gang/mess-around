@@ -78,22 +78,22 @@ public class Player : MonoBehaviour
         #region diffrentPlayerTypes
         if (this.gameObject.name == "Jeff")
         {
-            speed = 12.0f;
+            speed = 15.0f;
             jumpSpeed = 10;
             hp = 3;
         }
         if (this.gameObject.name == "Shooter")
         {
             anim.Play("idle");
-            speed = 8.0f;
+            speed = 10.0f;
             jumpSpeed = 12;
             hp = 4;
         }
         if (this.gameObject.name == "HandMan")
         {
             anim.Play("ide");
-            speed = 4.0f;
-            jumpSpeed = 8;
+            speed = 8.0f;
+            jumpSpeed = 10;
             hp = 6;
         }
         #endregion
@@ -160,17 +160,17 @@ public class Player : MonoBehaviour
             }
             if (this.gameObject.name == "Shooter")
             {
-                //if (gameManager.GetComponent<GameManagerScript>().pagesCollected >= 1)
-                //{
-                //    #region Dontlook@this
-                //    if (players[0].gameObject.name == "HandMan" && distbetweenobj[0] <= 3)
-                //        jumpSpeed = 20;
-                //    if (players[1].gameObject.name == "HandMan" && distbetweenobj[1] <= 3)
-                //        jumpSpeed = 20;
-                //    if (distbetweenobj[1] >= 3)
-                //        jumpSpeed = 12;
-                //    #endregion
-                //}
+                if (gameManager.GetComponent<GameManagerScript>().pagesCollected >= 1)
+                {
+                    #region Dontlook@this
+                    if (players[0].gameObject.name == "HandMan" && distbetweenobj[0] <= 3)
+                        jumpSpeed = 25;
+                    if (players[1].gameObject.name == "HandMan" && distbetweenobj[1] <= 3)
+                        jumpSpeed = 25;
+                    if (distbetweenobj[1] >= 3)
+                        jumpSpeed = 12;
+                    #endregion
+                }
 
                 if (Input.GetMouseButtonDown(0) && rof <= 0)
                 {
