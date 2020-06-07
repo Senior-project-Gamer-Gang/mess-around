@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy_AI : MonoBehaviour
 {
     public float speed = 2f;
-    public float attackRange = 1f;
+    float attackRange = 3f;
     public int attackDamage = 1;
     public float timeBetweenAttacks;
     public GameObject bullet;
