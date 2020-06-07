@@ -18,7 +18,7 @@ public class CameraPivotScript : MonoBehaviour
     {
         cameraScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraScript>();
 
-        offset = focalPoint.position - new Vector3(0, -cameraScript.cameraHeight, cameraScript.zoomDistance); //offset is literally the zoomDistance based off 
+        offset = new Vector3(0, -cameraScript.cameraHeight, cameraScript.zoomDistance); //offset is literally the zoomDistance based off 
 
         focalPoint.parent = null;
 
@@ -41,20 +41,20 @@ public class CameraPivotScript : MonoBehaviour
 
             if(focalPoint.rotation.eulerAngles.x > maxOrbitAngle && focalPoint.rotation.eulerAngles.x < 180f) //Maximum angle it can stay at
             {
-                focalPoint.rotation = Quaternion.Euler(maxOrbitAngle, 0f, 0f);
+                focalPoint.rotation = Quaternion.Euler(maxOrbitAngle, focalPoint.rotation.eulerAngles.y, 0f);
             }
 
             if (focalPoint.rotation.eulerAngles.x > 180f && focalPoint.rotation.eulerAngles.x < 360f + minOrbitAngle) //Minimum angle it can stay at
             {
-                focalPoint.rotation = Quaternion.Euler(360f + minOrbitAngle, 0f, 0f);
+                focalPoint.rotation = Quaternion.Euler(360f + minOrbitAngle, focalPoint.rotation.eulerAngles.y, 0f);
             }
 
-            Quaternion focalPointRotation = Quaternion.Euler(focalPoint.eulerAngles.x, focalPoint.eulerAngles.y, 0);
+            Quaternion focalPointRotation = Quaternion.Euler(focalPoint.eulerAngles.x, focalPoint.eulerAngles.y, 0f);
 
             transform.position = focalPoint.position - (focalPointRotation * offset);
             if (transform.position.y < focalPoint.position.y) //Make sure the camerapivot cannot go below the focal point
             {
-                transform.position = new Vector3(transform.position.x, focalPoint.position.y + .5f, transform.position.z);
+                transform.position = new Vector3(transform.position.x, focalPoint.position.y - .5f, transform.position.z);
             }
             transform.LookAt(focalPoint.position);
         }
