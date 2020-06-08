@@ -18,8 +18,9 @@ public class Enemy_AI : MonoBehaviour
     Animator anim;
     float WaitTime;
     GameObject curplay;
+    
+   
 
-    bool collidingwithplayer;
 
     void Start()
     {
@@ -30,8 +31,6 @@ public class Enemy_AI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (collider.GetComponent<EnemyTerritory>().interritory == false)
-        {
             if (WaitTime <= 0 && wonderTime > 0)
             {
                 anim.Play("run");
@@ -46,7 +45,7 @@ public class Enemy_AI : MonoBehaviour
                 wonderTime = Random.Range(5.0f, 15.0f);
                 wonder();
             }
-        }
+        
         #region Timers
         WaitTime -= Time.deltaTime;
         timer -= Time.deltaTime;
@@ -60,39 +59,44 @@ public class Enemy_AI : MonoBehaviour
         anim.SetBool("run", true);
         if (playname != "")
             curplay = GameObject.Find(playname);
-    
+
         transform.LookAt(player);
         transform.Rotate(new Vector3(0, -90, 0), Space.Self);
 
 
         //move towards player
-        if (Vector3.Distance(transform.position, player) > attackRange)
+        if (Vector3.Distance(transform.position, player) < 10)
         {
+            if (Vector3.Distance(transform.position, player) > attackRange)
+            {
+                
+                transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
+            }
 
-            transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
+            if (Vector3.Distance(transform.position, player) <= attackRange && hittimer <= 0)
+            {
+
+                curplay.GetComponent<Player>().hp -= 1;
+                hittimer = 2;
+            }
         }
-
-        if (Vector3.Distance(transform.position, player) <= attackRange && hittimer <= 0)
-        {
-
-            curplay.GetComponent<Player>().hp -= 1;
-            hittimer = 2;
         }
-
-    }
     public void shootAtPlayer(Vector3 player, string playname)
     {
         anim.Play("idle");
         anim.SetBool("run", false);
         transform.LookAt(player);
         //transform.Rotate(new Vector3(0, -90, 0), Space.Self);
-        if (timer <= 0)
+        if (Vector3.Distance(transform.position, player) < 10)
         {
-            temp = Instantiate(bullet, transform.position,
-            Quaternion.identity);
+            if (timer <= 0)
+            {
+                temp = Instantiate(bullet, transform.position,
+                Quaternion.identity);
 
-            temp.GetComponent<Rigidbody>().AddForce(transform.forward * 500);
-            timer = .5f;
+                temp.GetComponent<Rigidbody>().AddForce(transform.forward * 500);
+                timer = .5f;
+            }
         }
     }
     void wonder()

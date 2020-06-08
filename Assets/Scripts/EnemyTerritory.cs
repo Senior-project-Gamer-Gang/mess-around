@@ -67,8 +67,6 @@ public class EnemyTerritory : MonoBehaviour
     }
     void OnTriggerEnter(Collider col)
     {
-
-        
         //if the player enters the box and it isn't 
         //already in the list it get added to it
 
@@ -111,6 +109,7 @@ public class EnemyTerritory : MonoBehaviour
         //if the player leaves the box take it out of the list 
         if (PlayerColliding.Contains(col))
         {
+            interritory = false;
             PlayerColliding.Remove(col);
         }
         
