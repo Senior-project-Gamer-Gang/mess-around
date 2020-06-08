@@ -6,7 +6,10 @@ public class CameraScript : MonoBehaviour
 {
     public GameObject player;
     public GameObject pauseObject;
+    public GameObject cameraPivot;
     public float zoomDistance; //How far the camera stays away from the player by default
+    public float zoomSpeed; //How fast you can zoom in and out
+    public float rotationSpeed; //How fast the camera can orbit
     public float tooCloseDistance; //How close the player can be to the camera to cause the camera to back up.
     public float tooFarDistance; //How far the player can be before camera goes for its true max speed.
     public float maxFollowSpeed; //How fast the camera follows the player. This is its max speed (MAKE THIS FASTER THAN THE PLAYER)
@@ -30,15 +33,35 @@ public class CameraScript : MonoBehaviour
         isPaused = pauseObject.GetComponent<PauseScript>().isPaused;
         if (!isPaused || player != null) //As long as it is not paused or the player is not null, it will begin to do its thing
         {
-            AdjustCameraOnXZAxis();
-            AdjustCameraOnYAxis();
-            CameraSpeed();
+            if (cameraPivot == null) //If cameraPivot is not set use the old code
+            {
+                AdjustCameraOnXZAxis();
+                AdjustCameraOnYAxis();
+                CameraSpeed();
+            }
+            else
+            {
+                float pivotDistance = Vector3.Distance(transform.position, cameraPivot.transform.position);
+
+                if(pivotDistance >= .01f) //Smoothly interpolate to the cameraPivot if too far
+                {
+                    transform.position = Vector3.Lerp(transform.position, cameraPivot.transform.position, maxFollowSpeed * Time.deltaTime);
+                }
+                else
+                {
+                    transform.position = cameraPivot.transform.position; //If close enough, become the cameraPivot position
+                    zoomDistance += Input.GetAxis("Mouse ScrollWheel") * zoomSpeed; //Allow mouse to manipulate the zoomDistance
+                }
+            }
 
             transform.LookAt(new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
             
         }
     }
 
+
+
+    #region Old Camera Movement Code
     private void AdjustCameraOnXZAxis()
     {
         isMoving = false; //Make sure this is false by default
@@ -120,8 +143,6 @@ public class CameraScript : MonoBehaviour
             {
                 cameraSpeed = maxFollowSpeed;
             }
-
-            print(cameraSpeed);
         }
         else
         {
@@ -139,4 +160,5 @@ public class CameraScript : MonoBehaviour
             }
         }
     }
+    #endregion
 }

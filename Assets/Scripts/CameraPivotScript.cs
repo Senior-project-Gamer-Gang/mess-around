@@ -18,11 +18,9 @@ public class CameraPivotScript : MonoBehaviour
     {
         cameraScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraScript>();
 
-        offset = new Vector3(0, -cameraScript.cameraHeight, cameraScript.zoomDistance); //offset is literally the zoomDistance based off 
-
         focalPoint.parent = null;
 
-        rotationSpeed = 2f;
+        rotationSpeed = cameraScript.rotationSpeed;
     }
 
     // Update is called once per frame
@@ -32,12 +30,13 @@ public class CameraPivotScript : MonoBehaviour
         if(cameraScript.player != null)
         {
             focalPoint.position = cameraScript.player.transform.position;
-            
+            offset = new Vector3(0, -cameraScript.cameraHeight, cameraScript.zoomDistance); //offset is literally the zoomDistance from cameraScript 
+
 
             float horizontalRotation = Input.GetAxis("Mouse X") * rotationSpeed;
-            focalPoint.Rotate(0, horizontalRotation, 0);
+            focalPoint.Rotate(0, horizontalRotation, 0, Space.World);
             float verticalRotation = Input.GetAxis("Mouse Y") * rotationSpeed;
-            focalPoint.Rotate(verticalRotation, 0, 0);
+            focalPoint.Rotate(verticalRotation, 0, 0, Space.Self);
 
             if(focalPoint.rotation.eulerAngles.x > maxOrbitAngle && focalPoint.rotation.eulerAngles.x < 180f) //Maximum angle it can stay at
             {
