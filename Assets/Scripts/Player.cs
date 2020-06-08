@@ -122,7 +122,8 @@ public class Player : MonoBehaviour
         if (activeplayer == true)
         {
 
-            if (Input.GetKeyDown(KeyCode.E) && distbetweenobj[0] < 3 && switchtime < 0)
+            if (Input.GetKeyDown(KeyCode.E) && distbetweenobj[0] < 5 && switchtime < 0 
+                && distbetweenobj[0] < distbetweenobj[1])
             {
                 players[0].GetComponent<Player>().activeplayer = true;
                 players[0].GetComponent<Player>().switchtime = 2;
@@ -130,7 +131,8 @@ public class Player : MonoBehaviour
 
                 activeplayer = false;
             }
-            if (Input.GetKeyDown(KeyCode.E) && distbetweenobj[1] < 3 && switchtime < 0)
+            if (Input.GetKeyDown(KeyCode.E) && distbetweenobj[1] < 5 && switchtime < 0 
+                && distbetweenobj[1] < distbetweenobj[0])
             {
                 players[1].GetComponent<Player>().activeplayer = true;
                 players[1].GetComponent<Player>().switchtime = 2;
