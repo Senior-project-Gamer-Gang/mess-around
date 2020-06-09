@@ -37,7 +37,6 @@ public class Enemy_AI : MonoBehaviour
     {
         if (EnemyStates == enemystates.idle)
         {
-            print("fuckingwork");
             if (wonderTime <= 0)
             {
                 anim.SetBool("run", false);
@@ -49,7 +48,6 @@ public class Enemy_AI : MonoBehaviour
             if (WaitTime <= 0)
             {
                 EnemyStates = enemystates.wondering;
-                print("yasssssssss");
             }
         }
 
@@ -65,7 +63,6 @@ public class Enemy_AI : MonoBehaviour
             }
             if (wonderTime <= 0)
             {
-                print("help i haven't slept");
                 EnemyStates = enemystates.idle;
             }
 
@@ -114,7 +111,6 @@ public class Enemy_AI : MonoBehaviour
                 }
             }
 
-
             if (Vector3.Distance(transform.position, player.position) < 15 && enemyshooter == true && curplay.name != "HandMan")
             {
                 transform.LookAt(player);
@@ -145,8 +141,6 @@ public class Enemy_AI : MonoBehaviour
             if (Vector3.Distance(transform.position, player.position) > 15)
             {
                 EnemyStates = enemystates.idle;
-                print(EnemyStates);
-                print(Vector3.Distance(transform.position, player.position).ToString());
             }
 
         }

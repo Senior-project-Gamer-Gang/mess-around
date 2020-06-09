@@ -34,7 +34,6 @@ public class CheckPoints : MonoBehaviour
     {
         players.transform.position = curCPpos;
         players.GetComponent<CharacterController>().enabled = true;
-        print(curCPpos);
     }
 
 

@@ -285,11 +285,11 @@ public class Player : MonoBehaviour
             if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
             {
                 desiredRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0f, moveDirection.z)); //Uses moveDirection to determine where the player would want to rotate towards -Jon
-                if (this.gameObject.name == "HandMan")
+                if (this.gameObject.name == "HandMan" && this.characterController.isGrounded == true)
                 {
                     anim.SetInteger("Walking", 1);
                 }
-                if (this.gameObject.name == "Shooter")
+                if (this.gameObject.name == "Shooter" && this.characterController.isGrounded == true)
                 {
                     anim.SetBool("run", true);
                 }
@@ -300,7 +300,7 @@ public class Player : MonoBehaviour
             {
                 anim.SetInteger("Walking", 0);
             }
-            if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0 && this.gameObject.name == "Shooter")
+            if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0 && this.gameObject.name == "Shooter" )
             {
                 anim.SetBool("run", false);
             }
