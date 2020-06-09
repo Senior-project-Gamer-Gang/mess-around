@@ -17,10 +17,14 @@ public class Enemy_AI : MonoBehaviour
 
     Animator anim;
     float WaitTime;
-    GameObject curplay;
-    
-   
+    public GameObject curplay;
 
+    bool IsAttacking;
+
+    public enum enemystates { idle, wondering, attacking }
+    public enemystates EnemyStates;
+
+    public Transform player;
 
     void Start()
     {
@@ -31,74 +35,129 @@ public class Enemy_AI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-            if (WaitTime <= 0 && wonderTime > 0)
-            {
-                anim.Play("run");
-                anim.SetBool("run", true);
-                transform.Translate(Vector3.forward * .04f);
-                wonderTime -= Time.deltaTime;
-            }
+        if (EnemyStates == enemystates.idle)
+        {
+            print("fuckingwork");
             if (wonderTime <= 0)
             {
                 anim.SetBool("run", false);
                 WaitTime = Random.Range(3.0f, 5.0f);
                 wonderTime = Random.Range(5.0f, 15.0f);
                 wonder();
+
             }
-        
+            if (WaitTime <= 0)
+            {
+                EnemyStates = enemystates.wondering;
+                print("yasssssssss");
+            }
+        }
+
+        if (EnemyStates == enemystates.wondering)
+        {
+            if (WaitTime <= 0 && wonderTime > 0)
+            {
+                anim.SetBool("idle", false);
+                anim.Play("run");
+
+                transform.Translate(Vector3.forward * .04f);
+
+            }
+            if (wonderTime <= 0)
+            {
+                print("help i haven't slept");
+                EnemyStates = enemystates.idle;
+            }
+
+        }
+        if (EnemyStates == enemystates.attacking)
+        {
+            anim.Play("run");
+            anim.SetBool("run", true);
+
+            //move towards player
+            if (Vector3.Distance(transform.position, player.position) < 15 && enemyshooter == false && curplay.name != "HandMan")
+            {
+                transform.LookAt(player);
+                if (Vector3.Distance(transform.position, player.position) > attackRange)
+                {
+                    this.gameObject.transform.position += this.gameObject.transform.forward * speed * Time.deltaTime;
+
+                }
+
+                if (Vector3.Distance(transform.position, player.position) <= attackRange && hittimer <= 0)
+                {
+
+                    curplay.GetComponent<Player>().hp -= 1;
+                    hittimer = 2;
+                }
+            }
+            if (Vector3.Distance(transform.position, player.position +
+                player.GetComponent<CharacterController>().center) < 15 && enemyshooter == false && curplay.name == "HandMan")
+            {
+
+                transform.LookAt(player.position + player.GetComponent<CharacterController>().center);
+
+                if (Vector3.Distance(transform.position, player.position +
+                    player.GetComponent<CharacterController>().center) > attackRange)
+                {
+                    this.gameObject.transform.position += this.gameObject.transform.forward * speed * Time.deltaTime;
+
+                }
+
+                if (Vector3.Distance(transform.position, player.position +
+                    player.GetComponent<CharacterController>().center) <= attackRange && hittimer <= 0)
+                {
+
+                    curplay.GetComponent<Player>().hp -= 1;
+                    hittimer = 2;
+                }
+            }
+
+
+            if (Vector3.Distance(transform.position, player.position) < 15 && enemyshooter == true && curplay.name != "HandMan")
+            {
+                transform.LookAt(player);
+                if (timer <= 0)
+                {
+                    temp = Instantiate(bullet, transform.position,
+                    Quaternion.identity);
+
+                    temp.GetComponent<Rigidbody>().AddForce(transform.forward * 500);
+                    timer = .5f;
+                }
+            }
+
+            if (Vector3.Distance(transform.position, player.position +
+                player.GetComponent<CharacterController>().center) < 15 && enemyshooter == true && curplay.name == "HandMan")
+            {
+                transform.LookAt(player.position + player.GetComponent<CharacterController>().center);
+                if (timer <= 0)
+                {
+                    temp = Instantiate(bullet, transform.position,
+                    Quaternion.identity);
+
+                    temp.GetComponent<Rigidbody>().AddForce(transform.forward * 500);
+                    timer = .5f;
+                }
+            }
+
+            if (Vector3.Distance(transform.position, player.position) > 15)
+            {
+                EnemyStates = enemystates.idle;
+                print(EnemyStates);
+                print(Vector3.Distance(transform.position, player.position).ToString());
+            }
+
+        }
         #region Timers
         WaitTime -= Time.deltaTime;
         timer -= Time.deltaTime;
         hittimer -= Time.deltaTime;
+        wonderTime -= Time.deltaTime;
         #endregion
     }
 
-    public void MoveToPlayer(Vector3 player, string playname)
-    {
-        anim.Play("run");
-        anim.SetBool("run", true);
-        if (playname != "")
-            curplay = GameObject.Find(playname);
-
-        transform.LookAt(player);
-        transform.Rotate(new Vector3(0, -90, 0), Space.Self);
-
-
-        //move towards player
-        if (Vector3.Distance(transform.position, player) < 10)
-        {
-            if (Vector3.Distance(transform.position, player) > attackRange)
-            {
-                
-                transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
-            }
-
-            if (Vector3.Distance(transform.position, player) <= attackRange && hittimer <= 0)
-            {
-
-                curplay.GetComponent<Player>().hp -= 1;
-                hittimer = 2;
-            }
-        }
-        }
-    public void shootAtPlayer(Vector3 player, string playname)
-    {
-        anim.Play("idle");
-        anim.SetBool("run", false);
-        transform.LookAt(player);
-        //transform.Rotate(new Vector3(0, -90, 0), Space.Self);
-        if (Vector3.Distance(transform.position, player) < 10)
-        {
-            if (timer <= 0)
-            {
-                temp = Instantiate(bullet, transform.position,
-                Quaternion.identity);
-
-                temp.GetComponent<Rigidbody>().AddForce(transform.forward * 500);
-                timer = .5f;
-            }
-        }
-    }
     void wonder()
     {
         transform.eulerAngles = new Vector3(0, Random.Range(0, 360), 0);

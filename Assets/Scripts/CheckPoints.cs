@@ -27,8 +27,8 @@ public class CheckPoints : MonoBehaviour
                 }
             }
         }
-        if(curCPpos != null)
-            print(curCPpos);
+
+
     }
     public void RepoPlayer(GameObject players)
     {
