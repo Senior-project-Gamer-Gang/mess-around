@@ -69,8 +69,7 @@ public class Enemy_AI : MonoBehaviour
         }
         if (EnemyStates == enemystates.attacking)
         {
-            anim.Play("run");
-            anim.SetBool("run", true);
+            
 
             //move towards player
             if (Vector3.Distance(transform.position, player.position) < 15 && enemyshooter == false && curplay.name != "HandMan")
@@ -79,12 +78,16 @@ public class Enemy_AI : MonoBehaviour
                 if (Vector3.Distance(transform.position, player.position) > attackRange)
                 {
                     this.gameObject.transform.position += this.gameObject.transform.forward * speed * Time.deltaTime;
-
+                    anim.Play("run");
+                    anim.SetBool("run", true);
+                    anim.SetBool("punch", false);
                 }
 
                 if (Vector3.Distance(transform.position, player.position) <= attackRange && hittimer <= 0)
                 {
-
+                    anim.Play("punch");
+                    anim.SetBool("run", false);
+                    anim.SetBool("punch", true);
                     curplay.GetComponent<Player>().hp -= 1;
                     hittimer = 2;
                 }
@@ -98,6 +101,9 @@ public class Enemy_AI : MonoBehaviour
                 if (Vector3.Distance(transform.position, player.position +
                     player.GetComponent<CharacterController>().center) > attackRange)
                 {
+                    anim.Play("run");
+                    anim.SetBool("punch", false);
+                    anim.SetBool("run", true);
                     this.gameObject.transform.position += this.gameObject.transform.forward * speed * Time.deltaTime;
 
                 }
@@ -105,7 +111,9 @@ public class Enemy_AI : MonoBehaviour
                 if (Vector3.Distance(transform.position, player.position +
                     player.GetComponent<CharacterController>().center) <= attackRange && hittimer <= 0)
                 {
-
+                    anim.Play("punch");
+                    anim.SetBool("run", false);
+                    anim.SetBool("punch", true);
                     curplay.GetComponent<Player>().hp -= 1;
                     hittimer = 2;
                 }
@@ -158,9 +166,24 @@ public class Enemy_AI : MonoBehaviour
     }
     void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.tag != "Player" && col.gameObject.tag != "Floor")
+        if (col.gameObject.tag != "Player" && col.gameObject.tag != "Floor" && col.gameObject.tag != "Player_Hit")
         {
             wonder();
         }
+
+        if (col.gameObject.tag == "Player_Hit")
+        {
+            anim.SetBool("run", false);
+            anim.SetBool("punch", false);
+            anim.SetBool("death", true);
+            anim.Play("death");
+            //if (anim.GetCurrentAnimatorStateInfo(1).normalizedTime < .5f &&
+            //    this.anim.GetCurrentAnimatorStateInfo(1).IsName("death"))
+            //{
+            Destroy(this.gameObject, 1);
+                Destroy(col);
+            //}
+        }
+
     }
 }

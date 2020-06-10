@@ -12,6 +12,7 @@ TagManager:
   - ComicPage
   - Wall
   - enemy
+  - Platform
   layers:
   - Default
   - TransparentFX

@@ -651,7 +651,7 @@ GameObject:
   - component: {fileID: 1917538754}
   m_Layer: 0
   m_Name: polySurface53
-  m_TagString: Untagged
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -670,7 +670,7 @@ GameObject:
   - component: {fileID: 927332477}
   m_Layer: 0
   m_Name: polySurface65
-  m_TagString: Untagged
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -751,13 +751,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 230711738}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.18369411, z: 0, w: 0.98298347}
   m_LocalPosition: {x: -0.3749962, y: -16.87967, z: -0.24584198}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children: []
   m_Father: {fileID: 1501545976}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -21.17, z: 0}
 --- !u!4 &231210428
 Transform:
   m_ObjectHideFlags: 0
@@ -765,13 +765,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 230711772}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.11580401, z: 0, w: 0.9932721}
   m_LocalPosition: {x: 0.075502396, y: -16.528465, z: -0.4124756}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children: []
   m_Father: {fileID: 1801148536}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -13.3, z: 0}
 --- !u!23 &232980044
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2837,6 +2837,7 @@ GameObject:
   - component: {fileID: 1501545974}
   - component: {fileID: 1501545973}
   - component: {fileID: 1501545977}
+  - component: {fileID: 1501545978}
   m_Layer: 0
   m_Name: Cube_piviotPoint2
   m_TagString: Untagged
@@ -2909,14 +2910,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1501545972}
-  m_LocalRotation: {x: 0, y: -0.17905983, z: 0, w: 0.9838382}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 13.85, y: 102.523, z: 119.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 231210394}
   m_Father: {fileID: 0}
   m_RootOrder: 18
-  m_LocalEulerAnglesHint: {x: 0, y: -20.63, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1501545977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2933,6 +2934,19 @@ MonoBehaviour:
   speed: 1
   direction: 1
   dist: 0.5
+--- !u!65 &1501545978
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1501545972}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 16.14, y: 1, z: 3.82}
+  m_Center: {x: -0.4, y: -34.15, z: -0.13}
 --- !u!1001 &1501769321
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3516,6 +3530,7 @@ GameObject:
   - component: {fileID: 1801148534}
   - component: {fileID: 1801148533}
   - component: {fileID: 1801148537}
+  - component: {fileID: 1801148538}
   m_Layer: 0
   m_Name: Cube_piviotPoint
   m_TagString: Untagged
@@ -3612,6 +3627,19 @@ MonoBehaviour:
   speed: 1
   direction: 1
   dist: 0.5
+--- !u!65 &1801148538
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801148532}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4, y: 1, z: 16.47}
+  m_Center: {x: 0, y: -33.59, z: -0.5}
 --- !u!1001 &1820587124
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4404,7 +4432,7 @@ PrefabInstance:
     - target: {fileID: 6691553006452222172, guid: d6e29486b921b9149bf7b0fd8b021cdd,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 71.13383
+      value: 71.63
       objectReference: {fileID: 0}
     - target: {fileID: 6691553006452222172, guid: d6e29486b921b9149bf7b0fd8b021cdd,
         type: 3}
@@ -4588,6 +4616,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Red_villian
+      objectReference: {fileID: 0}
+    - target: {fileID: 2639726529444757897, guid: 4b29c304dba7dda44a2e065842d887c7,
+        type: 3}
+      propertyPath: enemyshooter
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b29c304dba7dda44a2e065842d887c7, type: 3}

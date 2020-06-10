@@ -99,36 +99,4 @@ public class EnemyTerritory : MonoBehaviour
        
 
     }
-
-    //void OnTriggerExit(Collider col)
-    //{
-
-
-    //    //if the player leaves the box take it out of the list 
-    //    if (PlayerColliding.Contains(col))
-    //    {
-    //        interritory = false;
-    //        PlayerColliding.Remove(col);
-    //    }
-        
-
-    //    if (Jeff.GetComponent<Player>().activeplayer == true && 
-    //        col.gameObject == Jeff)
-    //    {
-    //        playername = "";
-    //        interritory = false;
-    //    }
-    //    if (HandMan.GetComponent<Player>().activeplayer == true && 
-    //        col.gameObject == HandMan)
-    //    {
-    //        playername = "";
-    //        interritory = false;
-    //    }
-    //    if (Shooter.GetComponent<Player>().activeplayer == true && 
-    //        col.gameObject == Shooter)
-    //    {
-    //        playername = "";
-    //        interritory = false;
-    //    }
-    //}
 }

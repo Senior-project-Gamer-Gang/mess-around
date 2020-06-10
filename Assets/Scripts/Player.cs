@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 {
     #region topValues
     CharacterController characterController;
-    private Vector3 moveDirection = Vector3.zero;
+    public Vector3 moveDirection = Vector3.zero;
     private bool moving;
     public GameObject[] DeathObjs = new GameObject[50];
 
@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
     GameObject bullet;
     //*--------------------------*
 
-
+    Transform MovingPlatform;
     private GameObject gameManager; //The manager of course -Jon
     private GameObject camera; //The camera of course -Jon
     private Transform pivot; //what the player uses to determine camera's rotation -Jon
@@ -338,7 +338,7 @@ public class Player : MonoBehaviour
     {
 
         Cp.GetComponent<CheckPoints>().RepoPlayer(this.gameObject);
-        
+
         if (hp <= 0)
             hp = 5;
     }
