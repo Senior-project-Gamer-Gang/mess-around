@@ -1381,7 +1381,7 @@ GameObject:
   - component: {fileID: 816530722}
   - component: {fileID: 816530721}
   m_Layer: 0
-  m_Name: GameManager (Contains Pause Script)
+  m_Name: GameManager
   m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1401,6 +1401,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pagesCollected: 0
   pagesText: {fileID: 218580128}
+  coins: 0
 --- !u!114 &816530722
 MonoBehaviour:
   m_ObjectHideFlags: 0

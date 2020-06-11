@@ -9,7 +9,8 @@ public class GameManagerScript : MonoBehaviour
 
     public int pagesCollected;
     public Text pagesText;
-
+    public int coins;
+    public int redcoins;
     // Start is called before the first frame update
     void Start()
     {
