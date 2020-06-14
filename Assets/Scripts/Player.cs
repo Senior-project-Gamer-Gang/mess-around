@@ -48,6 +48,11 @@ public class Player : MonoBehaviour
     GameObject bullet;
     //*--------------------------*
 
+    bool jeffroll;
+    public Rigidbody rb;
+    bool isrigidbody;
+
+    private Vector3 rotation;
     Transform MovingPlatform;
     private GameObject gameManager; //The manager of course -Jon
     private GameObject camera; //The camera of course -Jon
@@ -56,6 +61,9 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+            
+
+
         //gets the CharacterController 
         characterController = GetComponent<CharacterController>();
 
@@ -109,6 +117,11 @@ public class Player : MonoBehaviour
             gameManager.GetComponent<GameManagerScript>().pagesCollected++;
             Destroy(hit.gameObject);
         }
+        //maybe for later i have no clue ATM
+        //if(hit.gameObject.tag == "PlayerEvent")
+        //{
+        //    this.playerEvent = true;
+        //}
     }
 
     void Update()
@@ -122,7 +135,7 @@ public class Player : MonoBehaviour
         if (activeplayer == true)
         {
 
-            if (Input.GetKeyDown(KeyCode.E) && distbetweenobj[0] < 5 && switchtime < 0 
+            if (Input.GetKeyDown(KeyCode.E) && distbetweenobj[0] < 5 && switchtime < 0
                 && distbetweenobj[0] < distbetweenobj[1])
             {
                 players[0].GetComponent<Player>().activeplayer = true;
@@ -131,7 +144,7 @@ public class Player : MonoBehaviour
 
                 activeplayer = false;
             }
-            if (Input.GetKeyDown(KeyCode.E) && distbetweenobj[1] < 5 && switchtime < 0 
+            if (Input.GetKeyDown(KeyCode.E) && distbetweenobj[1] < 5 && switchtime < 0
                 && distbetweenobj[1] < distbetweenobj[0])
             {
                 players[1].GetComponent<Player>().activeplayer = true;
@@ -152,12 +165,31 @@ public class Player : MonoBehaviour
             {
                 if (Input.GetMouseButtonDown(0) && gameManager.GetComponent<GameManagerScript>().pagesCollected >= 1)
                 {
-                    jeffscale(this.gameObject.transform.localScale);
+                    isrigidbody = true;
+                    this.gameObject.GetComponent<SphereCollider>().enabled = true;
+                    this.gameObject.AddComponent<Rigidbody>();
+                    rb = this.GetComponent<Rigidbody>();
+
+                    characterController.enabled = false;
+
                 }
+                //if (Input.GetMouseButtonDown(0) && gameManager.GetComponent<GameManagerScript>().pagesCollected >= 1)
+                //{
+                //    jeffscale(this.gameObject.transform.localScale);
+                //}
                 if (Input.GetMouseButtonUp(0) && gameManager.GetComponent<GameManagerScript>().pagesCollected >= 1)
                 {
-                    jefforiganal(this.gameObject.transform.localScale);
+                    isrigidbody = false;
+                    this.gameObject.GetComponent<SphereCollider>().enabled = true;
+
+                    Destroy(rb);
+
+                    characterController.enabled = true;
+
+
+                    //jefforiganal(this.gameObject.transform.localScale);
                 }
+
 
             }
             if (this.gameObject.name == "Shooter")
@@ -254,7 +286,7 @@ public class Player : MonoBehaviour
             hit_timer -= Time.deltaTime;
         #endregion
         #region PlayerMovement
-        if (activeplayer == true)
+        if (activeplayer == true && isrigidbody == false)
         {
             //moves the player 
             float yStore = moveDirection.y; //Saving the y data before it gets manipulated -Jon
@@ -300,7 +332,7 @@ public class Player : MonoBehaviour
             {
                 anim.SetInteger("Walking", 0);
             }
-            if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0 && this.gameObject.name == "Shooter" )
+            if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0 && this.gameObject.name == "Shooter")
             {
                 anim.SetBool("run", false);
             }
@@ -309,7 +341,16 @@ public class Player : MonoBehaviour
 
 
         }
-        if (!characterController.isGrounded)
+        if (activeplayer == true && isrigidbody == true)
+        {
+            float moveHorizontal = Input.GetAxis("Horizontal");
+            float moveVertical = Input.GetAxis("Vertical");
+
+            Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+
+            rb.AddForce(movement);
+        }
+            if (!characterController.isGrounded)
         {
             //the players always getting effected by gravity when off the ground
             moveDirection.y = moveDirection.y + (Physics.gravity.y * gravityScale * Time.deltaTime);
