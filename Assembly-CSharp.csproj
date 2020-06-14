@@ -79,7 +79,7 @@
     <None Include="Assets\_MK\MKToonFree\Shader\Inc\Outline\MKToonOutlineOnlyBase.cginc" />
     <None Include="Assets\_MK\MKToonFree\Shader\Inc\ShadowCaster\MKToonShadowCasterIO.cginc" />
     <None Include="Assets\_MK\MKToonFree\Shader\Inc\Forward\MKToonForwardAddSetup.cginc" />
-    <None Include="Assets\_MK\MKToonFree\Shader\Inc\Forward\MKToonForwardIO.cginc" />
+    <None Include="Assets\_MK\MKToonFree\Shader\Inc\Outline\MKToonForwardIO.cginc" />
     <None Include="Assets\_MK\MKToonFree\Shader\MKToonFreeMobile.shader" />
     <None Include="Assets\_MK\MKToonFree\Shader\Inc\Common\MKToonDef.cginc" />
     <None Include="Assets\_MK\MKToonFree\Shader\Inc\Surface\MKToonSurfaceIO.cginc" />

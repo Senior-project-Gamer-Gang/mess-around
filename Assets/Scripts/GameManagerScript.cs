@@ -11,6 +11,7 @@ public class GameManagerScript : MonoBehaviour
     public Text pagesText;
     public int coins;
     public int redcoins;
+    public GameObject ComicPage_RedCoin;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,5 +22,12 @@ public class GameManagerScript : MonoBehaviour
     void Update()
     {
         pagesText.text = "x" + pagesCollected.ToString();
+        if (ComicPage_RedCoin != null)
+        {
+            if (redcoins >= 8)
+            {
+                ComicPage_RedCoin.SetActive(true);
+            }
+        }
     }
 }
