@@ -15,6 +15,8 @@ public class Swinging_Platforms : MonoBehaviour
     //how far moves left and right 
     public float dist = 1.5f;
     Quaternion a;
+    Vector3 dir;
+    Player player;
     void Start()
     {
         //sets it == to the gameobjects transform rotation
@@ -24,6 +26,7 @@ public class Swinging_Platforms : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        dir = this.transform.position;
         a = startPos;
         if (axis == true)
             a.x += direction * (dist * Mathf.Sin(Time.time * speed));
@@ -31,5 +34,20 @@ public class Swinging_Platforms : MonoBehaviour
         if(axis == false)
             a.z += direction * (dist * Mathf.Sin(Time.time * speed));
         transform.rotation = a;
+    }
+    void OnTriggerEnter(Collider col)
+    {
+        if(col.gameObject.tag == "Player")
+        {
+            col.transform.parent = transform;
+        }
+        
+    }
+    private void OnTriggerExit(Collider col)
+    {
+        if (col.gameObject.tag == "Player")
+        {
+            col.transform.parent = null;
+        }
     }
 }

@@ -27,14 +27,13 @@ public class CheckPoints : MonoBehaviour
                 }
             }
         }
-        if(curCPpos != null)
-            print(curCPpos);
+
+
     }
     public void RepoPlayer(GameObject players)
     {
         players.transform.position = curCPpos;
         players.GetComponent<CharacterController>().enabled = true;
-        print(curCPpos);
     }
 
 

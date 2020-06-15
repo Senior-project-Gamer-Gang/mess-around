@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class EnemyTerritory : MonoBehaviour
 {
-    GameObject jeff, handman, shooter;
+    GameObject Jeff, HandMan, Shooter;
     public bool interritory = false;
     public BoxCollider territory;
     Enemy_AI basicenemy;
     GameObject playerinzone;
     string playername;
     List<Collider> PlayerColliding = new List<Collider>();
-
+    Collider tempcol;
     void Start()
     {
-        jeff = GameObject.Find("Jeff");
-        handman = GameObject.Find("HandMan");
-        shooter = GameObject.Find("Shooter");
+        Jeff = GameObject.Find("Jeff");
+        HandMan = GameObject.Find("HandMan");
+        Shooter = GameObject.Find("Shooter");
         basicenemy = this.gameObject.transform.parent.gameObject.
             GetComponent<Enemy_AI>();
     }
@@ -26,31 +26,20 @@ public class EnemyTerritory : MonoBehaviour
     {
         if (interritory == true)
         {
-            if (playerinzone != handman)
-            {
+
                 if (basicenemy.enemyshooter == false)
                 {
-                    basicenemy.MoveToPlayer(playerinzone.transform.position, playername);
+                    basicenemy.curplay = playerinzone; 
+                    basicenemy.player = playerinzone.transform;
+                    basicenemy.EnemyStates = Enemy_AI.enemystates.attacking;
                 }
                 if (basicenemy.enemyshooter == true)
                 {
-                    basicenemy.shootAtPlayer(playerinzone.transform.position, playername);
+                    basicenemy.curplay = playerinzone;
+                    basicenemy.player = playerinzone.transform;
+                    basicenemy.EnemyStates = Enemy_AI.enemystates.attacking;
                 }
-            }
-            if(playerinzone == handman)
-            {
-                
-                if (basicenemy.enemyshooter == false)
-                {
-                    basicenemy.MoveToPlayer(handman.transform.position + 
-                        handman.GetComponent<CharacterController>().center, playername);
-                }
-                if (basicenemy.enemyshooter == true)
-                {
-                    basicenemy.shootAtPlayer(handman.transform.position +
-                        handman.GetComponent<CharacterController>().center, playername);
-                }
-            }
+            
             for (int i = 0; i < PlayerColliding.Count; i++)
             {
                 //changes the player that the enemies are lookign at based
@@ -61,6 +50,12 @@ public class EnemyTerritory : MonoBehaviour
                 }
                 if (i >= PlayerColliding.Count)
                     i = 0;
+            }
+            if (Vector3.Distance(gameObject.GetComponentInParent<Transform>().position,
+           tempcol.transform.position) > 15)
+            {
+                PlayerColliding.Remove(tempcol);
+                interritory = false;
             }
         }
 
@@ -75,62 +70,33 @@ public class EnemyTerritory : MonoBehaviour
         {
             playername = col.name;
             PlayerColliding.Add(col);
+            tempcol = col;
         }
         
-        if (jeff.GetComponent<Player>().activeplayer == true && 
-            col.gameObject == jeff)
+        if (Jeff.GetComponent<Player>().activeplayer == true && 
+            col.gameObject == Jeff)
         {
             
-            playerinzone = jeff;
+            playerinzone = Jeff;
             interritory = true;
         }
 
-        if (handman.GetComponent<Player>().activeplayer == true && 
-            col.gameObject == handman)
+        if (HandMan.GetComponent<Player>().activeplayer == true && 
+            col.gameObject == HandMan)
         {
             
-            playerinzone = handman;
+            playerinzone = HandMan;
             interritory = true;
         }
 
-        if (shooter.GetComponent<Player>().activeplayer == true && 
-            col.gameObject == shooter)
+        if (Shooter.GetComponent<Player>().activeplayer == true && 
+            col.gameObject == Shooter)
         {
             
-            playerinzone = shooter;
+            playerinzone = Shooter;
             interritory = true;
         }
-    }
+       
 
-    void OnTriggerExit(Collider col)
-    {
-
-
-        //if the player leaves the box take it out of the list 
-        if (PlayerColliding.Contains(col))
-        {
-            interritory = false;
-            PlayerColliding.Remove(col);
-        }
-        
-
-        if (jeff.GetComponent<Player>().activeplayer == true && 
-            col.gameObject == jeff)
-        {
-            playername = "";
-            interritory = false;
-        }
-        if (handman.GetComponent<Player>().activeplayer == true && 
-            col.gameObject == handman)
-        {
-            playername = "";
-            interritory = false;
-        }
-        if (shooter.GetComponent<Player>().activeplayer == true && 
-            col.gameObject == shooter)
-        {
-            playername = "";
-            interritory = false;
-        }
     }
 }
