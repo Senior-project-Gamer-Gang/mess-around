@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
     //*--------------------------*
 
     bool jeffroll;
-    public Rigidbody rb;
+    Rigidbody rb;
     bool isrigidbody;
 
     private Vector3 rotation;
@@ -89,6 +89,7 @@ public class Player : MonoBehaviour
             speed = 15.0f;
             jumpSpeed = 10;
             hp = 3;
+            anim.Play("Jeff_idle");
         }
         if (this.gameObject.name == "Shooter")
         {
@@ -134,8 +135,8 @@ public class Player : MonoBehaviour
         //switchs player
         if (activeplayer == true)
         {
-
-            if (Input.GetKeyDown(KeyCode.E) && distbetweenobj[0] < 5 && switchtime < 0
+            //took out distbetweenobj[0] < 5 && 
+            if (Input.GetKeyDown(KeyCode.E) && switchtime < 0
                 && distbetweenobj[0] < distbetweenobj[1])
             {
                 players[0].GetComponent<Player>().activeplayer = true;
@@ -144,7 +145,8 @@ public class Player : MonoBehaviour
 
                 activeplayer = false;
             }
-            if (Input.GetKeyDown(KeyCode.E) && distbetweenobj[1] < 5 && switchtime < 0
+            //took out distbetweenobj[1] < 5 &&
+            if (Input.GetKeyDown(KeyCode.E) &&  switchtime < 0
                 && distbetweenobj[1] < distbetweenobj[0])
             {
                 players[1].GetComponent<Player>().activeplayer = true;
@@ -169,7 +171,7 @@ public class Player : MonoBehaviour
                     this.gameObject.GetComponent<SphereCollider>().enabled = true;
                     this.gameObject.AddComponent<Rigidbody>();
                     rb = this.GetComponent<Rigidbody>();
-
+                    anim.SetBool("Jeff_ball", true);
                     characterController.enabled = false;
 
                 }
@@ -180,10 +182,9 @@ public class Player : MonoBehaviour
                 if (Input.GetMouseButtonUp(0) && gameManager.GetComponent<GameManagerScript>().pagesCollected >= 1)
                 {
                     isrigidbody = false;
-                    this.gameObject.GetComponent<SphereCollider>().enabled = true;
-
+                    this.gameObject.GetComponent<SphereCollider>().enabled = false;
                     Destroy(rb);
-
+                    anim.SetBool("Jeff_ball", false);
                     characterController.enabled = true;
 
 
@@ -274,6 +275,8 @@ public class Player : MonoBehaviour
             anim.SetInteger("Walking", 0);
         if (activeplayer == false && this.gameObject.name == "Shooter")
             anim.SetBool("run", false);
+        if (activeplayer == false && this.gameObject.name == "Jeff")
+            anim.SetBool("Jeff_walk", false);
         //this.gameObject.GetComponentInChildren<Camera>().enabled = false; (Commentated out for now -Jon)
         #region tiemrs
         if (switchtime >= -1)
@@ -321,10 +324,27 @@ public class Player : MonoBehaviour
                 {
                     anim.SetInteger("Walking", 1);
                 }
+                if (this.gameObject.name == "HandMan" && this.characterController.isGrounded == false)
+                {
+                    anim.SetInteger("Walking", 0);
+                }
                 if (this.gameObject.name == "Shooter" && this.characterController.isGrounded == true)
                 {
                     anim.SetBool("run", true);
                 }
+                if (this.gameObject.name == "Shooter" && characterController.isGrounded == false)
+                {
+                    anim.SetBool("run", false);
+                }
+                if (this.gameObject.name == "Jeff" && characterController.isGrounded == true)
+                {
+                    anim.SetBool("Jeff_walk", true);
+                }
+                if (this.gameObject.name == "Jeff" && characterController.isGrounded == false)
+                {
+                    anim.SetBool("Jeff_walk", false);
+                }
+
             }
             else { desiredRotation = transform.rotation; } //It will not try to rotate if player is not moving -Jon
             transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, rotationSpeed * Time.deltaTime); //Gradually rotates towards desiredRotation -Jon
@@ -335,6 +355,10 @@ public class Player : MonoBehaviour
             if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0 && this.gameObject.name == "Shooter")
             {
                 anim.SetBool("run", false);
+            }
+            if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0 && this.gameObject.name == "Jeff")
+            {
+                anim.SetBool("Jeff_walk", false);
             }
             // Moves the controller
             characterController.Move(moveDirection * Time.deltaTime);
