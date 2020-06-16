@@ -129,8 +129,9 @@ public class Player : MonoBehaviour
     {
         DeathObjs = GameObject.FindGameObjectsWithTag("Death");
 
-        distbetweenobj[0] = Vector3.Distance(players[0].transform.position, transform.position);
-        distbetweenobj[1] = Vector3.Distance(players[1].transform.position, transform.position);
+            distbetweenobj[0] = Vector3.Distance(players[0].transform.position, transform.position);
+
+            distbetweenobj[1] = Vector3.Distance(players[1].transform.position, transform.position);
 
         //switchs player
         if (activeplayer == true)
@@ -171,6 +172,7 @@ public class Player : MonoBehaviour
                     this.gameObject.GetComponent<SphereCollider>().enabled = true;
                     this.gameObject.AddComponent<Rigidbody>();
                     rb = this.GetComponent<Rigidbody>();
+                    anim.SetBool("Jeff_walk", false);
                     anim.SetBool("Jeff_ball", true);
                     characterController.enabled = false;
 
@@ -312,6 +314,10 @@ public class Player : MonoBehaviour
                     if (this.gameObject.name == "Shooter")
                     {
                         anim.Play("Jump");
+                    }
+                    if (this.gameObject.name == "Jeff")
+                    {
+                        anim.Play("Juff_jump");
                     }
                 }
             }

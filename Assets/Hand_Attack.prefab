@@ -50,7 +50,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4589377047038542749}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -92,6 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ebd9efb43a374d49a0a189874a9d0e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Hand_Attack: 0
 --- !u!65 &5775111838275463526
 BoxCollider:
   m_ObjectHideFlags: 0

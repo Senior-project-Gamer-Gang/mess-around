@@ -101,7 +101,6 @@ public class Enemy_AI : MonoBehaviour
                 if (Vector3.Distance(transform.position, player.position +
                     player.GetComponent<CharacterController>().center) > attackRange)
                 {
-                    anim.Play("run");
                     anim.SetBool("punch", false);
                     anim.SetBool("run", true);
                     this.gameObject.transform.position += this.gameObject.transform.forward * speed * Time.deltaTime;
