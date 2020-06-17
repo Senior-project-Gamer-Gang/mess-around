@@ -29,15 +29,15 @@ public class SceneSwitcher : MonoBehaviour
 
     public void Level1Switch()
     {
-        SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene("Level_1");
     }
     public void Level2Switch()
     {
-        SceneManager.LoadScene("Level2");
+        SceneManager.LoadScene("Level_2");
     }
     public void Level3Switch()
     {
-        SceneManager.LoadScene("Level3");
+        SceneManager.LoadScene("Level_3");
     }
         public void LevelHubSwitch()
     {
