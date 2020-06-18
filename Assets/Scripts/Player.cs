@@ -156,6 +156,7 @@ public class Player : MonoBehaviour
                 switchtime = 2;
                 activeplayer = false;
             }
+
             //if(text.gameObject != null)
             // text.text = this.hp.ToString();
 
