@@ -35,6 +35,8 @@ public class Player : MonoBehaviour
     public GameObject Cp;
     //*------------------------------*
 
+    GameObject ShopKeeper;
+
     //big handmans varibles
     public float punch_time = .5f;
     float handSpeed = 8;
@@ -61,8 +63,8 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-            
 
+        ShopKeeper = GameObject.FindGameObjectWithTag("ShopKeeper");
 
         //gets the CharacterController 
         characterController = GetComponent<CharacterController>();
@@ -100,7 +102,7 @@ public class Player : MonoBehaviour
         }
         if (this.gameObject.name == "HandMan")
         {
-            anim.Play("ide");
+            anim.Play("BHMidle");
             speed = 8.0f;
             jumpSpeed = 10;
             hp = 6;
@@ -136,6 +138,19 @@ public class Player : MonoBehaviour
         //switchs player
         if (activeplayer == true)
         {
+            if (ShopKeeper != null)
+            {
+                if (Vector3.Distance(this.gameObject.transform.position, ShopKeeper.transform.position) <= 5
+                    && Input.GetKeyDown(KeyCode.Q))
+                {
+                    gameManager.GetComponent<GameManagerScript>().ShopOpen();
+                }
+            }
+
+
+
+
+
             //took out distbetweenobj[0] < 5 && 
             if (Input.GetKeyDown(KeyCode.E) && switchtime < 0
                 && distbetweenobj[0] < distbetweenobj[1])

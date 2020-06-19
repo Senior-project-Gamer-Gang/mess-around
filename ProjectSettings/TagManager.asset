@@ -16,6 +16,7 @@ TagManager:
   - Coin
   - RedCoin
   - Heart
+  - ShopKeeper
   layers:
   - Default
   - TransparentFX

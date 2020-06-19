@@ -9,9 +9,10 @@ public class GameManagerScript : MonoBehaviour
 
     public int pagesCollected;
     public Text pagesText;
-    public int coins;
+    public int coins = 200;
     public int redcoins;
     public GameObject ComicPage_RedCoin;
+    public GameObject ShopUI;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,5 +30,13 @@ public class GameManagerScript : MonoBehaviour
                 ComicPage_RedCoin.SetActive(true);
             }
         }
+    }
+    public void ShopOpen()
+    {
+        ShopUI.SetActive(true);
+    }
+    public void ShopClose()
+    {
+        ShopUI.SetActive(false);
     }
 }
