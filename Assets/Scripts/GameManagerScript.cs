@@ -5,10 +5,9 @@ using UnityEngine.UI;
 
 public class GameManagerScript : MonoBehaviour
 {
-    //Nothin much in here currently, of course, but more will be added down the line when more stuff is in the game.
-
     public int pagesCollected;
     public Text pagesText;
+    //temp amount just for texting purposes 
     public int coins = 200;
     public int redcoins;
     public GameObject ComicPage_RedCoin;

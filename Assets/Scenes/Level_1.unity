@@ -1947,7 +1947,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pagesCollected: 0
   pagesText: {fileID: 218580128}
-  coins: 0
+  coins: 200
   redcoins: 0
   ComicPage_RedCoin: {fileID: 1503170420}
   ShopUI: {fileID: 741544604}
@@ -2217,6 +2217,7 @@ GameObject:
   - component: {fileID: 938249519}
   - component: {fileID: 938249518}
   - component: {fileID: 938249517}
+  - component: {fileID: 938249520}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -2284,8 +2285,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1270658465}
-        m_MethodName: BoughtItem
+      - m_Target: {fileID: 938249520}
+        m_MethodName: ButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2330,6 +2331,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 938249515}
   m_CullTransparentMesh: 0
+--- !u!114 &938249520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938249515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4edf1364204a6ee4587cfc78903d8ded, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggered: 0
 --- !u!4 &956151803 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7306548054149669172, guid: 28ce6ac23f964be4991c24c8a0e51016,

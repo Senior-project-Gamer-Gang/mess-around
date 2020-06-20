@@ -9,6 +9,7 @@ public class Shop : MonoBehaviour
     public List<int> itemcosts;
     GameObject shopkeeper;
     GameObject GameManagerOBJ;
+   
     void Start()
     {
         shopkeeper = GameObject.FindGameObjectWithTag("ShopKeeper");
@@ -22,37 +23,32 @@ public class Shop : MonoBehaviour
 
     void Update()
     {
-        
+        GameManagerOBJ = GameObject.Find("GameManager");
         for (int i = 0; i < items.Count; i++)
         {
             int temp = 70 * (i +1);
-            itemPartInShop[i].GetComponentInChildren<Text>().text = items[i].name;
-            itemPartInShop[i].GetComponentInChildren<Button>().GetComponentInChildren<Text>().text = itemcosts[i].ToString() + " Coins";
+            
             if (itemPartInShop.Count != items.Count)
-            {  
-               itemPartInShop.Add(Instantiate(itemPartInShop[i]));
+            {
+                itemPartInShop[i].GetComponentInChildren<Text>().text = items[i].name;
+                itemPartInShop[i].GetComponentInChildren<Button>().GetComponentInChildren<Text>().text = itemcosts[i].ToString() + " Coins";
+                itemPartInShop.Add(Instantiate(itemPartInShop[i]));
                 itemPartInShop[i + 1].GetComponent<Transform>().position = 
                     this.transform.GetChild(2).transform.position + new Vector3(0, -temp, 0);
 
                 itemPartInShop[i + 1].transform.parent = this.transform.GetChild(2).transform;
             }
-        }
-
-    }
-    public void BoughtItem()
-    {
-        for (int i = 0; i < items.Count; i++)
-        {
-            
-            if (GameManagerOBJ.GetComponent<GameManagerScript>().coins >= itemcosts[i] 
-                && this.gameObject == itemPartInShop[i].GetComponentInChildren<Button>())
+            if(GameManagerOBJ.GetComponent<GameManagerScript>().coins >= itemcosts[i] && itemPartInShop[i].transform.GetChild(1).GetComponent<ShopBtn>().triggered == true)
             {
-                print("heyyyyy");
-                GameObject temp = Instantiate(items[i], shopkeeper.transform);
-                temp.transform.position = shopkeeper.transform.position + new Vector3(15,0,10);
+                GameManagerOBJ.GetComponent<GameManagerScript>().coins -= itemcosts[i];
+                GameManagerOBJ.GetComponent<GameManagerScript>().pagesCollected += 1;
+                items.Remove(items[i]);
+                itemPartInShop.Remove(itemPartInShop[i]);
+                itemcosts.Remove(itemcosts[i]);
+                itemPartInShop[i].GetComponentInChildren<Text>().text = "Bought";
             }
-           
-
         }
+
     }
+
 }

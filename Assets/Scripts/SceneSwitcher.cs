@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class SceneSwitcher : MonoBehaviour
 {
+   
     void OnTriggerEnter(Collider Col)
     {
         if(Col.gameObject.tag == "Player" && this.gameObject.name == "Level1_Trig")
@@ -43,5 +44,7 @@ public class SceneSwitcher : MonoBehaviour
     {
         SceneManager.LoadScene("Hub");
     }
+ 
+
 }
 
