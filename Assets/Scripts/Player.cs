@@ -53,6 +53,9 @@ public class Player : MonoBehaviour
     bool jeffroll;
     Rigidbody rb;
     bool isrigidbody;
+    int currentskill = 0;
+
+
 
     private Vector3 rotation;
     Transform MovingPlatform;
@@ -158,7 +161,8 @@ public class Player : MonoBehaviour
                 players[0].GetComponent<Player>().activeplayer = true;
                 players[0].GetComponent<Player>().switchtime = 2;
                 switchtime = 2;
-
+                //makes the default skill punch/shoot
+                currentskill = 0;
                 activeplayer = false;
             }
             //took out distbetweenobj[1] < 5 &&
@@ -167,7 +171,8 @@ public class Player : MonoBehaviour
             {
                 players[1].GetComponent<Player>().activeplayer = true;
                 players[1].GetComponent<Player>().switchtime = 2;
-
+                //makes the default skill punch/shoot
+                currentskill = 0;
                 switchtime = 2;
                 activeplayer = false;
             }
@@ -182,7 +187,24 @@ public class Player : MonoBehaviour
 
             if (this.gameObject.name == "Jeff")
             {
-                if (Input.GetMouseButtonDown(0) && gameManager.GetComponent<GameManagerScript>().pagesCollected >= 1)
+                
+                if (Input.GetMouseButtonDown(0) && currentskill == 0 && punch_time < 0)
+                {
+                    anim.SetBool("Jeff_walk", false);
+                    anim.SetBool("Jeff_ball", false);
+                    anim.Play("Jeff_punch");
+                    if(rb != null)
+                        Destroy(rb);
+
+                    hand = Instantiate(fireobj[0], new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1,
+                       this.gameObject.transform.position.z), Quaternion.identity);
+                    punch_time = .5f;
+                    handinmotion = true;
+                    isrigidbody = false;
+                    this.gameObject.GetComponent<SphereCollider>().enabled = false;
+                    characterController.enabled = true;              
+                }
+                if (Input.GetMouseButtonDown(0) && currentskill == 1)
                 {
                     isrigidbody = true;
                     this.gameObject.GetComponent<SphereCollider>().enabled = true;
@@ -193,22 +215,28 @@ public class Player : MonoBehaviour
                     characterController.enabled = false;
 
                 }
-                //if (Input.GetMouseButtonDown(0) && gameManager.GetComponent<GameManagerScript>().pagesCollected >= 1)
-                //{
-                //    jeffscale(this.gameObject.transform.localScale);
-                //}
-                if (Input.GetMouseButtonUp(0) && gameManager.GetComponent<GameManagerScript>().pagesCollected >= 1)
+                if (Input.GetMouseButtonDown(0) && currentskill == 2)
+                {
+                    anim.SetBool("Jeff_walk", false);
+                    anim.SetBool("Jeff_ball", false);
+                    characterController.enabled = true;
+                    jeffscale(this.gameObject.transform.localScale);
+                }
+                
+
+                if (Input.GetMouseButtonUp(0)  && currentskill == 1)
                 {
                     isrigidbody = false;
                     this.gameObject.GetComponent<SphereCollider>().enabled = false;
                     Destroy(rb);
                     anim.SetBool("Jeff_ball", false);
                     characterController.enabled = true;
-
-
-                    //jefforiganal(this.gameObject.transform.localScale);
                 }
-
+                if (Input.GetMouseButtonUp(0) && currentskill == 2)
+                {
+                    
+                    jefforiganal(this.gameObject.transform.localScale);
+                }
 
             }
             if (this.gameObject.name == "Shooter")
@@ -251,12 +279,18 @@ public class Player : MonoBehaviour
                     hand.transform.position += transform.forward * Time.deltaTime * handSpeed;
                     Destroy(hand, punch_time);
                 }
-                if (punch_time <= 0)
-                    handinmotion = false;
-                //if this is true then big handman can break through walls 
-                if (gameManager.GetComponent<GameManagerScript>().pagesCollected >= 1)
-                    handattack = true;
+               
             }
+
+
+            if (handinmotion == true && hand.gameObject != null)
+            {
+                hand.transform.position += transform.forward * Time.deltaTime * handSpeed;
+                Destroy(hand, punch_time);
+            }
+            if (punch_time <= 0)
+                handinmotion = false;
+
             #region playerHit
             if (DeathObjs != null)
             {
@@ -309,6 +343,12 @@ public class Player : MonoBehaviour
         #region PlayerMovement
         if (activeplayer == true && isrigidbody == false)
         {
+            if (Input.GetKeyDown(KeyCode.Keypad0))
+                currentskill = 0;
+            if (Input.GetKeyDown(KeyCode.Keypad1))
+                currentskill = 1;
+            if (Input.GetKeyDown(KeyCode.Keypad2))
+                currentskill = 2;
             //moves the player 
             float yStore = moveDirection.y; //Saving the y data before it gets manipulated -Jon
             moveDirection = (pivot.forward * Input.GetAxis("Vertical")) + (pivot.right * Input.GetAxis("Horizontal"));
@@ -387,7 +427,7 @@ public class Player : MonoBehaviour
 
 
         }
-        if (activeplayer == true && isrigidbody == true)
+        if (activeplayer == true && isrigidbody == true && currentskill == 1)
         {
             float moveHorizontal = Input.GetAxis("Horizontal");
             float moveVertical = Input.GetAxis("Vertical");

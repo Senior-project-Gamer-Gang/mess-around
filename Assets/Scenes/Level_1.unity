@@ -6144,6 +6144,12 @@ PrefabInstance:
       propertyPath: Cp
       value: 
       objectReference: {fileID: 327981853691561204}
+    - target: {fileID: 1343798047651978090, guid: ee60e0476b490e74c928a1fb08de7cb2,
+        type: 3}
+      propertyPath: fireobj.Array.data[0]
+      value: 
+      objectReference: {fileID: 4589377047038542749, guid: f42497e8755795e488c3239631826ada,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee60e0476b490e74c928a1fb08de7cb2, type: 3}
 --- !u!1001 &2639726529550186860
