@@ -3,6 +3,23 @@ guid: 68d2153a05b3d5f48a238e14d10068cd
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
+    100000: pCube1
+    100002: pCube3
+    100004: pCube4
+    100006: //RootNode
+    100008: transform1
+    100010: transform2
+    400000: pCube1
+    400002: pCube3
+    400004: pCube4
+    400006: //RootNode
+    400008: transform1
+    400010: transform2
+    2100000: lambert2
+    2300000: pCube4
+    3300000: pCube4
+    4300000: pCube4
+    9500000: //RootNode
     2186277476908879412: ImportLogs
   externalObjects: {}
   materials:
@@ -57,7 +74,7 @@ ModelImporter:
     secondaryUVPackMargin: 4
     useFileScale: 1
     previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 0
+    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0

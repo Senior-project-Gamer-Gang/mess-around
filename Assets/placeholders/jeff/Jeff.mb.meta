@@ -3,6 +3,91 @@ guid: 31bac232859581a4d9e1b7e9f4971b13
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
+    100000: //RootNode
+    100002: joint1
+    100004: joint10
+    100006: joint11
+    100008: joint12
+    100010: joint13
+    100012: joint2
+    100014: joint3
+    100016: joint4
+    100018: joint5
+    100020: joint6
+    100022: joint7
+    100024: joint8
+    100026: joint9
+    100028: nurbsCircle1
+    100030: nurbsCircle10
+    100032: nurbsCircle2
+    100034: nurbsCircle3
+    100036: nurbsCircle4
+    100038: nurbsCircle5
+    100040: nurbsCircle6
+    100042: nurbsCircle7
+    100044: nurbsCircle8
+    100046: nurbsCircle9
+    100048: pCube1
+    100050: pCube14
+    100052: pCube16
+    100054: pCube22
+    100056: pCube23
+    100058: pCube4
+    100060: pCube5
+    100062: pCube7
+    100064: pCube8
+    100066: transform1
+    100068: transform2
+    100070: transform3
+    100072: transform4
+    100074: transform5
+    400000: //RootNode
+    400002: joint1
+    400004: joint10
+    400006: joint11
+    400008: joint12
+    400010: joint13
+    400012: joint2
+    400014: joint3
+    400016: joint4
+    400018: joint5
+    400020: joint6
+    400022: joint7
+    400024: joint8
+    400026: joint9
+    400028: nurbsCircle1
+    400030: nurbsCircle10
+    400032: nurbsCircle2
+    400034: nurbsCircle3
+    400036: nurbsCircle4
+    400038: nurbsCircle5
+    400040: nurbsCircle6
+    400042: nurbsCircle7
+    400044: nurbsCircle8
+    400046: nurbsCircle9
+    400048: pCube1
+    400050: pCube14
+    400052: pCube16
+    400054: pCube22
+    400056: pCube23
+    400058: pCube4
+    400060: pCube5
+    400062: pCube7
+    400064: pCube8
+    400066: transform1
+    400068: transform2
+    400070: transform3
+    400072: transform4
+    400074: transform5
+    2100000: lambert2
+    4300000: pCube14
+    4300002: pCube22
+    4300004: pCube23
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: pCube14
+    13700002: pCube22
+    13700004: pCube23
     2186277476908879412: ImportLogs
   externalObjects: {}
   materials:
@@ -57,7 +142,7 @@ ModelImporter:
     secondaryUVPackMargin: 4
     useFileScale: 1
     previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 0
+    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
