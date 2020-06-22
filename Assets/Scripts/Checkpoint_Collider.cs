@@ -5,8 +5,19 @@ using UnityEngine;
 public class Checkpoint_Collider : MonoBehaviour
 {
     public bool triggered;
-
-    void OnTriggerEnter(Collider Col)
+    Animator anim;
+    void Start()
+    {
+        anim = GetComponent<Animator>();
+    }
+        void Update()
+    {
+        if(triggered == true)
+        {
+            anim.Play("Checkpoint");
+        }
+    }
+        void OnTriggerEnter(Collider Col)
     {
         //checks if players collides with checkpoints 
         if (Col.gameObject.tag == "Player")
