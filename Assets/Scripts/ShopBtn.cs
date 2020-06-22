@@ -9,4 +9,5 @@ public class ShopBtn : MonoBehaviour
     {
         triggered = true;
     }
+
 }

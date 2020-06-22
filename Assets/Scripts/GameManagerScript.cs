@@ -12,9 +12,11 @@ public class GameManagerScript : MonoBehaviour
     public int redcoins;
     public GameObject ComicPage_RedCoin;
     public GameObject ShopUI;
+    GameObject ShopKeeper;
     // Start is called before the first frame update
     void Start()
     {
+        ShopKeeper = GameObject.FindGameObjectWithTag("ShopKeeper");
         DontDestroyOnLoad(gameObject);
     }
 
@@ -32,10 +34,12 @@ public class GameManagerScript : MonoBehaviour
     }
     public void ShopOpen()
     {
+        ShopKeeper.GetComponent<DoritoManScript>().Talking();
         ShopUI.SetActive(true);
     }
     public void ShopClose()
     {
+        ShopKeeper.GetComponent<DoritoManScript>().TalkingNot();
         ShopUI.SetActive(false);
     }
 }
