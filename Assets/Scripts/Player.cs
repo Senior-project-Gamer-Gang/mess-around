@@ -150,11 +150,6 @@ public class Player : MonoBehaviour
                 }
             }
 
-
-
-
-
-            //took out distbetweenobj[0] < 5 && 
             if (Input.GetKeyDown(KeyCode.E) && switchtime < 0
                 && distbetweenobj[0] < distbetweenobj[1])
             {
@@ -165,7 +160,7 @@ public class Player : MonoBehaviour
                 currentskill = 0;
                 activeplayer = false;
             }
-            //took out distbetweenobj[1] < 5 &&
+
             if (Input.GetKeyDown(KeyCode.E) &&  switchtime < 0
                 && distbetweenobj[1] < distbetweenobj[0])
             {
@@ -177,8 +172,8 @@ public class Player : MonoBehaviour
                 activeplayer = false;
             }
 
-            //if(text.gameObject != null)
-            // text.text = this.hp.ToString();
+           
+            text.text = this.hp.ToString();
 
             //this.gameObject.GetComponentInChildren<Camera>().enabled = true; (Commented out for now -Jon)
             //Tells the camera to now focus on this active player -Jon
@@ -324,7 +319,7 @@ public class Player : MonoBehaviour
         }
         //this is so the handman wont keep walking after he's deactivated
         if (activeplayer == false && this.gameObject.name == "HandMan")
-            anim.SetInteger("Walking", 0);
+            anim.SetBool("walk", false);
         if (activeplayer == false && this.gameObject.name == "Shooter")
             anim.SetBool("run", false);
         if (activeplayer == false && this.gameObject.name == "Jeff")
@@ -384,11 +379,11 @@ public class Player : MonoBehaviour
                 desiredRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0f, moveDirection.z)); //Uses moveDirection to determine where the player would want to rotate towards -Jon
                 if (this.gameObject.name == "HandMan" && this.characterController.isGrounded == true)
                 {
-                    anim.SetInteger("Walking", 1);
+                    anim.SetBool("walk", true);
                 }
                 if (this.gameObject.name == "HandMan" && this.characterController.isGrounded == false)
                 {
-                    anim.SetInteger("Walking", 0);
+                    anim.SetBool("walk", false);
                 }
                 if (this.gameObject.name == "Shooter" && this.characterController.isGrounded == true)
                 {
@@ -412,7 +407,7 @@ public class Player : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, rotationSpeed * Time.deltaTime); //Gradually rotates towards desiredRotation -Jon
             if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0 && this.gameObject.name == "HandMan")
             {
-                anim.SetInteger("Walking", 0);
+                anim.SetBool("walk", false);
             }
             if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0 && this.gameObject.name == "Shooter")
             {
