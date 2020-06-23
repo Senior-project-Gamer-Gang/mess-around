@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 9008552887731828639}
   - component: {fileID: 9008552887731828636}
   m_Layer: 0
-  m_Name: ComicPage Standin
+  m_Name: ComicPage
   m_TagString: ComicPage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

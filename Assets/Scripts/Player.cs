@@ -185,7 +185,7 @@ public class Player : MonoBehaviour
                 
                 if (Input.GetMouseButtonDown(0) && currentskill == 0 && punch_time < 0)
                 {
-                    anim.SetBool("Jeff_walk", false);
+                    //anim.SetBool("Jeff_walk", false);
                     anim.SetBool("Jeff_ball", false);
                     anim.Play("Jeff_punch");
                     if(rb != null)
@@ -269,11 +269,11 @@ public class Player : MonoBehaviour
                     punch_time = .5f;
                     handinmotion = true;
                 }
-                if (handinmotion == true && hand.gameObject != null)
-                {
-                    hand.transform.position += transform.forward * Time.deltaTime * handSpeed;
-                    Destroy(hand, punch_time);
-                }
+                //if (handinmotion == true && hand.gameObject != null)
+                //{
+                //    hand.transform.position += transform.forward * Time.deltaTime * handSpeed;
+                //    Destroy(hand, punch_time);
+                //}
                
             }
 

@@ -13,16 +13,11 @@ public class Shop : MonoBehaviour
     void Start()
     {
         shopkeeper = GameObject.FindGameObjectWithTag("ShopKeeper");
-        itemcosts.Add(100);
-        itemcosts.Add(100);
-        itemcosts.Add(100);
-        itemcosts.Add(100);
-
     }
 
     void Update()
     {
-        GameManagerOBJ = GameObject.Find("GameManager");
+        GameManagerOBJ = GameObject.FindGameObjectWithTag("GameManager");
         for (int i = 0; i < items.Count; i++)
         {
             int temp = 70 * (i +1);
@@ -41,7 +36,12 @@ public class Shop : MonoBehaviour
             {
                 stuff = true;
             }
-            if(GameManagerOBJ.GetComponent<GameManagerScript>().coins >= itemcosts[i] && 
+            if (GameManagerOBJ.GetComponent<GameManagerScript>().coins < itemcosts[i] &&
+                itemPartInShop[i].transform.GetChild(1).GetComponent<ShopBtn>().triggered == true)
+            {
+                itemPartInShop[i].transform.GetChild(1).GetComponent<ShopBtn>().triggered = false;
+            }
+                if (GameManagerOBJ.GetComponent<GameManagerScript>().coins >= itemcosts[i] && 
                 itemPartInShop[i].transform.GetChild(1).GetComponent<ShopBtn>().triggered == true)
             {
                 
