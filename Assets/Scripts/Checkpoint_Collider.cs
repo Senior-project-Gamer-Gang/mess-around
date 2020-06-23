@@ -8,7 +8,9 @@ public class Checkpoint_Collider : MonoBehaviour
     Animator anim;
     void Start()
     {
+
         anim = GetComponent<Animator>();
+        anim.Play("Idle");
     }
         void Update()
     {
@@ -16,6 +18,10 @@ public class Checkpoint_Collider : MonoBehaviour
         {
             anim.Play("Checkpoint");
         }
+        //if (triggered == false)
+        //{
+        //    anim.Play("Idle");
+        //}
     }
         void OnTriggerEnter(Collider Col)
     {
