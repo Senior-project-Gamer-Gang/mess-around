@@ -1372,57 +1372,17 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300046, guid: 82ac849dba0cd8e428544e560b507b63, type: 3}
---- !u!1 &333500250
+--- !u!1 &333500250 stripped
 GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 4454808929477300858, guid: e3ab9719705a64447beebd2846da2e17,
+    type: 3}
+  m_PrefabInstance: {fileID: 4454808929689099552}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 333500251}
-  - component: {fileID: 333500253}
-  - component: {fileID: 333500252}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: GameManager
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &333500251
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 333500250}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -327.63013, y: 72.53726, z: 2067.603}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 20
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &333500252
+--- !u!114 &333500253 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 333500250}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51b8ec2515e83e44e866299993c1e416, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isPaused: 0
-  pausedText: {fileID: 1921066030}
---- !u!114 &333500253
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 4454808929477300861, guid: e3ab9719705a64447beebd2846da2e17,
+    type: 3}
+  m_PrefabInstance: {fileID: 4454808929689099552}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 333500250}
   m_Enabled: 1
@@ -1430,12 +1390,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9fcfb7cc960e314195d519e269cfa69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pagesCollected: 0
-  pagesText: {fileID: 1312922723}
-  coins: 200
-  redcoins: 0
-  ComicPage_RedCoin: {fileID: 1291868904}
-  ShopUI: {fileID: 1676174037}
 --- !u!1 &333906360 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100034, guid: 82ac849dba0cd8e428544e560b507b63,
@@ -18229,3 +18183,92 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300066, guid: 82ac849dba0cd8e428544e560b507b63, type: 3}
+--- !u!1001 &4454808929689099552
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4454808929477300858, guid: e3ab9719705a64447beebd2846da2e17,
+        type: 3}
+      propertyPath: m_Name
+      value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 4454808929477300859, guid: e3ab9719705a64447beebd2846da2e17,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -327.63013
+      objectReference: {fileID: 0}
+    - target: {fileID: 4454808929477300859, guid: e3ab9719705a64447beebd2846da2e17,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 72.53726
+      objectReference: {fileID: 0}
+    - target: {fileID: 4454808929477300859, guid: e3ab9719705a64447beebd2846da2e17,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2067.603
+      objectReference: {fileID: 0}
+    - target: {fileID: 4454808929477300859, guid: e3ab9719705a64447beebd2846da2e17,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4454808929477300859, guid: e3ab9719705a64447beebd2846da2e17,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4454808929477300859, guid: e3ab9719705a64447beebd2846da2e17,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4454808929477300859, guid: e3ab9719705a64447beebd2846da2e17,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4454808929477300859, guid: e3ab9719705a64447beebd2846da2e17,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4454808929477300859, guid: e3ab9719705a64447beebd2846da2e17,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4454808929477300859, guid: e3ab9719705a64447beebd2846da2e17,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4454808929477300859, guid: e3ab9719705a64447beebd2846da2e17,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4454808929477300860, guid: e3ab9719705a64447beebd2846da2e17,
+        type: 3}
+      propertyPath: pausedText
+      value: 
+      objectReference: {fileID: 1921066030}
+    - target: {fileID: 4454808929477300861, guid: e3ab9719705a64447beebd2846da2e17,
+        type: 3}
+      propertyPath: pagesText
+      value: 
+      objectReference: {fileID: 1312922723}
+    - target: {fileID: 4454808929477300861, guid: e3ab9719705a64447beebd2846da2e17,
+        type: 3}
+      propertyPath: ComicPage_RedCoin
+      value: 
+      objectReference: {fileID: 1291868904}
+    - target: {fileID: 4454808929477300861, guid: e3ab9719705a64447beebd2846da2e17,
+        type: 3}
+      propertyPath: ShopUI
+      value: 
+      objectReference: {fileID: 1676174037}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e3ab9719705a64447beebd2846da2e17, type: 3}
