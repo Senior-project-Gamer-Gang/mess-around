@@ -15,16 +15,19 @@ public class CameraScript : MonoBehaviour
     public float maxFollowSpeed; //How fast the camera follows the player. This is its max speed (MAKE THIS FASTER THAN THE PLAYER)
     public float cameraAcceleration; //How much acceleration the camera has.
     public float cameraHeight; //How high the camera will position itself relative to the player
+    public bool isFocused; //Whether or not the camera is focused on its point. (should be false by default)
 
     private float cameraSpeed; //How fast the camera is moving. (made it public for cameraPivot)
     private float maxSpeed; //This max speed gets chosen by the camera when following player. 
     private bool isMoving;
     private bool isPaused;
+    private Vector3 prevPosition;
+    
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        prevPosition = transform.position;
     }
 
     // Update is called once per frame
@@ -42,24 +45,53 @@ public class CameraScript : MonoBehaviour
             else
             {
                 float pivotDistance = Vector3.Distance(transform.position, cameraPivot.transform.position);
-
-                if(pivotDistance >= .01f) //Smoothly interpolate to the cameraPivot if too far
+                
+                if (!isFocused) //If you are ever changing what the camera focuses on, make isFocused false so it properly moves to that location
                 {
-                    transform.position = Vector3.Lerp(transform.position, cameraPivot.transform.position, maxFollowSpeed * Time.deltaTime);
+                    if (pivotDistance >= .1f) //Smoothly interpolate to the cameraPivot if too far
+                    {
+                        transform.position = Vector3.Lerp(transform.position, cameraPivot.transform.position, maxFollowSpeed * Time.deltaTime);
+                    }
+                    else if (pivotDistance < .1f)
+                    {
+                        isFocused = true; //Enter focused mode once close enough to do so.
+                    }
                 }
-                else
+
+                if (isFocused)
                 {
-                    transform.position = cameraPivot.transform.position; //If close enough, become the cameraPivot position
+                    transform.position = cameraPivot.transform.position; //Become the cameraPivot position
                     zoomDistance += Input.GetAxis("Mouse ScrollWheel") * zoomSpeed; //Allow mouse to manipulate the zoomDistance
-                }
-            }
 
-            transform.LookAt(new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
+                    if (pivotDistance >= zoomDistance) //If by some chance the pivotDistance gets larger than zoomDistance, exit the focused state
+                    {
+                        isFocused = false;
+                    }
+                }
+
+                /*if(CollisionCheck(transform.position)) //This works, but the camera gets stuck a lot and that's a big problem. Uncomment this to see the issue
+                {
+                    isFocused = false;
+                    transform.position = prevPosition;
+                }*/
+            }
             
+            transform.LookAt(new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
+
+            prevPosition = transform.position;
         }
     }
 
+    private bool CollisionCheck(Vector3 position)
+    {
+        Collider[] hitColliders = Physics.OverlapBox(position, transform.localScale / 2, Quaternion.identity);
 
+        if (0 < hitColliders.Length) //Check when there is a new collider coming into contact with the box
+        {
+            return true;
+        }
+        return false;
+    }
 
     #region Old Camera Movement Code
     private void AdjustCameraOnXZAxis()

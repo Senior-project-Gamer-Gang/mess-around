@@ -53,11 +53,10 @@ public class CameraPivotScript : MonoBehaviour
             transform.position = focalPoint.position - (focalPointRotation * offset);
             if (transform.position.y < focalPoint.position.y) //Make sure the camerapivot cannot go below the focal point
             {
-                transform.position = new Vector3(transform.position.x, focalPoint.position.y - .5f, transform.position.z);
+                transform.position = new Vector3(transform.position.x, focalPoint.position.y, transform.position.z);
             }
+
             transform.LookAt(focalPoint.position);
         }
-        
-        
     }
 }

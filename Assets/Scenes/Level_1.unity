@@ -1047,6 +1047,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b5db3d22d0785a43952afda42c4e841, type: 3}
+--- !u!1 &111344091 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4769532765914155315, guid: 6b5db3d22d0785a43952afda42c4e841,
+    type: 3}
+  m_PrefabInstance: {fileID: 111344090}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &111553738 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 0f7c735c9bdec454abf0d8f4de5e2a60,
@@ -18888,7 +18894,7 @@ PrefabInstance:
     - target: {fileID: 8573168764337438637, guid: c357b7dd26bfd1945a14ec461599792b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 81
+      value: 86.67
       objectReference: {fileID: 0}
     - target: {fileID: 8573168764337438637, guid: c357b7dd26bfd1945a14ec461599792b,
         type: 3}
@@ -18940,6 +18946,11 @@ PrefabInstance:
       propertyPath: pauseObject
       value: 
       objectReference: {fileID: 1101777326}
+    - target: {fileID: 8573168764337438638, guid: c357b7dd26bfd1945a14ec461599792b,
+        type: 3}
+      propertyPath: cameraPivot
+      value: 
+      objectReference: {fileID: 111344091}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c357b7dd26bfd1945a14ec461599792b, type: 3}
 --- !u!1001 &1456555786

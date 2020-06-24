@@ -159,6 +159,7 @@ public class Player : MonoBehaviour
                 //makes the default skill punch/shoot
                 currentskill = 0;
                 activeplayer = false;
+                camera.GetComponent<CameraScript>().isFocused = false;
             }
 
             if (Input.GetKeyDown(KeyCode.E) &&  switchtime < 0
@@ -170,6 +171,7 @@ public class Player : MonoBehaviour
                 currentskill = 0;
                 switchtime = 2;
                 activeplayer = false;
+                camera.GetComponent<CameraScript>().isFocused = false;
             }
 
            
