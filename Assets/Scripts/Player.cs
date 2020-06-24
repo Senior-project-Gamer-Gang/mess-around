@@ -43,6 +43,7 @@ public class Player : MonoBehaviour
     GameObject hand;
     bool handinmotion;
     public bool handattack;
+    float NotGrounded;
     //*-------------------------------------*
 
     //peashooters values --------
@@ -134,10 +135,11 @@ public class Player : MonoBehaviour
     {
         DeathObjs = GameObject.FindGameObjectsWithTag("Death");
 
-            distbetweenobj[0] = Vector3.Distance(players[0].transform.position, transform.position);
 
-            distbetweenobj[1] = Vector3.Distance(players[1].transform.position, transform.position);
+        #region SwitchPlayer
+        distbetweenobj[0] = Vector3.Distance(players[0].transform.position, transform.position);
 
+        distbetweenobj[1] = Vector3.Distance(players[1].transform.position, transform.position);
         //switchs player
         if (activeplayer == true)
         {
@@ -162,7 +164,7 @@ public class Player : MonoBehaviour
                 camera.GetComponent<CameraScript>().isFocused = false;
             }
 
-            if (Input.GetKeyDown(KeyCode.E) &&  switchtime < 0
+            if (Input.GetKeyDown(KeyCode.E) && switchtime < 0
                 && distbetweenobj[1] < distbetweenobj[0])
             {
                 players[1].GetComponent<Player>().activeplayer = true;
@@ -173,24 +175,24 @@ public class Player : MonoBehaviour
                 activeplayer = false;
                 camera.GetComponent<CameraScript>().isFocused = false;
             }
+            #endregion
 
-           
             text.text = this.hp.ToString();
 
             //this.gameObject.GetComponentInChildren<Camera>().enabled = true; (Commented out for now -Jon)
             //Tells the camera to now focus on this active player -Jon
             camera.GetComponent<CameraScript>().player = gameObject;
 
-
+            #region PlayerMechs
             if (this.gameObject.name == "Jeff")
             {
-                
+
                 if (Input.GetMouseButtonDown(0) && currentskill == 0 && punch_time < 0)
                 {
                     //anim.SetBool("Jeff_walk", false);
                     anim.SetBool("Jeff_ball", false);
                     anim.Play("Jeff_punch");
-                    if(rb != null)
+                    if (rb != null)
                         Destroy(rb);
 
                     hand = Instantiate(fireobj[0], new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1,
@@ -199,7 +201,7 @@ public class Player : MonoBehaviour
                     handinmotion = true;
                     isrigidbody = false;
                     this.gameObject.GetComponent<SphereCollider>().enabled = false;
-                    characterController.enabled = true;              
+                    characterController.enabled = true;
                 }
                 if (Input.GetMouseButtonDown(0) && currentskill == 1)
                 {
@@ -219,9 +221,9 @@ public class Player : MonoBehaviour
                     characterController.enabled = true;
                     jeffscale(this.gameObject.transform.localScale);
                 }
-                
 
-                if (Input.GetMouseButtonUp(0)  && currentskill == 1)
+
+                if (Input.GetMouseButtonUp(0) && currentskill == 1)
                 {
                     isrigidbody = false;
                     this.gameObject.GetComponent<SphereCollider>().enabled = false;
@@ -231,7 +233,7 @@ public class Player : MonoBehaviour
                 }
                 if (Input.GetMouseButtonUp(0) && currentskill == 2)
                 {
-                    
+
                     jefforiganal(this.gameObject.transform.localScale);
                 }
 
@@ -271,12 +273,6 @@ public class Player : MonoBehaviour
                     punch_time = .5f;
                     handinmotion = true;
                 }
-                //if (handinmotion == true && hand.gameObject != null)
-                //{
-                //    hand.transform.position += transform.forward * Time.deltaTime * handSpeed;
-                //    Destroy(hand, punch_time);
-                //}
-               
             }
 
 
@@ -287,7 +283,7 @@ public class Player : MonoBehaviour
             }
             if (punch_time <= 0)
                 handinmotion = false;
-
+            #endregion
             #region playerHit
             if (DeathObjs != null)
             {
@@ -317,15 +313,10 @@ public class Player : MonoBehaviour
                     }
                 }
             }
-            #endregion
+            
         }
-        //this is so the handman wont keep walking after he's deactivated
-        if (activeplayer == false && this.gameObject.name == "HandMan")
-            anim.SetBool("walk", false);
-        if (activeplayer == false && this.gameObject.name == "Shooter")
-            anim.SetBool("run", false);
-        if (activeplayer == false && this.gameObject.name == "Jeff")
-            anim.SetBool("Jeff_walk", false);
+        #endregion
+        
         //this.gameObject.GetComponentInChildren<Camera>().enabled = false; (Commentated out for now -Jon)
         #region tiemrs
         if (switchtime >= -1)
@@ -338,6 +329,14 @@ public class Player : MonoBehaviour
             hit_timer -= Time.deltaTime;
         #endregion
         #region PlayerMovement
+
+        //this is so the handman wont keep walking after he's deactivated
+        if (activeplayer == false && this.gameObject.name == "HandMan")
+            anim.SetBool("walk", false);
+        if (activeplayer == false && this.gameObject.name == "Shooter")
+            anim.SetBool("run", false);
+        if (activeplayer == false && this.gameObject.name == "Jeff")
+            anim.SetBool("Jeff_walk", false);
         if (activeplayer == true && isrigidbody == false)
         {
             if (Input.GetKeyDown(KeyCode.Keypad0))
@@ -373,6 +372,7 @@ public class Player : MonoBehaviour
                         anim.Play("Juff_jump");
                     }
                 }
+                NotGrounded = 0f;
             }
             //Player's rotation
             Quaternion desiredRotation;
@@ -433,7 +433,7 @@ public class Player : MonoBehaviour
 
             rb.AddForce(movement);
         }
-            if (!characterController.isGrounded)
+        if (!characterController.isGrounded)
         {
             //the players always getting effected by gravity when off the ground
             moveDirection.y = moveDirection.y + (Physics.gravity.y * gravityScale * Time.deltaTime);
