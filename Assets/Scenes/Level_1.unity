@@ -1710,6 +1710,11 @@ PrefabInstance:
       propertyPath: Cp
       value: 
       objectReference: {fileID: 193744029}
+    - target: {fileID: 8470797560179022336, guid: d6e29486b921b9149bf7b0fd8b021cdd,
+        type: 3}
+      propertyPath: gravityScale
+      value: 1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6e29486b921b9149bf7b0fd8b021cdd, type: 3}
 --- !u!1 &178255003 stripped
@@ -8556,8 +8561,13 @@ PrefabInstance:
         type: 3}
       propertyPath: fireobj.Array.data[0]
       value: 
-      objectReference: {fileID: 1273628422158943838, guid: 891b6165e6a19714c8ec7169e7b6524b,
+      objectReference: {fileID: 4589377047038542749, guid: f42497e8755795e488c3239631826ada,
         type: 3}
+    - target: {fileID: 1343798047651978090, guid: ee60e0476b490e74c928a1fb08de7cb2,
+        type: 3}
+      propertyPath: gravityScale
+      value: 1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee60e0476b490e74c928a1fb08de7cb2, type: 3}
 --- !u!1 &689120300 stripped
@@ -21097,6 +21107,11 @@ PrefabInstance:
       propertyPath: Cp
       value: 
       objectReference: {fileID: 193744029}
+    - target: {fileID: 6722539763027934442, guid: 33b7a6d43cf4d4d46be02dfc6c95be26,
+        type: 3}
+      propertyPath: gravityScale
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8330162965670987331, guid: 33b7a6d43cf4d4d46be02dfc6c95be26,
         type: 3}
       propertyPath: m_Name

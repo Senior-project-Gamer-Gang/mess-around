@@ -433,8 +433,9 @@ public class Player : MonoBehaviour
 
             rb.AddForce(movement);
         }
-        if (!characterController.isGrounded)
+        if (characterController.isGrounded == false)
         {
+            Debug.Log(Physics.gravity.y * gravityScale * Time.deltaTime);
             //the players always getting effected by gravity when off the ground
             moveDirection.y = moveDirection.y + (Physics.gravity.y * gravityScale * Time.deltaTime);
         }
