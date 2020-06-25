@@ -6,9 +6,10 @@ public class Checkpoint_Collider : MonoBehaviour
 {
     public bool triggered;
     Animator anim;
+    ParticleSystem PS;
     void Start()
     {
-
+        PS = transform.GetChild(0).GetComponent<ParticleSystem>();
         anim = GetComponent<Animator>();
         anim.Play("Idle");
     }
@@ -16,12 +17,13 @@ public class Checkpoint_Collider : MonoBehaviour
     {
         if(triggered == true)
         {
+            PS.Play();
             anim.Play("Checkpoint");
         }
-        //if (triggered == false)
-        //{
-        //    anim.Play("Idle");
-        //}
+        if (triggered == false)
+        {
+            anim.Play("Idle");
+        }
     }
         void OnTriggerEnter(Collider Col)
     {
