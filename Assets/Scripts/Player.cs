@@ -36,6 +36,9 @@ public class Player : MonoBehaviour
     //*------------------------------*
 
     GameObject ShopKeeper;
+    public bool inshop;
+
+
 
     //big handmans varibles
     public float punch_time = .5f;
@@ -149,32 +152,35 @@ public class Player : MonoBehaviour
                 if (Vector3.Distance(this.gameObject.transform.position, ShopKeeper.transform.position) <= 5
                     && Input.GetKeyDown(KeyCode.Q))
                 {
+                    inshop = true;
                     gameManager.GetComponent<GameManagerScript>().ShopOpen();
                 }
             }
-
-            if (Input.GetKeyDown(KeyCode.E) && switchtime < 0
+            if (inshop == false)
+            {
+                if (Input.GetKeyDown(KeyCode.E) && switchtime < 0
                 && distbetweenobj[0] < distbetweenobj[1])
-            {
-                players[0].GetComponent<Player>().activeplayer = true;
-                players[0].GetComponent<Player>().switchtime = 2;
-                switchtime = 2;
-                //makes the default skill punch/shoot
-                currentskill = 0;
-                activeplayer = false;
-                camera.GetComponent<CameraScript>().isFocused = false;
-            }
+                {
+                    players[0].GetComponent<Player>().activeplayer = true;
+                    players[0].GetComponent<Player>().switchtime = 2;
+                    switchtime = 2;
+                    //makes the default skill punch/shoot
+                    currentskill = 0;
+                    activeplayer = false;
+                    camera.GetComponent<CameraScript>().isFocused = false;
+                }
 
-            if (Input.GetKeyDown(KeyCode.E) && switchtime < 0
-                && distbetweenobj[1] < distbetweenobj[0])
-            {
-                players[1].GetComponent<Player>().activeplayer = true;
-                players[1].GetComponent<Player>().switchtime = 2;
-                //makes the default skill punch/shoot
-                currentskill = 0;
-                switchtime = 2;
-                activeplayer = false;
-                camera.GetComponent<CameraScript>().isFocused = false;
+                if (Input.GetKeyDown(KeyCode.E) && switchtime < 0
+                    && distbetweenobj[1] < distbetweenobj[0])
+                {
+                    players[1].GetComponent<Player>().activeplayer = true;
+                    players[1].GetComponent<Player>().switchtime = 2;
+                    //makes the default skill punch/shoot
+                    currentskill = 0;
+                    switchtime = 2;
+                    activeplayer = false;
+                    camera.GetComponent<CameraScript>().isFocused = false;
+                }
             }
             #endregion
 
@@ -206,136 +212,139 @@ public class Player : MonoBehaviour
                 }
 
                 #endregion
-                if (Input.GetMouseButtonDown(0) && currentskill == 0 && punch_time < 0)
+                if (inshop == false)
                 {
-                    //anim.SetBool("Jeff_walk", false);
-                    anim.SetBool("Jeff_ball", false);
-                    anim.Play("Jeff_punch");
-                    if (rb != null)
+                    if (Input.GetMouseButtonDown(0) && currentskill == 0 && punch_time < 0)
+                    {
+                        //anim.SetBool("Jeff_walk", false);
+                        anim.SetBool("Jeff_ball", false);
+                        anim.Play("Jeff_punch");
+                        if (rb != null)
+                            Destroy(rb);
+
+                        hand = Instantiate(fireobj[0], new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1,
+                           this.gameObject.transform.position.z), Quaternion.identity);
+                        punch_time = .5f;
+                        handinmotion = true;
+                        isrigidbody = false;
+                        this.gameObject.GetComponent<SphereCollider>().enabled = false;
+                        characterController.enabled = true;
+                    }
+                    if (Input.GetMouseButtonDown(0) && currentskill == 1)
+                    {
+                        isrigidbody = true;
+                        this.gameObject.GetComponent<SphereCollider>().enabled = true;
+                        this.gameObject.AddComponent<Rigidbody>();
+                        rb = this.GetComponent<Rigidbody>();
+                        anim.SetBool("Jeff_walk", false);
+                        anim.SetBool("Jeff_ball", true);
+                        characterController.enabled = false;
+
+                    }
+                    if (Input.GetMouseButtonDown(0) && currentskill == 2)
+                    {
+                        anim.SetBool("Jeff_walk", false);
+                        anim.SetBool("Jeff_ball", false);
+                        characterController.enabled = true;
+                        jeffscale(this.gameObject.transform.localScale);
+                    }
+
+
+                    if (Input.GetMouseButtonUp(0) && currentskill == 1)
+                    {
+                        isrigidbody = false;
+                        this.gameObject.GetComponent<SphereCollider>().enabled = false;
                         Destroy(rb);
+                        anim.SetBool("Jeff_ball", false);
+                        characterController.enabled = true;
+                    }
+                    if (Input.GetMouseButtonUp(0) && currentskill == 2)
+                    {
 
-                    hand = Instantiate(fireobj[0], new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1,
-                       this.gameObject.transform.position.z), Quaternion.identity);
-                    punch_time = .5f;
-                    handinmotion = true;
-                    isrigidbody = false;
-                    this.gameObject.GetComponent<SphereCollider>().enabled = false;
-                    characterController.enabled = true;
-                }
-                if (Input.GetMouseButtonDown(0) && currentskill == 1)
-                {
-                    isrigidbody = true;
-                    this.gameObject.GetComponent<SphereCollider>().enabled = true;
-                    this.gameObject.AddComponent<Rigidbody>();
-                    rb = this.GetComponent<Rigidbody>();
-                    anim.SetBool("Jeff_walk", false);
-                    anim.SetBool("Jeff_ball", true);
-                    characterController.enabled = false;
+                        jefforiganal(this.gameObject.transform.localScale);
+                    }
 
                 }
-                if (Input.GetMouseButtonDown(0) && currentskill == 2)
-                {
-                    anim.SetBool("Jeff_walk", false);
-                    anim.SetBool("Jeff_ball", false);
-                    characterController.enabled = true;
-                    jeffscale(this.gameObject.transform.localScale);
-                }
-
-
-                if (Input.GetMouseButtonUp(0) && currentskill == 1)
-                {
-                    isrigidbody = false;
-                    this.gameObject.GetComponent<SphereCollider>().enabled = false;
-                    Destroy(rb);
-                    anim.SetBool("Jeff_ball", false);
-                    characterController.enabled = true;
-                }
-                if (Input.GetMouseButtonUp(0) && currentskill == 2)
+                if (this.gameObject.name == "Shooter")
                 {
 
-                    jefforiganal(this.gameObject.transform.localScale);
+                    #region Dontlook@thisneedtorewritelater2
+                    if (players[0].gameObject.name == "HandMan" && distbetweenobj[0] <= 3)
+                    {
+                        jumpSpeed = 25;
+                    }
+                    if (players[0].gameObject.name == "HandMan" && distbetweenobj[0] >= 3)
+                    {
+                        jumpSpeed = 12;
+                    }
+                    if (players[1].gameObject.name == "HandMan" && distbetweenobj[1] <= 3)
+                    {
+                        jumpSpeed = 25;
+                    }
+                    if (players[1].gameObject.name == "HandMan" && distbetweenobj[1] >= 3)
+                    {
+                        jumpSpeed = 12;
+                    }
+
+                    #endregion
+
+
+                    if (Input.GetMouseButtonDown(0) && rof <= 0)
+                    {
+                        anim.Play("attack");
+                        bullet = Instantiate(fireobj[1], new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1,
+                            this.gameObject.transform.position.z + 2), Quaternion.identity);
+                        bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 500);
+                        rof = .5f;
+                    }
+                }
+                if (this.gameObject.name == "HandMan")
+                {
+
+                    if (Input.GetMouseButtonDown(0) && punch_time < 0 && currentskill == 0)
+                    {
+                        //plays attack
+                        anim.Play("attack");
+                        hand = Instantiate(fireobj[0], new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1,
+                            this.gameObject.transform.position.z), Quaternion.identity);
+                        punch_time = .5f;
+                        handinmotion = true;
+                    }
+                    if (characterController.isGrounded == false)
+                    {
+                        NotGrounded += Time.deltaTime;
+                    }
+
+                    if (Input.GetMouseButtonDown(0) && NotGrounded >= 1 && currentskill == 1)
+                    {
+                        fallfist = Instantiate(fireobj[1], new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y - 2,
+                            this.gameObject.transform.position.z), Quaternion.identity);
+
+                    }
+                    if (characterController.isGrounded == false)
+                    {
+                        if (fallfist != null)
+                            fallfist.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y - 2,
+                            this.gameObject.transform.position.z);
+                        NotGrounded += Time.deltaTime;
+                    }
+                    if (characterController.isGrounded == true)
+                    {
+                        if (fallfist != null)
+                            Destroy(fallfist);
+                        NotGrounded = 0;
+                    }
                 }
 
+
+                if (handinmotion == true && hand.gameObject != null)
+                {
+                    hand.transform.position += transform.forward * Time.deltaTime * handSpeed;
+                    Destroy(hand, punch_time);
+                }
+                if (punch_time <= 0)
+                    handinmotion = false;
             }
-            if (this.gameObject.name == "Shooter")
-            {
-
-                #region Dontlook@thisneedtorewritelater2
-                if (players[0].gameObject.name == "HandMan" && distbetweenobj[0] <= 3)
-                {
-                    jumpSpeed = 25;
-                }
-                if (players[0].gameObject.name == "HandMan" && distbetweenobj[0] >= 3)
-                {
-                    jumpSpeed = 12;
-                }
-                if (players[1].gameObject.name == "HandMan" && distbetweenobj[1] <= 3)
-                {
-                    jumpSpeed = 25;
-                }
-                if (players[1].gameObject.name == "HandMan" && distbetweenobj[1] >= 3)
-                {
-                    jumpSpeed = 12;
-                }
-
-                #endregion
-
-
-                if (Input.GetMouseButtonDown(0) && rof <= 0)
-                {
-                    anim.Play("attack");
-                    bullet = Instantiate(fireobj[1], new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1,
-                        this.gameObject.transform.position.z + 2), Quaternion.identity);
-                    bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 500);
-                    rof = .5f;
-                }
-            }
-            if (this.gameObject.name == "HandMan")
-            {
-
-                if (Input.GetMouseButtonDown(0) && punch_time < 0 && currentskill == 0)
-                {
-                    //plays attack
-                    anim.Play("attack");
-                    hand = Instantiate(fireobj[0], new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1,
-                        this.gameObject.transform.position.z), Quaternion.identity);
-                    punch_time = .5f;
-                    handinmotion = true;
-                }
-                if(characterController.isGrounded == false)
-                {
-                    NotGrounded += Time.deltaTime;
-                }
-                
-                if (Input.GetMouseButtonDown(0) && NotGrounded >= 1 && currentskill == 1)
-                {
-                    fallfist = Instantiate(fireobj[1], new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y - 2,
-                        this.gameObject.transform.position.z), Quaternion.identity);
-
-                }
-                if (characterController.isGrounded == false)
-                {
-                    if (fallfist != null)
-                        fallfist.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y - 2,
-                        this.gameObject.transform.position.z);
-                    NotGrounded += Time.deltaTime;
-                }
-                if (characterController.isGrounded == true)
-                {
-                    if (fallfist != null)
-                        Destroy(fallfist);
-                    NotGrounded = 0;
-                }
-            }
-
-
-            if (handinmotion == true && hand.gameObject != null)
-            {
-                hand.transform.position += transform.forward * Time.deltaTime * handSpeed;
-                Destroy(hand, punch_time);
-            }
-            if (punch_time <= 0)
-                handinmotion = false;
             #endregion
             #region playerHit
             if (DeathObjs != null)
@@ -403,96 +412,97 @@ public class Player : MonoBehaviour
             moveDirection = (pivot.forward * Input.GetAxis("Vertical")) + (pivot.right * Input.GetAxis("Horizontal"));
             moveDirection = moveDirection.normalized * speed; //This is so moving diagonally is not faster than moving...well not diagonally -Jon
             moveDirection.y = yStore; //Applying the y data after moveDirection is manipulated -Jon
-            //moveDirection *= speed;
+                                      //moveDirection *= speed;
+            if (inshop == false)
+            {
+                //you can jump if your characters grounded 
+                if (characterController.isGrounded)
+                {
+                    //jump if you press space 
+                    if (Input.GetButton("Jump"))
+                    {
+                        moveDirection.y = jumpSpeed;
+                        if (this.gameObject.name == "HandMan")
+                        {
+                            anim.Play("jump");
+                        }
+                        if (this.gameObject.name == "Shooter")
+                        {
+                            anim.Play("Jump");
+                        }
+                        if (this.gameObject.name == "Jeff")
+                        {
+                            anim.Play("Juff_jump");
+                        }
+                    }
+                    NotGrounded = 0f;
+                }
+                //Player's rotation
+                Quaternion desiredRotation;
+                if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
+                {
+                    desiredRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0f, moveDirection.z)); //Uses moveDirection to determine where the player would want to rotate towards -Jon
+                    if (this.gameObject.name == "HandMan" && this.characterController.isGrounded == true)
+                    {
+                        anim.SetBool("walk", true);
+                    }
+                    if (this.gameObject.name == "HandMan" && this.characterController.isGrounded == false)
+                    {
+                        anim.SetBool("walk", false);
+                    }
+                    if (this.gameObject.name == "Shooter" && this.characterController.isGrounded == true)
+                    {
+                        anim.SetBool("run", true);
+                    }
+                    if (this.gameObject.name == "Shooter" && characterController.isGrounded == false)
+                    {
+                        anim.SetBool("run", false);
+                    }
+                    if (this.gameObject.name == "Jeff" && characterController.isGrounded == true)
+                    {
+                        anim.SetBool("Jeff_walk", true);
+                    }
+                    if (this.gameObject.name == "Jeff" && characterController.isGrounded == false)
+                    {
+                        anim.SetBool("Jeff_walk", false);
+                    }
 
-            //you can jump if your characters grounded 
-            if (characterController.isGrounded)
-            {
-                //jump if you press space 
-                if (Input.GetButton("Jump"))
-                {
-                    moveDirection.y = jumpSpeed;
-                    if (this.gameObject.name == "HandMan")
-                    {
-                        anim.Play("jump");
-                    }
-                    if (this.gameObject.name == "Shooter")
-                    {
-                        anim.Play("Jump");
-                    }
-                    if (this.gameObject.name == "Jeff")
-                    {
-                        anim.Play("Juff_jump");
-                    }
                 }
-                NotGrounded = 0f;
-            }
-            //Player's rotation
-            Quaternion desiredRotation;
-            if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
-            {
-                desiredRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0f, moveDirection.z)); //Uses moveDirection to determine where the player would want to rotate towards -Jon
-                if (this.gameObject.name == "HandMan" && this.characterController.isGrounded == true)
-                {
-                    anim.SetBool("walk", true);
-                }
-                if (this.gameObject.name == "HandMan" && this.characterController.isGrounded == false)
+                else { desiredRotation = transform.rotation; } //It will not try to rotate if player is not moving -Jon
+                transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, rotationSpeed * Time.deltaTime); //Gradually rotates towards desiredRotation -Jon
+                if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0 && this.gameObject.name == "HandMan")
                 {
                     anim.SetBool("walk", false);
                 }
-                if (this.gameObject.name == "Shooter" && this.characterController.isGrounded == true)
-                {
-                    anim.SetBool("run", true);
-                }
-                if (this.gameObject.name == "Shooter" && characterController.isGrounded == false)
+                if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0 && this.gameObject.name == "Shooter")
                 {
                     anim.SetBool("run", false);
                 }
-                if (this.gameObject.name == "Jeff" && characterController.isGrounded == true)
-                {
-                    anim.SetBool("Jeff_walk", true);
-                }
-                if (this.gameObject.name == "Jeff" && characterController.isGrounded == false)
+                if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0 && this.gameObject.name == "Jeff")
                 {
                     anim.SetBool("Jeff_walk", false);
                 }
+                // Moves the controller
+                characterController.Move(moveDirection * Time.deltaTime);
+
 
             }
-            else { desiredRotation = transform.rotation; } //It will not try to rotate if player is not moving -Jon
-            transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, rotationSpeed * Time.deltaTime); //Gradually rotates towards desiredRotation -Jon
-            if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0 && this.gameObject.name == "HandMan")
+            if (activeplayer == true && isrigidbody == true && currentskill == 1)
             {
-                anim.SetBool("walk", false);
+                float moveHorizontal = Input.GetAxis("Horizontal");
+                float moveVertical = Input.GetAxis("Vertical");
+
+                Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+
+                rb.AddForce(movement);
             }
-            if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0 && this.gameObject.name == "Shooter")
+            if (characterController.isGrounded == false)
             {
-                anim.SetBool("run", false);
+                characterController.SimpleMove(Vector3.forward * 0);
+                //the players always getting effected by gravity when off the ground
+                moveDirection.y = moveDirection.y + (Physics.gravity.y * gravityScale * Time.deltaTime);
             }
-            if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0 && this.gameObject.name == "Jeff")
-            {
-                anim.SetBool("Jeff_walk", false);
-            }
-            // Moves the controller
-            characterController.Move(moveDirection * Time.deltaTime);
-
-
         }
-        if (activeplayer == true && isrigidbody == true && currentskill == 1)
-        {
-            float moveHorizontal = Input.GetAxis("Horizontal");
-            float moveVertical = Input.GetAxis("Vertical");
-
-            Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-
-            rb.AddForce(movement);
-        }
-        if (characterController.isGrounded == false)
-        {
-            characterController.SimpleMove(Vector3.forward * 0);
-            //the players always getting effected by gravity when off the ground
-            moveDirection.y = moveDirection.y + (Physics.gravity.y * gravityScale * Time.deltaTime);
-        }
-
         #endregion
 
         if (hp <= 0)
