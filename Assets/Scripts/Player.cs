@@ -44,6 +44,7 @@ public class Player : MonoBehaviour
     bool handinmotion;
     public bool handattack;
     float NotGrounded;
+    GameObject fallfist;
     //*-------------------------------------*
 
     //peashooters values --------
@@ -264,7 +265,7 @@ public class Player : MonoBehaviour
             if (this.gameObject.name == "HandMan")
             {
 
-                if (Input.GetMouseButtonDown(0) && punch_time < 0)
+                if (Input.GetMouseButtonDown(0) && punch_time < 0 && currentskill == 0)
                 {
                     //plays attack
                     anim.Play("attack");
@@ -272,6 +273,30 @@ public class Player : MonoBehaviour
                         this.gameObject.transform.position.z), Quaternion.identity);
                     punch_time = .5f;
                     handinmotion = true;
+                }
+                if(characterController.isGrounded == false)
+                {
+                    NotGrounded += Time.deltaTime;
+                }
+                
+                if (Input.GetMouseButtonDown(0) && NotGrounded >= 1 && currentskill == 1)
+                {
+                    fallfist = Instantiate(fireobj[1], new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y - 2,
+                        this.gameObject.transform.position.z), Quaternion.identity);
+
+                }
+                if (characterController.isGrounded == false)
+                {
+                    if (fallfist != null)
+                        fallfist.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y - 2,
+                        this.gameObject.transform.position.z);
+                    NotGrounded += Time.deltaTime;
+                }
+                if (characterController.isGrounded == true)
+                {
+                    if (fallfist != null)
+                        Destroy(fallfist);
+                    NotGrounded = 0;
                 }
             }
 

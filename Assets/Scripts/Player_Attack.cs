@@ -21,7 +21,11 @@ public class Player_Attack : MonoBehaviour
             Destroy(Col.gameObject);
             Destroy(this.gameObject);
         }
-
+        if (this.gameObject.name == ("Fall_Attack(Clone)") && Col.gameObject.tag == "GroundPoundable")
+        {
+            Destroy(Col.gameObject);
+            Destroy(this.gameObject);
+        }
         if (this.gameObject.name == ("bullet(Clone)") && Col.gameObject.tag != "enemy" && 
             Col.gameObject.name != "Enemy_Box" && Col.gameObject.tag != "Player")
         {

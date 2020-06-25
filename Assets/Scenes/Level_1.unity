@@ -1713,7 +1713,7 @@ PrefabInstance:
     - target: {fileID: 8470797560179022336, guid: d6e29486b921b9149bf7b0fd8b021cdd,
         type: 3}
       propertyPath: gravityScale
-      value: 1.5
+      value: 2.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6e29486b921b9149bf7b0fd8b021cdd, type: 3}
@@ -8566,12 +8566,12 @@ PrefabInstance:
     - target: {fileID: 1343798047651978090, guid: ee60e0476b490e74c928a1fb08de7cb2,
         type: 3}
       propertyPath: gravityScale
-      value: 1.5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1343798047651978090, guid: ee60e0476b490e74c928a1fb08de7cb2,
         type: 3}
       propertyPath: activeplayer
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee60e0476b490e74c928a1fb08de7cb2, type: 3}
@@ -18685,6 +18685,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Car
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: eab792960b0861444adc541ead7af779, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: eab792960b0861444adc541ead7af779, type: 3}
       propertyPath: m_LocalPosition.x
       value: -40.009285
@@ -20580,6 +20584,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: city 1
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 9752eb1634b2ff742af6c88010cc98dd, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 100314, guid: 9752eb1634b2ff742af6c88010cc98dd, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9752eb1634b2ff742af6c88010cc98dd, type: 3}
       propertyPath: m_LocalPosition.x
       value: -366.73953
@@ -21060,15 +21072,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2981464827422111, guid: 33b7a6d43cf4d4d46be02dfc6c95be26, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -349.5232
+      value: -318.8
       objectReference: {fileID: 0}
     - target: {fileID: 2981464827422111, guid: 33b7a6d43cf4d4d46be02dfc6c95be26, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 76.75174
+      value: 120.94
       objectReference: {fileID: 0}
     - target: {fileID: 2981464827422111, guid: 33b7a6d43cf4d4d46be02dfc6c95be26, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2044.2734
+      value: 2147.8
       objectReference: {fileID: 0}
     - target: {fileID: 2981464827422111, guid: 33b7a6d43cf4d4d46be02dfc6c95be26, type: 3}
       propertyPath: m_LocalRotation.x
@@ -21104,6 +21116,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6722539763027934442, guid: 33b7a6d43cf4d4d46be02dfc6c95be26,
         type: 3}
+      propertyPath: fireobj.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6722539763027934442, guid: 33b7a6d43cf4d4d46be02dfc6c95be26,
+        type: 3}
       propertyPath: text
       value: 
       objectReference: {fileID: 6565892308572353816}
@@ -21115,13 +21132,19 @@ PrefabInstance:
     - target: {fileID: 6722539763027934442, guid: 33b7a6d43cf4d4d46be02dfc6c95be26,
         type: 3}
       propertyPath: gravityScale
-      value: 1.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6722539763027934442, guid: 33b7a6d43cf4d4d46be02dfc6c95be26,
         type: 3}
       propertyPath: activeplayer
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6722539763027934442, guid: 33b7a6d43cf4d4d46be02dfc6c95be26,
+        type: 3}
+      propertyPath: fireobj.Array.data[1]
+      value: 
+      objectReference: {fileID: 9123823645101747855, guid: 1c8a9bf3f2794bf4c8e9bd8c20611bbf,
+        type: 3}
     - target: {fileID: 8330162965670987331, guid: 33b7a6d43cf4d4d46be02dfc6c95be26,
         type: 3}
       propertyPath: m_Name
@@ -35004,7 +35027,7 @@ GameObject:
   - component: {fileID: 2009048001}
   m_Layer: 0
   m_Name: pCylinder7
-  m_TagString: Untagged
+  m_TagString: GroundPoundable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

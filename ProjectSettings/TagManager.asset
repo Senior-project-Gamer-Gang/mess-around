@@ -17,6 +17,7 @@ TagManager:
   - RedCoin
   - Heart
   - ShopKeeper
+  - GroundPoundable
   layers:
   - Default
   - TransparentFX
