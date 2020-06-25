@@ -93,22 +93,22 @@ public class Player : MonoBehaviour
         if (this.gameObject.name == "Jeff")
         {
             speed = 15.0f;
-            jumpSpeed = 10;
+            jumpSpeed = 15;
             hp = 3;
             anim.Play("Jeff_idle");
         }
         if (this.gameObject.name == "Shooter")
         {
             anim.Play("idle");
-            speed = 10.0f;
-            jumpSpeed = 12;
+            speed = 10;
+            jumpSpeed = 17;
             hp = 4;
         }
         if (this.gameObject.name == "HandMan")
         {
             anim.Play("BHMidle");
-            speed = 8.0f;
-            jumpSpeed = 10;
+            speed = 8;
+            jumpSpeed = 15;
             hp = 6;
         }
         #endregion
@@ -435,10 +435,11 @@ public class Player : MonoBehaviour
         }
         if (characterController.isGrounded == false)
         {
-            Debug.Log(Physics.gravity.y * gravityScale * Time.deltaTime);
+            characterController.SimpleMove(Vector3.forward * 0);
             //the players always getting effected by gravity when off the ground
             moveDirection.y = moveDirection.y + (Physics.gravity.y * gravityScale * Time.deltaTime);
         }
+
         #endregion
 
         if (hp <= 0)
