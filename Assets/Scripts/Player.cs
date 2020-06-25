@@ -187,7 +187,25 @@ public class Player : MonoBehaviour
             #region PlayerMechs
             if (this.gameObject.name == "Jeff")
             {
+                #region Dontlook@thisneedtorewritelater1
+                if (players[0].gameObject.name == "Shooter" && distbetweenobj[0] <= 3)
+                {
+                    jumpSpeed = 25;
+                }
+                if (players[0].gameObject.name == "Shooter" && distbetweenobj[0] >= 3)
+                {
+                    jumpSpeed = 12;
+                }
+                if (players[1].gameObject.name == "Shooter" && distbetweenobj[1] <= 3)
+                {
+                    jumpSpeed = 25;
+                }
+                if (players[1].gameObject.name == "Shooter" && distbetweenobj[1] >= 3)
+                {
+                    jumpSpeed = 12;
+                }
 
+                #endregion
                 if (Input.GetMouseButtonDown(0) && currentskill == 0 && punch_time < 0)
                 {
                     //anim.SetBool("Jeff_walk", false);
@@ -241,17 +259,27 @@ public class Player : MonoBehaviour
             }
             if (this.gameObject.name == "Shooter")
             {
-                if (gameManager.GetComponent<GameManagerScript>().pagesCollected >= 1)
+
+                #region Dontlook@thisneedtorewritelater2
+                if (players[0].gameObject.name == "HandMan" && distbetweenobj[0] <= 3)
                 {
-                    #region Dontlook@this
-                    if (players[0].gameObject.name == "HandMan" && distbetweenobj[0] <= 3)
-                        jumpSpeed = 25;
-                    if (players[1].gameObject.name == "HandMan" && distbetweenobj[1] <= 3)
-                        jumpSpeed = 25;
-                    if (distbetweenobj[1] >= 3)
-                        jumpSpeed = 12;
-                    #endregion
+                    jumpSpeed = 25;
                 }
+                if (players[0].gameObject.name == "HandMan" && distbetweenobj[0] >= 3)
+                {
+                    jumpSpeed = 12;
+                }
+                if (players[1].gameObject.name == "HandMan" && distbetweenobj[1] <= 3)
+                {
+                    jumpSpeed = 25;
+                }
+                if (players[1].gameObject.name == "HandMan" && distbetweenobj[1] >= 3)
+                {
+                    jumpSpeed = 12;
+                }
+
+                #endregion
+
 
                 if (Input.GetMouseButtonDown(0) && rof <= 0)
                 {
