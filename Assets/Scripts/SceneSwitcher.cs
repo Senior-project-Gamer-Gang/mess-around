@@ -16,52 +16,59 @@ public class SceneSwitcher : MonoBehaviour
         for(int i = 0; i < players.Length;i++)
         {
             if(players[i].GetComponent<Player>().activeplayer == true &&
-                Vector3.Distance(this.gameObject.transform.position, players[i].transform.position) < 3)
+                Vector3.Distance(this.gameObject.transform.position, players[i].transform.position) < 15)
             {
                 text.text = "Press Q to go to " + this.gameObject.name;
                 text.enabled = true;
+                if(players[i].GetComponent<Player>().switcher == true && this.gameObject.name == "Level1")
+                {
+                    Level1Switch();
+                }
             }
             if(players[i].GetComponent<Player>().activeplayer == true && 
-                Vector3.Distance(this.gameObject.transform.position, players[i].transform.position) > 3)
+                Vector3.Distance(this.gameObject.transform.position, players[i].transform.position) > 15)
             {
                 text.enabled = false;
             }
         }
     }
-    void OnTriggerEnter(Collider Col)
-    {
-        for (int i = 0; i < players.Length; i++)
-        {
-            if (Col.gameObject.tag == "Player" && this.gameObject.name == "Level1" 
-                && players[i].GetComponent<Player>().switcher == true)
-            {
-                Level1Switch();
-            }
-            if (Col.gameObject.tag == "Player" && this.gameObject.name == "Level2" 
-                && players[i].GetComponent<Player>().switcher == true)
-            {
-                Level2Switch();
-            }
-            if (Col.gameObject.tag == "Player" && this.gameObject.name == "Level3" 
-                && players[i].GetComponent<Player>().switcher == true)
-            {
-                Level3Switch();
-            }
-            if (Col.gameObject.tag == "Player" && this.gameObject.name == "Hub_Trig")
-            {
-                LevelHubSwitch();
-            }
-        }
-    }
+    //void OnTriggerEnter(Collider Col)
+    //{
+        
+    //        if (Col.gameObject.tag == "Player" && this.gameObject.name == "Level1"
+    //            && Col.gameObject.GetComponent<Player>().switcher == true)
+    //        {
+    //            Debug.Log("Works");
+    //            Level1Switch();
+    //        }
+    //        if (Col.gameObject.tag == "Player" && this.gameObject.name == "Level2" 
+    //            && Col.gameObject.GetComponent<Player>().switcher == true)
+    //        {
+    //            Level2Switch();
+    //        }
+    //        if (Col.gameObject.tag == "Player" && this.gameObject.name == "Level3" 
+    //            && Col.gameObject.GetComponent<Player>().switcher == true)
+    //        {
+    //            Level3Switch();
+    //        }
+    //        if (Col.gameObject.tag == "Player" && this.gameObject.name == "Hub_Trig")
+    //        {
+    //            LevelHubSwitch();
+    //        }
+        
+    //}
 
     void OnTriggerExit(Collider Col)
     {
-        for (int i = 0; i < players.Length; i++)
+        if (Col.gameObject.tag == "Player")
         {
-            if(players[i].GetComponent<Player>().switcher == true)
-            {
-                players[i].GetComponent<Player>().switcher = false;
-            }
+           
+                Debug.Log("Leaving area");
+                if (Col.gameObject.GetComponent<Player>().switcher == true)
+                {
+                Col.gameObject.GetComponent<Player>().switcher = false;
+                }
+            
         }
     }
 

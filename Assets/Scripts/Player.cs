@@ -159,7 +159,7 @@ public class Player : MonoBehaviour
                 }
             }
             if(Input.GetKeyDown(KeyCode.Q) && curscene.name == "Hub")
-            {
+            {  
                 switcher = true;
             }
             if (inshop == false)
