@@ -158,8 +158,8 @@ public class Player : MonoBehaviour
                     gameManager.GetComponent<GameManagerScript>().ShopOpen();
                 }
             }
-            if(Input.GetKeyDown(KeyCode.Q) && curscene.name == "Hub")
-            {  
+            if (Input.GetKeyDown(KeyCode.Q) && curscene.name == "Hub")
+            {
                 switcher = true;
             }
             if (inshop == false)
@@ -197,29 +197,30 @@ public class Player : MonoBehaviour
             camera.GetComponent<CameraScript>().player = gameObject;
 
             #region PlayerMechs
-            if (this.gameObject.name == "Jeff")
+            if (inshop == false)
             {
-                #region Dontlook@thisneedtorewritelater1
-                if (players[0].gameObject.name == "Shooter" && distbetweenobj[0] <= 3)
+                if (this.gameObject.name == "Jeff")
                 {
-                    jumpSpeed = 25;
-                }
-                if (players[0].gameObject.name == "Shooter" && distbetweenobj[0] >= 3)
-                {
-                    jumpSpeed = 12;
-                }
-                if (players[1].gameObject.name == "Shooter" && distbetweenobj[1] <= 3)
-                {
-                    jumpSpeed = 25;
-                }
-                if (players[1].gameObject.name == "Shooter" && distbetweenobj[1] >= 3)
-                {
-                    jumpSpeed = 12;
-                }
+                    #region Dontlook@thisneedtorewritelater1
+                    if (players[0].gameObject.name == "Shooter" && distbetweenobj[0] <= 3)
+                    {
+                        jumpSpeed = 25;
+                    }
+                    if (players[0].gameObject.name == "Shooter" && distbetweenobj[0] >= 3)
+                    {
+                        jumpSpeed = 12;
+                    }
+                    if (players[1].gameObject.name == "Shooter" && distbetweenobj[1] <= 3)
+                    {
+                        jumpSpeed = 25;
+                    }
+                    if (players[1].gameObject.name == "Shooter" && distbetweenobj[1] >= 3)
+                    {
+                        jumpSpeed = 12;
+                    }
 
-                #endregion
-                if (inshop == false)
-                {
+                    #endregion
+
                     if (Input.GetMouseButtonDown(0) && currentskill == 0 && punch_time < 0)
                     {
                         //anim.SetBool("Jeff_walk", false);
@@ -268,8 +269,7 @@ public class Player : MonoBehaviour
                     {
 
                         jefforiganal(this.gameObject.transform.localScale);
-                    }
-
+                    } 
                 }
                 if (this.gameObject.name == "Shooter")
                 {
@@ -309,6 +309,7 @@ public class Player : MonoBehaviour
 
                     if (Input.GetMouseButtonDown(0) && punch_time < 0 && currentskill == 0)
                     {
+                        Debug.Log("MightWork");
                         //plays attack
                         anim.Play("attack");
                         hand = Instantiate(fireobj[0], new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1,
@@ -381,10 +382,10 @@ public class Player : MonoBehaviour
                     }
                 }
             }
-            
+
         }
         #endregion
-        
+
         //this.gameObject.GetComponentInChildren<Camera>().enabled = false; (Commentated out for now -Jon)
         #region tiemrs
         if (switchtime >= -1)

@@ -111,7 +111,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: bf2c086593c8a32488fe1e6b185c2019, type: 2}
 --- !u!1 &3130748 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100022, guid: 82ac849dba0cd8e428544e560b507b63,
@@ -10975,17 +10975,17 @@ PrefabInstance:
     - target: {fileID: 4278481858214289907, guid: 573417059c8b74c40afd5f9ed5815a7c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -151.56152
+      value: -104.9
       objectReference: {fileID: 0}
     - target: {fileID: 4278481858214289907, guid: 573417059c8b74c40afd5f9ed5815a7c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 76.65519
+      value: 77.2
       objectReference: {fileID: 0}
     - target: {fileID: 4278481858214289907, guid: 573417059c8b74c40afd5f9ed5815a7c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2004.6488
+      value: 2010.44
       objectReference: {fileID: 0}
     - target: {fileID: 4278481858214289907, guid: 573417059c8b74c40afd5f9ed5815a7c,
         type: 3}
@@ -21017,7 +21017,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100314, guid: 9752eb1634b2ff742af6c88010cc98dd, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Floor
+      objectReference: {fileID: 0}
+    - target: {fileID: 100314, guid: 9752eb1634b2ff742af6c88010cc98dd, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9752eb1634b2ff742af6c88010cc98dd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -21383,6 +21387,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 03e29aeaa430d254eb1efbbd1fef7f40, type: 2}
+    - target: {fileID: 2300304, guid: 9752eb1634b2ff742af6c88010cc98dd, type: 3}
+      propertyPath: m_StitchLightmapSeams
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2300306, guid: 9752eb1634b2ff742af6c88010cc98dd, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -23937,6 +23945,34 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300108, guid: 9752eb1634b2ff742af6c88010cc98dd, type: 3}
+--- !u!1 &1788810249 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4278481858214289916, guid: 573417059c8b74c40afd5f9ed5815a7c,
+    type: 3}
+  m_PrefabInstance: {fileID: 887590125}
+  m_PrefabAsset: {fileID: 0}
+--- !u!195 &1788810250
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1788810249}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1001 &1789821840
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38653,6 +38689,11 @@ PrefabInstance:
       propertyPath: Cp
       value: 
       objectReference: {fileID: 193744029}
+    - target: {fileID: 3339497034516660367, guid: 33b7a6d43cf4d4d46be02dfc6c95be26,
+        type: 3}
+      propertyPath: activeplayer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7423189994301861977, guid: 33b7a6d43cf4d4d46be02dfc6c95be26,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -39009,6 +39050,11 @@ PrefabInstance:
       propertyPath: Cp
       value: 
       objectReference: {fileID: 193744029}
+    - target: {fileID: 8841771084222146123, guid: ee60e0476b490e74c928a1fb08de7cb2,
+        type: 3}
+      propertyPath: activeplayer
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee60e0476b490e74c928a1fb08de7cb2, type: 3}
 --- !u!1001 &2361912670974962309

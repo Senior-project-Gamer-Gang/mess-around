@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy_AI : MonoBehaviour
 {
     public float speed = 2f;
-    float attackRange = 4f;
+    float attackRange = 2f;
     public int attackDamage = 1;
     public float timeBetweenAttacks;
     public GameObject bullet;
@@ -69,10 +69,8 @@ public class Enemy_AI : MonoBehaviour
         }
         if (EnemyStates == enemystates.attacking)
         {
-            
-
             //move towards player
-            if (Vector3.Distance(transform.position, player.position) < 15 && enemyshooter == false && curplay.name != "HandMan")
+            if (Vector3.Distance(transform.position, player.position) < 15 && enemyshooter == false )
             {
                 transform.LookAt(player);
                 if (Vector3.Distance(transform.position, player.position) > attackRange)
@@ -92,47 +90,7 @@ public class Enemy_AI : MonoBehaviour
                     hittimer = 2;
                 }
             }
-            if (Vector3.Distance(transform.position, player.position +
-                player.GetComponent<CharacterController>().center) < 15 && enemyshooter == false && curplay.name == "HandMan")
-            {
-
-                transform.LookAt(player.position + player.GetComponent<CharacterController>().center);
-
-                if (Vector3.Distance(transform.position, player.position +
-                    player.GetComponent<CharacterController>().center) > attackRange)
-                {
-                    anim.SetBool("punch", false);
-                    anim.SetBool("run", true);
-                    this.gameObject.transform.position += this.gameObject.transform.forward * speed * Time.deltaTime;
-
-                }
-
-                if (Vector3.Distance(transform.position, player.position +
-                    player.GetComponent<CharacterController>().center) <= attackRange && hittimer <= 0)
-                {
-                    anim.Play("punch");
-                    anim.SetBool("run", false);
-                    anim.SetBool("punch", true);
-                    curplay.GetComponent<Player>().hp -= 1;
-                    hittimer = 2;
-                }
-            }
-
-            if (Vector3.Distance(transform.position, player.position) < 15 && enemyshooter == true && curplay.name != "HandMan")
-            {
-                transform.LookAt(player);
-                if (timer <= 0)
-                {
-                    temp = Instantiate(bullet, transform.position,
-                    Quaternion.identity);
-
-                    temp.GetComponent<Rigidbody>().AddForce(transform.forward * 500);
-                    timer = .5f;
-                }
-            }
-
-            if (Vector3.Distance(transform.position, player.position +
-                player.GetComponent<CharacterController>().center) < 15 && enemyshooter == true && curplay.name == "HandMan")
+            if (Vector3.Distance(transform.position, player.position) < 15 && enemyshooter == true)
             {
                 transform.LookAt(player.position + player.GetComponent<CharacterController>().center);
                 if (timer <= 0)

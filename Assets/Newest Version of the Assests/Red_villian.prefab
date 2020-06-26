@@ -1018,6 +1018,7 @@ GameObject:
   - component: {fileID: 2639726529444757899}
   - component: {fileID: 2639726529444757898}
   - component: {fileID: 2639726529444757897}
+  - component: {fileID: 195223657130453426}
   m_Layer: 0
   m_Name: Red_villian
   m_TagString: enemy
@@ -1112,6 +1113,28 @@ MonoBehaviour:
   curplay: {fileID: 0}
   EnemyStates: 0
   player: {fileID: 0}
+--- !u!195 &195223657130453426
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2639726529444757896}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &2639726529546335842
 GameObject:
   m_ObjectHideFlags: 0
