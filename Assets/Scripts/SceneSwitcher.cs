@@ -24,6 +24,14 @@ public class SceneSwitcher : MonoBehaviour
                 {
                     Level1Switch();
                 }
+                if (players[i].GetComponent<Player>().switcher == true && this.gameObject.name == "Level2")
+                {
+                    Level2Switch();
+                }
+                if (players[i].GetComponent<Player>().switcher == true && this.gameObject.name == "Level3")
+                {
+                    Level3Switch();
+                }
             }
             if(players[i].GetComponent<Player>().activeplayer == true && 
                 Vector3.Distance(this.gameObject.transform.position, players[i].transform.position) > 15)
@@ -32,46 +40,6 @@ public class SceneSwitcher : MonoBehaviour
             }
         }
     }
-    //void OnTriggerEnter(Collider Col)
-    //{
-        
-    //        if (Col.gameObject.tag == "Player" && this.gameObject.name == "Level1"
-    //            && Col.gameObject.GetComponent<Player>().switcher == true)
-    //        {
-    //            Debug.Log("Works");
-    //            Level1Switch();
-    //        }
-    //        if (Col.gameObject.tag == "Player" && this.gameObject.name == "Level2" 
-    //            && Col.gameObject.GetComponent<Player>().switcher == true)
-    //        {
-    //            Level2Switch();
-    //        }
-    //        if (Col.gameObject.tag == "Player" && this.gameObject.name == "Level3" 
-    //            && Col.gameObject.GetComponent<Player>().switcher == true)
-    //        {
-    //            Level3Switch();
-    //        }
-    //        if (Col.gameObject.tag == "Player" && this.gameObject.name == "Hub_Trig")
-    //        {
-    //            LevelHubSwitch();
-    //        }
-        
-    //}
-
-    void OnTriggerExit(Collider Col)
-    {
-        if (Col.gameObject.tag == "Player")
-        {
-           
-                Debug.Log("Leaving area");
-                if (Col.gameObject.GetComponent<Player>().switcher == true)
-                {
-                Col.gameObject.GetComponent<Player>().switcher = false;
-                }
-            
-        }
-    }
-
     public void Level1Switch()
     {
         SceneManager.LoadScene("Level_1");

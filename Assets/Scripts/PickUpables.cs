@@ -7,7 +7,7 @@ public class PickUpables : MonoBehaviour
     GameObject[] hpPickup;
     GameObject[] coinPickup;
     GameObject[] redcoinsPickup;
-    private float rotationSpeed = .5f;
+    private float rotationSpeed = .75f;
     public GameManagerScript GM;
     void Start()
     {

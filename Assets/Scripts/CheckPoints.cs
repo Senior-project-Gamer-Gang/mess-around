@@ -6,6 +6,7 @@ public class CheckPoints : MonoBehaviour
 {
     public GameObject[] checkpointamount = new GameObject[10];
     public Vector3 curCPpos;
+    public GameObject lastchecked;
     void Start()
     {
         //adds all the checkpoints to the array 
@@ -24,6 +25,7 @@ public class CheckPoints : MonoBehaviour
                 {
                     curCPpos = Cp.transform.position;
                     Cp.GetComponent<Checkpoint_Collider>().triggered = false;
+                    lastchecked = Cp;
                 }
             }
         }

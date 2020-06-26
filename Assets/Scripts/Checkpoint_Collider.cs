@@ -7,15 +7,21 @@ public class Checkpoint_Collider : MonoBehaviour
     public bool triggered;
     Animator anim;
     ParticleSystem PS;
+    GameObject CheckPoint;
     void Start()
     {
+        CheckPoint = GameObject.Find("CheckPoint");
         PS = transform.GetChild(0).GetComponent<ParticleSystem>();
         anim = GetComponent<Animator>();
         anim.Play("Idle");
+        if(triggered == true)
+        {
+            PS.Play();
+        }
     }
         void Update()
     {
-        if(triggered == true)
+        if(triggered == true && this.gameObject != CheckPoint.GetComponent<CheckPoints>().lastchecked)
         {
             PS.Play();
             anim.Play("Checkpoint");
