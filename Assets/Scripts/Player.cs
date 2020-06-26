@@ -309,7 +309,6 @@ public class Player : MonoBehaviour
 
                     if (Input.GetMouseButtonDown(0) && punch_time < 0 && currentskill == 0)
                     {
-                        Debug.Log("MightWork");
                         //plays attack
                         anim.Play("attack");
                         hand = Instantiate(fireobj[0], new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1,

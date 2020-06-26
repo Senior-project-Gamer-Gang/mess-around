@@ -18,6 +18,7 @@ public class SceneSwitcher : MonoBehaviour
             if(players[i].GetComponent<Player>().activeplayer == true &&
                 Vector3.Distance(this.gameObject.transform.position, players[i].transform.position) < 15)
             {
+                Debug.Log(players[i].name);
                 text.text = "Press Q to go to " + this.gameObject.name;
                 text.enabled = true;
                 if(players[i].GetComponent<Player>().switcher == true && this.gameObject.name == "Level1")
@@ -32,12 +33,13 @@ public class SceneSwitcher : MonoBehaviour
                 {
                     Level3Switch();
                 }
+                if (players[i].GetComponent<Player>().activeplayer == true &&
+                Vector3.Distance(this.gameObject.transform.position, players[i].transform.position) > 12)
+                {
+                    text.enabled = false;
+                }
             }
-            if(players[i].GetComponent<Player>().activeplayer == true && 
-                Vector3.Distance(this.gameObject.transform.position, players[i].transform.position) > 15)
-            {
-                text.enabled = false;
-            }
+            
         }
     }
     public void Level1Switch()
