@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     #region topValues
@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
     public float[] distbetweenobj = new float[2];
     public bool activeplayer;
     public float switchtime;
+    public bool switcher;
+    Scene curscene;
 
     //this is just a temp 
     public GameObject[] fireobj = new GameObject[2];
@@ -139,7 +141,7 @@ public class Player : MonoBehaviour
     {
         DeathObjs = GameObject.FindGameObjectsWithTag("Death");
 
-
+        curscene = SceneManager.GetActiveScene();
         #region SwitchPlayer
         distbetweenobj[0] = Vector3.Distance(players[0].transform.position, transform.position);
 
@@ -155,6 +157,10 @@ public class Player : MonoBehaviour
                     inshop = true;
                     gameManager.GetComponent<GameManagerScript>().ShopOpen();
                 }
+            }
+            if(Input.GetKeyDown(KeyCode.Q) && curscene.name == "Hub")
+            {
+                switcher = true;
             }
             if (inshop == false)
             {
