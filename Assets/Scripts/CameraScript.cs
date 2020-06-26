@@ -61,7 +61,7 @@ public class CameraScript : MonoBehaviour
                 if (isFocused)
                 {
                     transform.position = cameraPivot.transform.position; //Become the cameraPivot position
-                    zoomDistance += Input.GetAxis("Mouse ScrollWheel") * zoomSpeed; //Allow mouse to manipulate the zoomDistance
+                    zoomDistance -= Input.GetAxis("Mouse ScrollWheel") * zoomSpeed; //Allow mouse to manipulate the zoomDistance
 
                     if (pivotDistance >= zoomDistance) //If by some chance the pivotDistance gets larger than zoomDistance, exit the focused state
                     {
