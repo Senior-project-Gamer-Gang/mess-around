@@ -58,7 +58,10 @@ public class SceneSwitcher : MonoBehaviour
     {
         SceneManager.LoadScene("Hub");
     }
-
+    public void LevelMenuSwitch()
+    {
+        SceneManager.LoadScene("Main_Menu");
+    }
 
 }
 
