@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class GameManagerScript : MonoBehaviour
 {
     public int pagesCollected;
@@ -15,22 +15,33 @@ public class GameManagerScript : MonoBehaviour
     public GameObject ShopUI;
     GameObject ShopKeeper;
     GameObject[] Players;
+    int sceneID;
     // Start is called before the first frame update
     void Start()
     {
-        Players = GameObject.FindGameObjectsWithTag("Player");
-        ShopKeeper = GameObject.FindGameObjectWithTag("ShopKeeper");
+       
+        this.gameObject.transform.position = new Vector3(-188.1165f, 72.53726f, 2067.603f);
     }
-
-    // Update is called once per frame
     void Update()
     {
+
+        sceneID = SceneManager.GetActiveScene().buildIndex;
+        if (sceneID == 2)
+        {
+            ShopKeeper = GameObject.FindGameObjectWithTag("ShopKeeper");
+            Players = GameObject.FindGameObjectsWithTag("Player");
+        }
         pagesText.text = "Pages Aquired: " + pagesCollected.ToString();
         CoinTXT.text = "Coin amount: " + coins.ToString();
-        if (ComicPage_RedCoin != null)
+        if (ComicPage_RedCoin != null && sceneID == 2)
         {
+            if (redcoins < 8)
+            {
+                ComicPage_RedCoin.SetActive(false);
+            }
             if (redcoins >= 8)
             {
+                ComicPage_RedCoin.transform.position = new Vector3(-172.4f, 5.23674f, -188.1165f);
                 ComicPage_RedCoin.SetActive(true);
             }
         }

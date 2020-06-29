@@ -14,16 +14,16 @@ public class SceneSwitcher : MonoBehaviour
         players = GameObject.FindGameObjectsWithTag("Player");
     }
     void Update()
-    {if (this.gameObject.name != "Canvas")
+    {
+        if (this.gameObject.name != "Canvas")
         {
             for (int i = 0; i < players.Length; i++)
             {
                 if (players[i].GetComponent<Player>().activeplayer == true &&
                     Vector3.Distance(this.gameObject.transform.position, players[i].transform.position) < 15)
                 {
-                    Debug.Log(players[i].name);
-                    text.text = "Press Q to go to " + this.gameObject.name;
                     text.enabled = true;
+                    text.text = "Press Q to go to " + this.gameObject.name;
                     if (players[i].GetComponent<Player>().switcher == true && this.gameObject.name == "Level1")
                     {
                         Level1Switch();

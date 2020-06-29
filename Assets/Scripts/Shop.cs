@@ -13,11 +13,12 @@ public class Shop : MonoBehaviour
     void Start()
     {
         shopkeeper = GameObject.FindGameObjectWithTag("ShopKeeper");
+        GameManagerOBJ = GameObject.FindGameObjectWithTag("GameManager");
     }
 
     void Update()
     {
-        GameManagerOBJ = GameObject.FindGameObjectWithTag("GameManager");
+        
         for (int i = 0; i < items.Count; i++)
         {
             int temp = 70 * (i +1);
