@@ -15,6 +15,7 @@ public class GameManagerScript : MonoBehaviour
     public GameObject ShopUI;
     GameObject ShopKeeper;
     GameObject[] Players;
+    int[] playersHP;
     int sceneID;
     // Start is called before the first frame update
     void Start()
@@ -24,7 +25,10 @@ public class GameManagerScript : MonoBehaviour
     }
     void Update()
     {
-
+        //for(int i = 0; i < Players.Length;i++)
+        //{
+        //    playersHP[i] = Players[i].GetComponent<Player>().hp;
+        //}
         sceneID = SceneManager.GetActiveScene().buildIndex;
         if (sceneID == 2)
         {

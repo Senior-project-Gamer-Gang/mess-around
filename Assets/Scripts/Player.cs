@@ -61,6 +61,7 @@ public class Player : MonoBehaviour
     Rigidbody rb;
     bool isrigidbody;
     int currentskill = 0;
+    GameObject healthbar;
 
 
 
@@ -73,6 +74,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        healthbar = GameObject.FindGameObjectWithTag("HealthBar");
         HPtext = GameObject.FindGameObjectWithTag("HPTXT").GetComponent<Text>();
         ShopKeeper = GameObject.FindGameObjectWithTag("ShopKeeper");
 
@@ -100,7 +102,7 @@ public class Player : MonoBehaviour
         {
             speed = 15.0f;
             jumpSpeed = 15;
-            hp = 3;
+            hp = 4;
             anim.Play("Jeff_idle");
         }
         if (this.gameObject.name == "Shooter")
@@ -108,7 +110,7 @@ public class Player : MonoBehaviour
             anim.Play("idle");
             speed = 10;
             jumpSpeed = 17;
-            hp = 4;
+            hp = 5;
         }
         if (this.gameObject.name == "HandMan")
         {
@@ -149,6 +151,7 @@ public class Player : MonoBehaviour
         //switchs player
         if (activeplayer == true)
         {
+            
             if (ShopKeeper != null)
             {
                 if (Vector3.Distance(this.gameObject.transform.position, ShopKeeper.transform.position) <= 5
@@ -201,6 +204,7 @@ public class Player : MonoBehaviour
             {
                 if (this.gameObject.name == "Jeff")
                 {
+                    healthbar.GetComponent<HealthBarScript>().HPChange(hp, 4);
                     #region Dontlook@thisneedtorewritelater1
                     if (players[0].gameObject.name == "Shooter" && distbetweenobj[0] <= 3)
                     {
@@ -282,7 +286,7 @@ public class Player : MonoBehaviour
                 }
                 if (this.gameObject.name == "Shooter")
                 {
-
+                    healthbar.GetComponent<HealthBarScript>().HPChange(hp, 5);
                     #region Dontlook@thisneedtorewritelater2
                     if (players[0].gameObject.name == "HandMan" && distbetweenobj[0] <= 3)
                     {
@@ -315,7 +319,7 @@ public class Player : MonoBehaviour
                 }
                 if (this.gameObject.name == "HandMan")
                 {
-
+                    healthbar.GetComponent<HealthBarScript>().HPChange(hp, 5);
                     if (Input.GetMouseButtonDown(0) && punch_time < 0 && currentskill == 0)
                     {
                         //plays attack

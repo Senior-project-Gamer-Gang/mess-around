@@ -21,6 +21,7 @@ TagManager:
   - Pause_Page
   - HPTXT
   - purpleCoinPage
+  - HealthBar
   layers:
   - Default
   - TransparentFX
