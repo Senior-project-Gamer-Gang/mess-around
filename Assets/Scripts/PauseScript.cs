@@ -13,16 +13,17 @@ public class PauseScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //PauseObject = GameObject.FindGameObjectWithTag("PauseObject");
         isPaused = false;
-        //PauseObject = GameObject.FindGameObjectWithTag("Pause_Page");
-        //PauseObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (curscene.name != "Main_Menu")
+        if (curscene.name == "Main_Menu")
+        {
+            isPaused = false;
+        }
+            if (curscene.name != "Main_Menu")
         {
             if (isPaused)
             {

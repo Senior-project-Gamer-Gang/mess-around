@@ -19,6 +19,7 @@ TagManager:
   - ShopKeeper
   - GroundPoundable
   - Pause_Page
+  - HPTXT
   layers:
   - Default
   - TransparentFX

@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     private bool moving;
     public GameObject[] DeathObjs = new GameObject[50];
 
-    public Text text;
+    Text HPtext;
     float hit_timer;
     bool playerDead;
     public GameObject[] players = new GameObject[2];
@@ -73,7 +73,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-
+        HPtext = GameObject.FindGameObjectWithTag("HPTXT").GetComponent<Text>();
         ShopKeeper = GameObject.FindGameObjectWithTag("ShopKeeper");
 
         //gets the CharacterController 
@@ -190,7 +190,7 @@ public class Player : MonoBehaviour
             }
             #endregion
 
-            text.text = this.hp.ToString();
+            HPtext.text = this.hp.ToString();
 
             //this.gameObject.GetComponentInChildren<Camera>().enabled = true; (Commented out for now -Jon)
             //Tells the camera to now focus on this active player -Jon

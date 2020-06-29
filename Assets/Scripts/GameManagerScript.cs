@@ -20,7 +20,6 @@ public class GameManagerScript : MonoBehaviour
     {
         Players = GameObject.FindGameObjectsWithTag("Player");
         ShopKeeper = GameObject.FindGameObjectWithTag("ShopKeeper");
-        DontDestroyOnLoad(gameObject);
     }
 
     // Update is called once per frame

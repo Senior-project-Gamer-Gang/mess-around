@@ -27,6 +27,7 @@ public class CameraScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        pauseObject = GameObject.Find("GameManager");
         prevPosition = transform.position;
     }
 

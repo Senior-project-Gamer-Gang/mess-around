@@ -7,39 +7,43 @@ public class SceneSwitcher : MonoBehaviour
 {
     GameObject[] players;
     public Text text;
+    GameObject gamemanager;
     void Start()
     {
+        gamemanager = GameObject.Find("GameManager");
         players = GameObject.FindGameObjectsWithTag("Player");
     }
     void Update()
-    {
-        for(int i = 0; i < players.Length;i++)
+    {if (this.gameObject.name != "Canvas")
         {
-            if(players[i].GetComponent<Player>().activeplayer == true &&
-                Vector3.Distance(this.gameObject.transform.position, players[i].transform.position) < 15)
+            for (int i = 0; i < players.Length; i++)
             {
-                Debug.Log(players[i].name);
-                text.text = "Press Q to go to " + this.gameObject.name;
-                text.enabled = true;
-                if(players[i].GetComponent<Player>().switcher == true && this.gameObject.name == "Level1")
-                {
-                    Level1Switch();
-                }
-                if (players[i].GetComponent<Player>().switcher == true && this.gameObject.name == "Level2")
-                {
-                    Level2Switch();
-                }
-                if (players[i].GetComponent<Player>().switcher == true && this.gameObject.name == "Level3")
-                {
-                    Level3Switch();
-                }
                 if (players[i].GetComponent<Player>().activeplayer == true &&
-                Vector3.Distance(this.gameObject.transform.position, players[i].transform.position) > 12)
+                    Vector3.Distance(this.gameObject.transform.position, players[i].transform.position) < 15)
                 {
-                    text.enabled = false;
+                    Debug.Log(players[i].name);
+                    text.text = "Press Q to go to " + this.gameObject.name;
+                    text.enabled = true;
+                    if (players[i].GetComponent<Player>().switcher == true && this.gameObject.name == "Level1")
+                    {
+                        Level1Switch();
+                    }
+                    if (players[i].GetComponent<Player>().switcher == true && this.gameObject.name == "Level2")
+                    {
+                        Level2Switch();
+                    }
+                    if (players[i].GetComponent<Player>().switcher == true && this.gameObject.name == "Level3")
+                    {
+                        Level3Switch();
+                    }
+                    if (players[i].GetComponent<Player>().activeplayer == true &&
+                    Vector3.Distance(this.gameObject.transform.position, players[i].transform.position) > 12)
+                    {
+                        text.enabled = false;
+                    }
                 }
+
             }
-            
         }
     }
     public void Level1Switch()
@@ -60,6 +64,7 @@ public class SceneSwitcher : MonoBehaviour
     }
     public void LevelMenuSwitch()
     {
+        gamemanager.GetComponent<PauseScript>().isPaused = false;
         SceneManager.LoadScene("Main_Menu");
     }
 
