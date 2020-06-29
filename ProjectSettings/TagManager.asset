@@ -18,6 +18,7 @@ TagManager:
   - Heart
   - ShopKeeper
   - GroundPoundable
+  - Pause_Page
   layers:
   - Default
   - TransparentFX

@@ -7,6 +7,7 @@ public class GameManagerScript : MonoBehaviour
 {
     public int pagesCollected;
     public Text pagesText;
+    public Text CoinTXT;
     //temp amount just for texting purposes 
     public int coins = 200;
     public int redcoins;
@@ -25,7 +26,8 @@ public class GameManagerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        pagesText.text = "x" + pagesCollected.ToString();
+        pagesText.text = "Pages Aquired: " + pagesCollected.ToString();
+        CoinTXT.text = "Coin amount: " + coins.ToString();
         if (ComicPage_RedCoin != null)
         {
             if (redcoins >= 8)

@@ -7,6 +7,7 @@ public class PauseScript : MonoBehaviour
 {
     public bool isPaused; //by default not paused
     public Text pausedText;
+   
     public GameObject PauseObject;
     Scene curscene;
     // Start is called before the first frame update
@@ -14,6 +15,8 @@ public class PauseScript : MonoBehaviour
     {
         //PauseObject = GameObject.FindGameObjectWithTag("PauseObject");
         isPaused = false;
+        //PauseObject = GameObject.FindGameObjectWithTag("Pause_Page");
+        //PauseObject.SetActive(false);
     }
 
     // Update is called once per frame
