@@ -9,21 +9,16 @@ public class PauseScript : MonoBehaviour
     public Text pausedText;
    
     public GameObject PauseObject;
-    Scene curscene;
-    // Start is called before the first frame update
+    int sceneID;
+
     void Start()
     {
         isPaused = false;
     }
-
-    // Update is called once per frame
     void Update()
     {
-        if (curscene.name == "Main_Menu")
-        {
-            isPaused = false;
-        }
-            if (curscene.name != "Main_Menu")
+        sceneID = SceneManager.GetActiveScene().buildIndex;
+            if (sceneID != 0)
         {
             if (isPaused)
             {
