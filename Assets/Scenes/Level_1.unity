@@ -40546,6 +40546,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 356ee3425bf94eb40a57977a5b175a22, type: 3}
+--- !u!1 &3515230694434771029 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3515230694274254157, guid: 356ee3425bf94eb40a57977a5b175a22,
+    type: 3}
+  m_PrefabInstance: {fileID: 3515230694434771028}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4085003238016257903
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41272,6 +41278,11 @@ PrefabInstance:
       propertyPath: ShopUI
       value: 
       objectReference: {fileID: 1444040706959202191}
+    - target: {fileID: 8732883835271317236, guid: e3ab9719705a64447beebd2846da2e17,
+        type: 3}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 3515230694434771029}
     - target: {fileID: 8732883835271317237, guid: e3ab9719705a64447beebd2846da2e17,
         type: 3}
       propertyPath: pausedText

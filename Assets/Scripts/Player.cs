@@ -74,7 +74,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        healthbar = GameObject.FindGameObjectWithTag("HealthBar");
+        
         HPtext = GameObject.FindGameObjectWithTag("HPTXT").GetComponent<Text>();
         ShopKeeper = GameObject.FindGameObjectWithTag("ShopKeeper");
 
@@ -141,6 +141,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        healthbar = GameObject.FindGameObjectWithTag("HealthBar");
         DeathObjs = GameObject.FindGameObjectsWithTag("Death");
 
         curscene = SceneManager.GetActiveScene();
@@ -204,7 +205,8 @@ public class Player : MonoBehaviour
             {
                 if (this.gameObject.name == "Jeff")
                 {
-                    healthbar.GetComponent<HealthBarScript>().HPChange(hp, 4);
+                    if(healthbar != null)
+                        healthbar.GetComponent<HealthBarScript>().HPChange(hp, 4);
                     #region Dontlook@thisneedtorewritelater1
                     if (players[0].gameObject.name == "Shooter" && distbetweenobj[0] <= 3)
                     {
@@ -286,7 +288,8 @@ public class Player : MonoBehaviour
                 }
                 if (this.gameObject.name == "Shooter")
                 {
-                    healthbar.GetComponent<HealthBarScript>().HPChange(hp, 5);
+                    if (healthbar != null)
+                        healthbar.GetComponent<HealthBarScript>().HPChange(hp, 5);
                     #region Dontlook@thisneedtorewritelater2
                     if (players[0].gameObject.name == "HandMan" && distbetweenobj[0] <= 3)
                     {
@@ -319,7 +322,8 @@ public class Player : MonoBehaviour
                 }
                 if (this.gameObject.name == "HandMan")
                 {
-                    healthbar.GetComponent<HealthBarScript>().HPChange(hp, 5);
+                    if (healthbar != null)
+                        healthbar.GetComponent<HealthBarScript>().HPChange(hp, 5);
                     if (Input.GetMouseButtonDown(0) && punch_time < 0 && currentskill == 0)
                     {
                         //plays attack

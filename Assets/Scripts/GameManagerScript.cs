@@ -15,21 +15,24 @@ public class GameManagerScript : MonoBehaviour
     public GameObject ShopUI;
     GameObject ShopKeeper;
     GameObject[] Players;
-    int[] playersHP;
+    public GameObject healthBar;
     int sceneID;
-    // Start is called before the first frame update
     void Start()
     {
-       
         this.gameObject.transform.position = new Vector3(-188.1165f, 72.53726f, 2067.603f);
     }
     void Update()
     {
-        //for(int i = 0; i < Players.Length;i++)
-        //{
-        //    playersHP[i] = Players[i].GetComponent<Player>().hp;
-        //}
+        if (sceneID != 0)
+        {
+            healthBar.SetActive(true);
+        }
         sceneID = SceneManager.GetActiveScene().buildIndex;
+        if (sceneID == 0)
+        {
+            healthBar.SetActive(false);
+        }
+       
         if (sceneID == 2)
         {
             ShopKeeper = GameObject.FindGameObjectWithTag("ShopKeeper");
@@ -52,15 +55,15 @@ public class GameManagerScript : MonoBehaviour
     }
     public void ShopOpen()
     {
-       
+
         ShopKeeper.GetComponent<DoritoManScript>().Talking();
         ShopUI.SetActive(true);
     }
     public void ShopClose()
     {
-        for(int i = 0; i < Players.Length; i++)
+        for (int i = 0; i < Players.Length; i++)
         {
-            if(Players[i].GetComponent<Player>().inshop == true)
+            if (Players[i].GetComponent<Player>().inshop == true)
             {
                 Players[i].GetComponent<Player>().inshop = false;
             }
