@@ -6,7 +6,6 @@ public class ComicPageScript : MonoBehaviour
 {
 
     private float rotationSpeed = .5f;
-    public GameObject pauseObject;
     private bool isPaused;
     private GameObject gameManager;
 
@@ -19,7 +18,7 @@ public class ComicPageScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        isPaused = pauseObject.GetComponent<PauseScript>().isPaused;
+        isPaused = gameManager.GetComponent<PauseScript>().isPaused;
         if (!isPaused)
         {
             transform.Rotate(new Vector3(0, 1, 0), rotationSpeed);

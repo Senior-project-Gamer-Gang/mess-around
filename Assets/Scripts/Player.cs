@@ -223,7 +223,7 @@ public class Player : MonoBehaviour
 
                     if (Input.GetMouseButtonDown(0) && currentskill == 0 && punch_time < 0)
                     {
-                        //anim.SetBool("Jeff_walk", false);
+                        
                         anim.SetBool("Jeff_ball", false);
                         anim.Play("Jeff_punch");
                         if (rb != null)
@@ -269,7 +269,16 @@ public class Player : MonoBehaviour
                     {
 
                         jefforiganal(this.gameObject.transform.localScale);
-                    } 
+                    }
+                    if (activeplayer == true && isrigidbody == true && currentskill == 1)
+                    {
+                        float moveHorizontal = Input.GetAxis("Horizontal");
+                        float moveVertical = Input.GetAxis("Vertical");
+
+                        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+
+                        rb.AddForce(movement);
+                    }
                 }
                 if (this.gameObject.name == "Shooter")
                 {
@@ -407,11 +416,11 @@ public class Player : MonoBehaviour
             anim.SetBool("Jeff_walk", false);
         if (activeplayer == true && isrigidbody == false)
         {
-            if (Input.GetKeyDown(KeyCode.Keypad0))
+            if (Input.GetKeyDown(KeyCode.Keypad0) || Input.GetKeyDown(KeyCode.Alpha0))
                 currentskill = 0;
-            if (Input.GetKeyDown(KeyCode.Keypad1))
+            if (Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1))
                 currentskill = 1;
-            if (Input.GetKeyDown(KeyCode.Keypad2))
+            if (Input.GetKeyDown(KeyCode.Keypad2) || Input.GetKeyDown(KeyCode.Alpha2))
                 currentskill = 2;
             //moves the player 
             float yStore = moveDirection.y; //Saving the y data before it gets manipulated -Jon
@@ -493,15 +502,7 @@ public class Player : MonoBehaviour
 
 
             }
-            if (activeplayer == true && isrigidbody == true && currentskill == 1)
-            {
-                float moveHorizontal = Input.GetAxis("Horizontal");
-                float moveVertical = Input.GetAxis("Vertical");
-
-                Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-
-                rb.AddForce(movement);
-            }
+            
             if (characterController.isGrounded == false)
             {
                 characterController.SimpleMove(Vector3.forward * 0);
