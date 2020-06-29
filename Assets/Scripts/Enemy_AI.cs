@@ -18,7 +18,7 @@ public class Enemy_AI : MonoBehaviour
     Animator anim;
     float WaitTime;
     public GameObject curplay;
-
+    GameObject gamemanager;
     bool IsAttacking;
 
     public enum enemystates { idle, wondering, attacking }
@@ -28,6 +28,7 @@ public class Enemy_AI : MonoBehaviour
 
     void Start()
     {
+        gamemanager = GameObject.FindGameObjectWithTag("GameManager");
         anim = GetComponent<Animator>();
         anim.Play("idle");
     }
@@ -35,79 +36,82 @@ public class Enemy_AI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (EnemyStates == enemystates.idle)
+        if (gamemanager.GetComponent<PauseScript>().isPaused == false)
         {
-            if (wonderTime <= 0)
+            if (EnemyStates == enemystates.idle)
             {
-                anim.SetBool("run", false);
-                WaitTime = Random.Range(3.0f, 5.0f);
-                wonderTime = Random.Range(5.0f, 15.0f);
-                wonder();
-
-            }
-            if (WaitTime <= 0)
-            {
-                EnemyStates = enemystates.wondering;
-            }
-        }
-
-        if (EnemyStates == enemystates.wondering)
-        {
-            if (WaitTime <= 0 && wonderTime > 0)
-            {
-                anim.SetBool("idle", false);
-                anim.Play("run");
-
-                transform.Translate(Vector3.forward * .04f);
-
-            }
-            if (wonderTime <= 0)
-            {
-                EnemyStates = enemystates.idle;
-            }
-
-        }
-        if (EnemyStates == enemystates.attacking)
-        {
-            //move towards player
-            if (Vector3.Distance(transform.position, player.position) < 15 && enemyshooter == false )
-            {
-                transform.LookAt(player);
-                if (Vector3.Distance(transform.position, player.position) > attackRange)
+                if (wonderTime <= 0)
                 {
-                    this.gameObject.transform.position += this.gameObject.transform.forward * speed * Time.deltaTime;
-                    anim.Play("run");
-                    anim.SetBool("run", true);
-                    anim.SetBool("punch", false);
-                }
-
-                if (Vector3.Distance(transform.position, player.position) <= attackRange && hittimer <= 0)
-                {
-                    anim.Play("punch");
                     anim.SetBool("run", false);
-                    anim.SetBool("punch", true);
-                    curplay.GetComponent<Player>().hp -= 1;
-                    hittimer = 2;
+                    WaitTime = Random.Range(3.0f, 5.0f);
+                    wonderTime = Random.Range(5.0f, 15.0f);
+                    wonder();
+
                 }
-            }
-            if (Vector3.Distance(transform.position, player.position) < 15 && enemyshooter == true)
-            {
-                transform.LookAt(player.position + player.GetComponent<CharacterController>().center);
-                if (timer <= 0)
+                if (WaitTime <= 0)
                 {
-                    temp = Instantiate(bullet, transform.position,
-                    Quaternion.identity);
-
-                    temp.GetComponent<Rigidbody>().AddForce(transform.forward * 500);
-                    timer = .5f;
+                    EnemyStates = enemystates.wondering;
                 }
             }
 
-            if (Vector3.Distance(transform.position, player.position) > 15)
+            if (EnemyStates == enemystates.wondering)
             {
-                EnemyStates = enemystates.idle;
-            }
+                if (WaitTime <= 0 && wonderTime > 0)
+                {
+                    anim.SetBool("idle", false);
+                    anim.Play("run");
 
+                    transform.Translate(Vector3.forward * .04f);
+
+                }
+                if (wonderTime <= 0)
+                {
+                    EnemyStates = enemystates.idle;
+                }
+
+            }
+            if (EnemyStates == enemystates.attacking)
+            {
+                //move towards player
+                if (Vector3.Distance(transform.position, player.position) < 15 && enemyshooter == false)
+                {
+                    transform.LookAt(player);
+                    if (Vector3.Distance(transform.position, player.position) > attackRange)
+                    {
+                        this.gameObject.transform.position += this.gameObject.transform.forward * speed * Time.deltaTime;
+                        anim.Play("run");
+                        anim.SetBool("run", true);
+                        anim.SetBool("punch", false);
+                    }
+
+                    if (Vector3.Distance(transform.position, player.position) <= attackRange && hittimer <= 0)
+                    {
+                        anim.Play("punch");
+                        anim.SetBool("run", false);
+                        anim.SetBool("punch", true);
+                        curplay.GetComponent<Player>().hp -= 1;
+                        hittimer = 2;
+                    }
+                }
+                if (Vector3.Distance(transform.position, player.position) < 15 && enemyshooter == true)
+                {
+                    transform.LookAt(player.position + player.GetComponent<CharacterController>().center);
+                    if (timer <= 0)
+                    {
+                        temp = Instantiate(bullet, transform.position,
+                        Quaternion.identity);
+
+                        temp.GetComponent<Rigidbody>().AddForce(transform.forward * 500);
+                        timer = .5f;
+                    }
+                }
+
+                if (Vector3.Distance(transform.position, player.position) > 15)
+                {
+                    EnemyStates = enemystates.idle;
+                }
+
+            }
         }
         #region Timers
         WaitTime -= Time.deltaTime;
