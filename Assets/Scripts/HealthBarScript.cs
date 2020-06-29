@@ -16,6 +16,14 @@ public class HealthBarScript : MonoBehaviour
     void Update()
     {
         healthbar.value = currentHP;
+        if(currentHP <  healthbar.maxValue / 2)
+        {
+            gameObject.transform.GetChild(1).transform.GetChild(0).GetComponent<Image>().color = Color.red;
+        }
+        if (currentHP > healthbar.maxValue / 2)
+        {
+            gameObject.transform.GetChild(1).transform.GetChild(0).GetComponent<Image>().color = Color.green;
+        }
     }
     public void HPChange(float hp, float maxHP)
     {
