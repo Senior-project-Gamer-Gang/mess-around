@@ -385,9 +385,18 @@ public class Player : MonoBehaviour
 
                             badobj.GetComponent<Death>().lose_Hp = false;
                         }
-                        if (badobj.GetComponent<Death>().IsFloor == false)
+                        if (badobj.GetComponent<Death>().IsFloor == false && badobj.GetComponent<Death>().IsCar == false)
                         {
                             Destroy(badobj);
+                            if (hit_timer <= 0)
+                            {
+                                hp -= 1;
+                                hit_timer = 2;
+                            }
+                            badobj.GetComponent<Death>().lose_Hp = false;
+                        }
+                        if(badobj.GetComponent<Death>().IsCar == true)
+                        {
                             if (hit_timer <= 0)
                             {
                                 hp -= 1;
