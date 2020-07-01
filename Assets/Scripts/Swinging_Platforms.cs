@@ -19,16 +19,26 @@ public class Swinging_Platforms : MonoBehaviour
     Vector3 dir;
 
 
+    public bool rotate;
+
     float startpoint;
     public float upamount;
     float endpoint;
     bool up = true, down;
-    float upspeed = 5.5f;
+    public float upspeed = 5.5f;
     void Start()
     {
-        startpoint = this.gameObject.transform.position.y;
-
-        endpoint = startpoint + upamount;
+        if (upanddown == true)
+        {
+            startpoint = this.gameObject.transform.position.y;
+            endpoint = startpoint + upamount;
+        }
+        if(rotate == true)
+        {
+            startpoint = this.gameObject.transform.position.x;
+            endpoint = startpoint + upamount;
+        }
+        
         //sets it == to the gameobjects transform rotation
         startPos = transform.rotation;
     }
@@ -36,7 +46,7 @@ public class Swinging_Platforms : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (upanddown == false)
+        if (upanddown == false && rotate == false)
         {
             dir = this.transform.position;
             a = startPos;
@@ -52,7 +62,7 @@ public class Swinging_Platforms : MonoBehaviour
             if(up == true)
             {
                 this.gameObject.transform.Translate(new Vector3(0.0f, 1.0f * Time.deltaTime * upspeed, 0.0f), Space.World);
-                if(this.gameObject.transform.position.y >= endpoint)
+                if(this.gameObject.transform.rotation.y >= endpoint)
                 {
                     up = false;
                     down = true;
@@ -61,6 +71,28 @@ public class Swinging_Platforms : MonoBehaviour
             if (down == true)
             {
                 this.gameObject.transform.Translate(new Vector3(0.0f, -1.0f * Time.deltaTime * upspeed, 0.0f), Space.World);
+                if (this.gameObject.transform.rotation.y <= startpoint)
+                {
+                    down = false;
+                    up = true;
+                }
+            }
+        }
+        if(rotate == true)
+        {
+
+            if (up == true)
+            {
+                this.gameObject.transform.Rotate(new Vector3(0.0f, 1.0f * Time.deltaTime * upspeed, 0.0f), Space.World);
+                if (this.gameObject.transform.rotation.y >= endpoint)
+                {
+                    up = false;
+                    down = true;
+                }
+            }
+            if (down == true)
+            {
+                this.gameObject.transform.Rotate(new Vector3(0.0f, -1.0f * Time.deltaTime * upspeed, 0.0f), Space.World);
                 if (this.gameObject.transform.position.y <= startpoint)
                 {
                     down = false;

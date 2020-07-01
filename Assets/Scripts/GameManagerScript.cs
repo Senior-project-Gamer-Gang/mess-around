@@ -38,8 +38,8 @@ public class GameManagerScript : MonoBehaviour
             ShopKeeper = GameObject.FindGameObjectWithTag("ShopKeeper");
             Players = GameObject.FindGameObjectsWithTag("Player");
         }
-        pagesText.text = "Pages Aquired: " + pagesCollected.ToString();
-        CoinTXT.text = "Coin amount: " + coins.ToString();
+        pagesText.text = pagesCollected.ToString();
+        CoinTXT.text = coins.ToString();
         if (ComicPage_RedCoin != null && sceneID == 2)
         {
             if (redcoins < 8)

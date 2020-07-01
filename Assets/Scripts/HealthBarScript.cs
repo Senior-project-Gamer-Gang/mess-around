@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class HealthBarScript : MonoBehaviour
 {
     private Slider healthbar;
@@ -12,6 +12,7 @@ public class HealthBarScript : MonoBehaviour
     public Image curimage;
     GameObject[] Player;
     GameObject curplayer;
+    int sceneID;
     void Awake()
     {
         healthbar = GetComponent<Slider>();
@@ -20,71 +21,75 @@ public class HealthBarScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Player = GameObject.FindGameObjectsWithTag("Player");
-        healthbar.value = currentHP;
-        if (HalfHP + 1 < currentHP)
+        sceneID = SceneManager.GetActiveScene().buildIndex;
+        if (sceneID != 0)
         {
-            gameObject.transform.GetChild(1).transform.GetChild(0).GetComponent<Image>().color = Color.green;
-        }
-        if (currentHP == HalfHP + 1 || currentHP == HalfHP || currentHP == HalfHP - 1)
-        {
-            gameObject.transform.GetChild(1).transform.GetChild(0).GetComponent<Image>().color = Color.yellow;
-        }
-        if (currentHP < HalfHP - 1)
-        {
-            gameObject.transform.GetChild(1).transform.GetChild(0).GetComponent<Image>().color = Color.red;
-        }
+            Player = GameObject.FindGameObjectsWithTag("Player");
+            healthbar.value = currentHP;
+            if (HalfHP + 1 < currentHP)
+            {
+                gameObject.transform.GetChild(1).transform.GetChild(0).GetComponent<Image>().color = Color.green;
+            }
+            if (currentHP == HalfHP + 1 || currentHP == HalfHP || currentHP == HalfHP - 1)
+            {
+                gameObject.transform.GetChild(1).transform.GetChild(0).GetComponent<Image>().color = Color.yellow;
+            }
+            if (currentHP < HalfHP - 1)
+            {
+                gameObject.transform.GetChild(1).transform.GetChild(0).GetComponent<Image>().color = Color.red;
+            }
 
-        for (int i = 0; i < Player.Length; i++)
-        {
-            if (Player[i].GetComponent<Player>().activeplayer == true)
+            for (int i = 0; i < Player.Length; i++)
             {
-                curplayer = Player[i];
+                if (Player[i].GetComponent<Player>().activeplayer == true)
+                {
+                    curplayer = Player[i];
+                }
             }
-        }
-        if (curplayer.name == "HandMan")
-        {
-            if (HalfHP + 1 < currentHP)
+            if (curplayer.name == "HandMan")
             {
-                curimage.sprite = HealthBarList[3];
+                if (HalfHP + 1 < currentHP)
+                {
+                    curimage.sprite = HealthBarList[3];
+                }
+                if (currentHP == HalfHP + 1 || currentHP == HalfHP || currentHP == HalfHP - 1)
+                {
+                    curimage.sprite = HealthBarList[4];
+                }
+                if (currentHP < HalfHP - 1)
+                {
+                    curimage.sprite = HealthBarList[5];
+                }
             }
-            if (currentHP == HalfHP + 1 || currentHP == HalfHP || currentHP == HalfHP - 1)
+            if (curplayer.name == "Shooter")
             {
-                curimage.sprite = HealthBarList[4];
+                if (HalfHP + 1 < currentHP)
+                {
+                    curimage.sprite = HealthBarList[0];
+                }
+                if (currentHP == HalfHP + 1 || currentHP == HalfHP || currentHP == HalfHP - 1)
+                {
+                    curimage.sprite = HealthBarList[1];
+                }
+                if (currentHP < HalfHP - 1)
+                {
+                    curimage.sprite = HealthBarList[2];
+                }
             }
-            if (currentHP < HalfHP - 1)
+            if (curplayer.name == "Jeff")
             {
-                curimage.sprite = HealthBarList[5];
-            }
-        }
-        if (curplayer.name == "Shooter")
-        {
-            if (HalfHP + 1 < currentHP)
-            {
-                curimage.sprite = HealthBarList[0];
-            }
-            if (currentHP == HalfHP + 1 || currentHP == HalfHP || currentHP == HalfHP - 1)
-            {
-                curimage.sprite = HealthBarList[1];
-            }
-            if (currentHP < HalfHP - 1)
-            {
-                curimage.sprite = HealthBarList[2];
-            }
-        }
-        if (curplayer.name == "Jeff")
-        {
-            if (HalfHP + 1 < currentHP)
-            {
-                curimage.sprite = HealthBarList[6];
-            }
-            if (currentHP == HalfHP + 1 || currentHP == HalfHP || currentHP == HalfHP - 1)
-            {
-                curimage.sprite = HealthBarList[7];
-            }
-            if (currentHP < HalfHP - 1)
-            {
-                curimage.sprite = HealthBarList[8];
+                if (HalfHP + 1 < currentHP)
+                {
+                    curimage.sprite = HealthBarList[6];
+                }
+                if (currentHP == HalfHP + 1 || currentHP == HalfHP || currentHP == HalfHP - 1)
+                {
+                    curimage.sprite = HealthBarList[7];
+                }
+                if (currentHP < HalfHP - 1)
+                {
+                    curimage.sprite = HealthBarList[8];
+                }
             }
         }
     }
