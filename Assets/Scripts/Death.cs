@@ -6,8 +6,8 @@ public class Death : MonoBehaviour
 {
     public bool lose_Hp;
     public bool IsFloor, IsCar;
-    Vector3 lastpos, curpos;
     float timer = 2;
+
     void OnTriggerEnter(Collider Col)
     {
         //checks if players collides with checkpoints 
@@ -17,7 +17,7 @@ public class Death : MonoBehaviour
         }
         if (Col.gameObject.tag == "Player" && IsCar == true)
         {
-            Debug.Log("Hit");
+
             if ( this.gameObject.GetComponent<Rigidbody>().IsSleeping() == false)
             {
                 lose_Hp = true;
@@ -37,9 +37,6 @@ public class Death : MonoBehaviour
     void Update()
     {
         timer -= Time.deltaTime;
-        curpos = gameObject.transform.position;
-
-        lastpos = curpos;
         //for bullets
         if (timer <= 0 && IsFloor == false && IsCar == false)
         {

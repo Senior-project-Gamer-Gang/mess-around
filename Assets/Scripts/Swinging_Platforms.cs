@@ -17,7 +17,6 @@ public class Swinging_Platforms : MonoBehaviour
     public float dist = 1.5f;
     Quaternion a;
     Vector3 dir;
-    Player player;
 
 
     float startpoint;
