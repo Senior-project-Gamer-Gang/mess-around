@@ -102,7 +102,7 @@ public class Player : MonoBehaviour
         {
             speed = 15.0f;
             jumpSpeed = 15;
-            hp = 4;
+            hp = 6;
             anim.Play("Jeff_idle");
         }
         if (this.gameObject.name == "Shooter")
@@ -110,14 +110,14 @@ public class Player : MonoBehaviour
             anim.Play("idle");
             speed = 10;
             jumpSpeed = 17;
-            hp = 5;
+            hp = 7;
         }
         if (this.gameObject.name == "HandMan")
         {
             anim.Play("BHMidle");
             speed = 8;
             jumpSpeed = 15;
-            hp = 6;
+            hp = 8;
         }
         #endregion
     }
@@ -206,7 +206,7 @@ public class Player : MonoBehaviour
                 if (this.gameObject.name == "Jeff")
                 {
                     if(healthbar != null)
-                        healthbar.GetComponent<HealthBarScript>().HPChange(hp, 4);
+                        healthbar.GetComponent<HealthBarScript>().HPChange(hp, 6);
                     #region Dontlook@thisneedtorewritelater1
                     if (players[0].gameObject.name == "Shooter" && distbetweenobj[0] <= 3)
                     {
@@ -289,7 +289,7 @@ public class Player : MonoBehaviour
                 if (this.gameObject.name == "Shooter")
                 {
                     if (healthbar != null)
-                        healthbar.GetComponent<HealthBarScript>().HPChange(hp, 5);
+                        healthbar.GetComponent<HealthBarScript>().HPChange(hp, 7);
                     #region Dontlook@thisneedtorewritelater2
                     if (players[0].gameObject.name == "HandMan" && distbetweenobj[0] <= 3)
                     {
@@ -323,7 +323,7 @@ public class Player : MonoBehaviour
                 if (this.gameObject.name == "HandMan")
                 {
                     if (healthbar != null)
-                        healthbar.GetComponent<HealthBarScript>().HPChange(hp, 5);
+                        healthbar.GetComponent<HealthBarScript>().HPChange(hp, 8);
                     if (Input.GetMouseButtonDown(0) && punch_time < 0 && currentskill == 0)
                     {
                         //plays attack
@@ -544,6 +544,20 @@ public class Player : MonoBehaviour
         Cp.GetComponent<CheckPoints>().RepoPlayer(this.gameObject);
 
         if (hp <= 0)
-            hp = 5;
+        {
+            if(this.gameObject.name == "Jeff")
+            {
+                hp = 6;
+            }
+            if (this.gameObject.name == "HandMan")
+            {
+                hp = 8;
+            }
+            if (this.gameObject.name == "Shooter")
+            {
+                hp = 7;
+            }
+        }
+            
     }
 }
