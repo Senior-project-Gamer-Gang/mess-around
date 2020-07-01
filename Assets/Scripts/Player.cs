@@ -376,7 +376,7 @@ public class Player : MonoBehaviour
                 {
                     if (badobj.GetComponent<Death>().lose_Hp == true)
                     {
-                        if (badobj.GetComponent<Death>().IsFloor == true)
+                        if (badobj.GetComponent<Death>().IsFloor == true || badobj.GetComponent<Death>().IsCar == true)
                         {
                             hp -= 1;
                             characterController.enabled = false;
@@ -385,7 +385,7 @@ public class Player : MonoBehaviour
 
                             badobj.GetComponent<Death>().lose_Hp = false;
                         }
-                        if (badobj.GetComponent<Death>().IsFloor == false)
+                        if (badobj.GetComponent<Death>().IsFloor == false && badobj.GetComponent<Death>().IsCar == false)
                         {
                             Destroy(badobj);
                             if (hit_timer <= 0)

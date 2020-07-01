@@ -55,6 +55,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\CameraPivotScript.cs" />
      <Compile Include="Assets\Scripts\CameraScript.cs" />
+     <Compile Include="Assets\Scripts\Car.cs" />
      <Compile Include="Assets\Scripts\Checkpoint_Collider.cs" />
      <Compile Include="Assets\Scripts\CheckPoints.cs" />
      <Compile Include="Assets\Scripts\ComicPageScript.cs" />

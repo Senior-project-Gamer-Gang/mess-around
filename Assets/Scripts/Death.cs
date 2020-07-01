@@ -5,16 +5,23 @@ using UnityEngine;
 public class Death : MonoBehaviour
 {
     public bool lose_Hp;
-    public bool IsFloor;
-    public int Hp = 1;
-
+    public bool IsFloor, IsCar;
     float timer = 2;
+
     void OnTriggerEnter(Collider Col)
     {
         //checks if players collides with checkpoints 
-        if (Col.gameObject.tag == "Player" && IsFloor == false)
+        if (Col.gameObject.tag == "Player" && IsFloor == false && IsCar == false)
         { 
             lose_Hp = true;
+        }
+        if (Col.gameObject.tag == "Player" && IsCar == true)
+        {
+
+            if ( this.gameObject.GetComponent<Rigidbody>().IsSleeping() == false)
+            {
+                lose_Hp = true;
+            }
         }
        
     }
@@ -30,9 +37,8 @@ public class Death : MonoBehaviour
     void Update()
     {
         timer -= Time.deltaTime;
-
         //for bullets
-        if (timer <= 0 && IsFloor == false)
+        if (timer <= 0 && IsFloor == false && IsCar == false)
         {
             Destroy(this.gameObject);
         }
