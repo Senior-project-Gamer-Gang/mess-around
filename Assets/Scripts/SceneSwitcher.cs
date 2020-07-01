@@ -67,6 +67,9 @@ public class SceneSwitcher : MonoBehaviour
         gamemanager.GetComponent<PauseScript>().isPaused = false;
         SceneManager.LoadScene("Main_Menu");
     }
-
+    public void GameExit()
+    {
+        Application.Quit();
+    }
 }
 
