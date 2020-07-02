@@ -177,7 +177,7 @@ public class Player : MonoBehaviour
                     //makes the default skill punch/shoot
                     currentskill = 0;
                     activeplayer = false;
-                    camera.GetComponent<CameraScript>().isFocused = false;
+                    //camera.GetComponent<CameraScript>().isFocused = false;
                 }
 
                 if (Input.GetKeyDown(KeyCode.E) && switchtime < 0
@@ -189,7 +189,7 @@ public class Player : MonoBehaviour
                     currentskill = 0;
                     switchtime = 2;
                     activeplayer = false;
-                    camera.GetComponent<CameraScript>().isFocused = false;
+                    //camera.GetComponent<CameraScript>().isFocused = false;
                 }
             }
             #endregion
@@ -376,15 +376,6 @@ public class Player : MonoBehaviour
                 {
                     if (badobj.GetComponent<Death>().lose_Hp == true)
                     {
-                        if (badobj.GetComponent<Death>().IsFloor == true || badobj.GetComponent<Death>().IsCar == true)
-                        {
-                            hp -= 1;
-                            characterController.enabled = false;
-                            //repositions you at the most recent checkpoint
-                            Cp.GetComponent<CheckPoints>().RepoPlayer(this.gameObject);
-
-                            badobj.GetComponent<Death>().lose_Hp = false;
-                        }
                         if (badobj.GetComponent<Death>().IsFloor == false && badobj.GetComponent<Death>().IsCar == false)
                         {
                             Destroy(badobj);
@@ -515,7 +506,22 @@ public class Player : MonoBehaviour
             
            
         }
-        if (characterController.isGrounded == false)
+        foreach (GameObject badobj in DeathObjs)
+        {
+            if (badobj.GetComponent<Death>().lose_Hp == true)
+            {
+                if (badobj.GetComponent<Death>().IsFloor == true || badobj.GetComponent<Death>().IsCar == true)
+                {
+                    hp -= 1;
+                    characterController.enabled = false;
+                    //repositions you at the most recent checkpoint
+                    Cp.GetComponent<CheckPoints>().RepoPlayer(this.gameObject);
+
+                    badobj.GetComponent<Death>().lose_Hp = false;
+                }
+            }
+        }
+                if (characterController.isGrounded == false)
         {
             characterController.SimpleMove(Vector3.forward * 0);
             //the players always getting effected by gravity when off the ground
