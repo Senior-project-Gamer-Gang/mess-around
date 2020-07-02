@@ -21,9 +21,9 @@ public class Enemy_AI : MonoBehaviour
     GameObject gamemanager;
     bool IsAttacking;
 
-    public enum enemystates { idle, wondering, attacking }
+    public enum enemystates { idle, wondering, attacking, dead }
     public enemystates EnemyStates;
-
+    bool isDead;
     public Transform player;
 
     void Start()
@@ -32,7 +32,6 @@ public class Enemy_AI : MonoBehaviour
         anim = GetComponent<Animator>();
         anim.Play("idle");
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -72,47 +71,63 @@ public class Enemy_AI : MonoBehaviour
             }
             if (EnemyStates == enemystates.attacking)
             {
-                //move towards player
-                if (Vector3.Distance(transform.position, player.position) < 15 && enemyshooter == false)
+                if (isDead == false)
                 {
-                    transform.LookAt(player);
-                    if (Vector3.Distance(transform.position, player.position) > attackRange)
+                    //move towards player
+                    if (Vector3.Distance(transform.position, player.position) < 15 && enemyshooter == false)
                     {
-                        this.gameObject.transform.position += this.gameObject.transform.forward * speed * Time.deltaTime;
-                        anim.Play("run");
-                        anim.SetBool("run", true);
-                        anim.SetBool("punch", false);
+                        transform.LookAt(player);
+                        if (Vector3.Distance(transform.position, player.position) > attackRange)
+                        {
+                            this.gameObject.transform.position += this.gameObject.transform.forward * speed * Time.deltaTime;
+                            anim.Play("run");
+                            //anim.SetBool("run", true);
+                            anim.SetBool("punch", false);
+                        }
+
+                        if (Vector3.Distance(transform.position, player.position) <= attackRange && hittimer <= 0)
+                        {
+                            anim.Play("punch");
+                            //anim.SetBool("run", false);
+                            anim.SetBool("punch", true);
+                            curplay.GetComponent<Player>().hp -= 1;
+                            hittimer = 2;
+                        }
+                    }
+                    if (Vector3.Distance(transform.position, player.position) < 15 && enemyshooter == true)
+                    {
+                        transform.LookAt(player.position + player.GetComponent<CharacterController>().center);
+                        if (timer <= 0)
+                        {
+                            temp = Instantiate(bullet, transform.position,
+                            Quaternion.identity);
+
+                            temp.GetComponent<Rigidbody>().AddForce(transform.forward * 500);
+                            timer = .5f;
+                        }
                     }
 
-                    if (Vector3.Distance(transform.position, player.position) <= attackRange && hittimer <= 0)
+                    if (Vector3.Distance(transform.position, player.position) > 15)
                     {
-                        anim.Play("punch");
-                        anim.SetBool("run", false);
-                        anim.SetBool("punch", true);
-                        curplay.GetComponent<Player>().hp -= 1;
-                        hittimer = 2;
+                        EnemyStates = enemystates.idle;
                     }
                 }
-                if (Vector3.Distance(transform.position, player.position) < 15 && enemyshooter == true)
+                if(isDead == true)
                 {
-                    transform.LookAt(player.position + player.GetComponent<CharacterController>().center);
-                    if (timer <= 0)
-                    {
-                        temp = Instantiate(bullet, transform.position,
-                        Quaternion.identity);
-
-                        temp.GetComponent<Rigidbody>().AddForce(transform.forward * 500);
-                        timer = .5f;
-                    }
+                    EnemyStates = enemystates.dead;
                 }
-
-                if (Vector3.Distance(transform.position, player.position) > 15)
-                {
-                    EnemyStates = enemystates.idle;
-                }
+            }
+            if (EnemyStates == enemystates.dead)
+            {
+                anim.SetBool("run", false);
+                anim.SetBool("punch", false);
+                //anim.SetBool("death", true);
+                anim.Play("death");
+                Debug.Log(EnemyStates);
+                Destroy(this.gameObject, 1);
+            }
 
             }
-        }
         #region Timers
         WaitTime -= Time.deltaTime;
         timer -= Time.deltaTime;
@@ -134,16 +149,10 @@ public class Enemy_AI : MonoBehaviour
 
         if (col.gameObject.tag == "Player_Hit")
         {
-            anim.SetBool("run", false);
-            anim.SetBool("punch", false);
-            anim.SetBool("death", true);
-            anim.Play("death");
-            //if (anim.GetCurrentAnimatorStateInfo(1).normalizedTime < .5f &&
-            //    this.anim.GetCurrentAnimatorStateInfo(1).IsName("death"))
-            //{
-            Destroy(this.gameObject, 1);
-                Destroy(col);
-            //}
+            isDead = true;
+            EnemyStates = enemystates.dead;
+            Destroy(col);
+
         }
 
     }

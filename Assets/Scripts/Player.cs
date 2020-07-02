@@ -40,8 +40,8 @@ public class Player : MonoBehaviour
     GameObject ShopKeeper;
     public bool inshop;
 
-
-
+    float Deadtimer = 1;
+    bool Isdead;
     //big handmans varibles
     public float punch_time = .5f;
     float handSpeed = 8;
@@ -412,6 +412,8 @@ public class Player : MonoBehaviour
             rof -= Time.deltaTime;
         if (hit_timer >= -1)
             hit_timer -= Time.deltaTime;
+        if (Deadtimer >= -1 && Isdead == true)
+            Deadtimer -= Time.deltaTime;
         #endregion
         #region PlayerMovement
 
@@ -511,12 +513,13 @@ public class Player : MonoBehaviour
 
             }
             
-            if (characterController.isGrounded == false)
-            {
-                characterController.SimpleMove(Vector3.forward * 0);
-                //the players always getting effected by gravity when off the ground
-                moveDirection.y = moveDirection.y + (Physics.gravity.y * gravityScale * Time.deltaTime);
-            }
+           
+        }
+        if (characterController.isGrounded == false)
+        {
+            characterController.SimpleMove(Vector3.forward * 0);
+            //the players always getting effected by gravity when off the ground
+            moveDirection.y = moveDirection.y + (Physics.gravity.y * gravityScale * Time.deltaTime);
         }
         #endregion
 
@@ -540,24 +543,32 @@ public class Player : MonoBehaviour
     }
     public void Dead()
     {
-
-        Cp.GetComponent<CheckPoints>().RepoPlayer(this.gameObject);
-
-        if (hp <= 0)
+        Isdead = true;
+        anim.Play("Death");
+        if (Deadtimer <= 0 && anim.GetCurrentAnimatorStateInfo(0).IsName("Death"))
         {
+            Cp.GetComponent<CheckPoints>().RepoPlayer(this.gameObject);
+            Isdead = false;
+            Deadtimer = 1;
+            if (hp <= 0)
+            {
+                if (this.gameObject.name == "Jeff")
+                {
+                    hp = 6;
+                }
+                if (this.gameObject.name == "HandMan")
+                {
+                    hp = 8;
+                }
+                if (this.gameObject.name == "Shooter")
+                {
+                    hp = 7;
+                }
+            }
             if(this.gameObject.name == "Jeff")
-            {
-                hp = 6;
-            }
-            if (this.gameObject.name == "HandMan")
-            {
-                hp = 8;
-            }
-            if (this.gameObject.name == "Shooter")
-            {
-                hp = 7;
-            }
+                anim.Play("Jeff_idle");
         }
+        
             
     }
 }

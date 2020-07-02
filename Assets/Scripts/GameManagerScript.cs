@@ -17,12 +17,17 @@ public class GameManagerScript : MonoBehaviour
     GameObject[] Players;
     public GameObject healthBar;
     int sceneID;
+    bool shopopen;
     void Start()
     {
         this.gameObject.transform.position = new Vector3(-188.1165f, 72.53726f, 2067.603f);
     }
     void Update()
     {
+        //if(sceneID == 0 || shopopen == true && this.gameObject.GetComponent<PauseScript>().isPaused == false || )
+        //{
+
+        //}
         if (sceneID != 0)
         {
             healthBar.SetActive(true);
@@ -55,6 +60,7 @@ public class GameManagerScript : MonoBehaviour
     }
     public void ShopOpen()
     {
+        shopopen = true;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         ShopKeeper.GetComponent<DoritoManScript>().Talking();
@@ -62,6 +68,7 @@ public class GameManagerScript : MonoBehaviour
     }
     public void ShopClose()
     {
+        shopopen = false;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         for (int i = 0; i < Players.Length; i++)
