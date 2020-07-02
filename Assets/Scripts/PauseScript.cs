@@ -7,7 +7,7 @@ public class PauseScript : MonoBehaviour
 {
     public bool isPaused; //by default not paused
     public Text pausedText;
-   
+
     public GameObject PauseObject;
     int sceneID;
 
@@ -18,6 +18,10 @@ public class PauseScript : MonoBehaviour
     void Update()
     {
         sceneID = SceneManager.GetActiveScene().buildIndex;
+        if (sceneID == 0)
+        {
+            PauseObject.SetActive(false);
+        }
             if (sceneID != 0)
         {
             if (isPaused)
