@@ -198,7 +198,7 @@ public class Player : MonoBehaviour
 
             //this.gameObject.GetComponentInChildren<Camera>().enabled = true; (Commented out for now -Jon)
             //Tells the camera to now focus on this active player -Jon
-            camera.GetComponent<CameraScript>().player = gameObject;
+            //camera.GetComponent<CameraScript>().player = gameObject;
 
             #region PlayerMechs
             if (inshop == false && gameManager.GetComponent<PauseScript>().isPaused == false && Isdead == false)
