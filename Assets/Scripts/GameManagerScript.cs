@@ -55,12 +55,15 @@ public class GameManagerScript : MonoBehaviour
     }
     public void ShopOpen()
     {
-
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         ShopKeeper.GetComponent<DoritoManScript>().Talking();
         ShopUI.SetActive(true);
     }
     public void ShopClose()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         for (int i = 0; i < Players.Length; i++)
         {
             if (Players[i].GetComponent<Player>().inshop == true)

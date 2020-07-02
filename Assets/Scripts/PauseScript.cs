@@ -26,7 +26,8 @@ public class PauseScript : MonoBehaviour
         {
             if (isPaused)
             {
-
+                //Cursor.lockState = CursorLockMode.None;
+                //Cursor.visible = true;
                 PauseObject.SetActive(true);
                 pausedText.enabled = true;
 
@@ -37,7 +38,8 @@ public class PauseScript : MonoBehaviour
             }
             else if (!isPaused)
             {
-
+                //Cursor.lockState = CursorLockMode.Locked;
+                //Cursor.visible = false;
                 PauseObject.SetActive(false);
                 pausedText.enabled = false;
 

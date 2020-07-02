@@ -5,7 +5,6 @@ using UnityEngine;
 public class CameraScript : MonoBehaviour
 {
     public GameObject player;
-    public GameObject pauseObject;
     public GameObject cameraPivot;
     public float zoomDistance; //How far the camera stays away from the player by default
     public float zoomSpeed; //How fast you can zoom in and out
@@ -27,14 +26,12 @@ public class CameraScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        pauseObject = GameObject.Find("GameManager");
         prevPosition = transform.position;
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-        isPaused = pauseObject.GetComponent<PauseScript>().isPaused;
         if (!isPaused || player != null) //As long as it is not paused or the player is not null, it will begin to do its thing
         {
             if (cameraPivot == null) //If cameraPivot is not set use the old code
