@@ -24,10 +24,17 @@ public class GameManagerScript : MonoBehaviour
     }
     void Update()
     {
-        //if(sceneID == 0 || shopopen == true && this.gameObject.GetComponent<PauseScript>().isPaused == false || )
-        //{
-
-        //}
+        if (sceneID == 0 || shopopen == true && this.gameObject.GetComponent<PauseScript>().isPaused == false 
+            || this.gameObject.GetComponent<PauseScript>().isPaused == true)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        if (sceneID != 0  && shopopen == false && this.gameObject.GetComponent<PauseScript>().isPaused == false)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
         if (sceneID != 0)
         {
             healthBar.SetActive(true);
