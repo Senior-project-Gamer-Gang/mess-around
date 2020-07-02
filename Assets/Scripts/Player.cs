@@ -201,7 +201,7 @@ public class Player : MonoBehaviour
             camera.GetComponent<CameraScript>().player = gameObject;
 
             #region PlayerMechs
-            if (inshop == false && gameManager.GetComponent<PauseScript>().isPaused == false)
+            if (inshop == false && gameManager.GetComponent<PauseScript>().isPaused == false && Isdead == false)
             {
                 if (this.gameObject.name == "Jeff")
                 {
@@ -567,6 +567,10 @@ public class Player : MonoBehaviour
             }
             if(this.gameObject.name == "Jeff")
                 anim.Play("Jeff_idle");
+            if (this.gameObject.name == "Shooter")
+                anim.Play("idle");
+            if (this.gameObject.name == "HandMan")
+                anim.Play("BHMidle");
         }
         
             
