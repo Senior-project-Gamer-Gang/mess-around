@@ -121,9 +121,7 @@ public class Enemy_AI : MonoBehaviour
             {
                 anim.SetBool("run", false);
                 anim.SetBool("punch", false);
-                //anim.SetBool("death", true);
                 anim.Play("death");
-                Debug.Log(EnemyStates);
                 Destroy(this.gameObject, 1);
             }
 
