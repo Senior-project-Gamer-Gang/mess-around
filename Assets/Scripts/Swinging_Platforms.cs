@@ -62,7 +62,7 @@ public class Swinging_Platforms : MonoBehaviour
             if(up == true)
             {
                 this.gameObject.transform.Translate(new Vector3(0.0f, 1.0f * Time.deltaTime * upspeed, 0.0f), Space.World);
-                if(this.gameObject.transform.rotation.y >= endpoint)
+                if(this.gameObject.transform.position.y >= endpoint)
                 {
                     up = false;
                     down = true;
@@ -71,28 +71,6 @@ public class Swinging_Platforms : MonoBehaviour
             if (down == true)
             {
                 this.gameObject.transform.Translate(new Vector3(0.0f, -1.0f * Time.deltaTime * upspeed, 0.0f), Space.World);
-                if (this.gameObject.transform.rotation.y <= startpoint)
-                {
-                    down = false;
-                    up = true;
-                }
-            }
-        }
-        if(rotate == true)
-        {
-
-            if (up == true)
-            {
-                this.gameObject.transform.Rotate(new Vector3(0.0f, 1.0f * Time.deltaTime * upspeed, 0.0f), Space.World);
-                if (this.gameObject.transform.rotation.y >= endpoint)
-                {
-                    up = false;
-                    down = true;
-                }
-            }
-            if (down == true)
-            {
-                this.gameObject.transform.Rotate(new Vector3(0.0f, -1.0f * Time.deltaTime * upspeed, 0.0f), Space.World);
                 if (this.gameObject.transform.position.y <= startpoint)
                 {
                     down = false;
@@ -100,6 +78,28 @@ public class Swinging_Platforms : MonoBehaviour
                 }
             }
         }
+        //if(rotate == true)
+        //{
+
+        //    if (up == true)
+        //    {
+        //        this.gameObject.transform.Rotate(new Vector3(0.0f, 1.0f * Time.deltaTime * upspeed, 0.0f), Space.World);
+        //        if (this.gameObject.transform.rotation.y >= endpoint)
+        //        {
+        //            up = false;
+        //            down = true;
+        //        }
+        //    }
+        //    if (down == true)
+        //    {
+        //        this.gameObject.transform.Rotate(new Vector3(0.0f, -1.0f * Time.deltaTime * upspeed, 0.0f), Space.World);
+        //        if (this.gameObject.transform.rotation.y <= startpoint)
+        //        {
+        //            down = false;
+        //            up = true;
+        //        }
+        //    }
+        //}
     }
     void OnTriggerEnter(Collider col)
     {

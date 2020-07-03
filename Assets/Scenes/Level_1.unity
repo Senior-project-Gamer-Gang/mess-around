@@ -41194,7 +41194,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Swing
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 109821715592602954, guid: faa5eb13468f4a846ba0178eb5dd9343, type: 3}
+    - {fileID: 109821715592602952, guid: faa5eb13468f4a846ba0178eb5dd9343, type: 3}
+    - {fileID: 109821715592602953, guid: faa5eb13468f4a846ba0178eb5dd9343, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: faa5eb13468f4a846ba0178eb5dd9343, type: 3}
 --- !u!64 &1860712032
 MeshCollider:
