@@ -18,18 +18,24 @@ public class MouseOverUI : MonoBehaviour
     {
         if (sceneID == 0)
         {
-            Character.SetActive(true);
-            this.gameObject.GetComponent<Button>().image.sprite = Ending;
-            img.sprite = Endingimg;
+            if (Character != null)
+            {
+                Character.SetActive(true);
+                this.gameObject.GetComponent<Button>().image.sprite = Ending;
+                img.sprite = Endingimg;
+            }
         }
     }
     public void OnMouseExit()
     {
         if (sceneID == 0)
         {
-            Character.SetActive(false);
-            this.gameObject.GetComponent<Button>().image.sprite = Starting;
-            img.sprite = startingimg;
+            if (Character != null)
+            {
+                Character.SetActive(false);
+                this.gameObject.GetComponent<Button>().image.sprite = Starting;
+                img.sprite = startingimg;
+            }
         }
     }
 }
