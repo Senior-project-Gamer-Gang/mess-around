@@ -81,14 +81,13 @@ public class Enemy_AI : MonoBehaviour
                         {
                             this.gameObject.transform.position += this.gameObject.transform.forward * speed * Time.deltaTime;
                             anim.Play("run");
-                            //anim.SetBool("run", true);
                             anim.SetBool("punch", false);
                         }
 
                         if (Vector3.Distance(transform.position, player.position) <= attackRange && hittimer <= 0)
                         {
                             anim.Play("punch");
-                            //anim.SetBool("run", false);
+                            anim.SetBool("run", false);
                             anim.SetBool("punch", true);
                             curplay.GetComponent<Player>().hp -= 1;
                             hittimer = 2;
