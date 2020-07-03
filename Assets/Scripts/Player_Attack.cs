@@ -5,12 +5,21 @@ using UnityEngine;
 public class Player_Attack : MonoBehaviour
 {
     GameObject Jeff, handman, shooter;
-   public bool Hand_Attack;
+    public bool Hand_Attack;
+    public float bul_Timer = 3;
     void Start()
     {
         Jeff = GameObject.Find("Jeff");
         handman = GameObject.Find("HandMan");
         shooter = GameObject.Find("Shooter");
+    }
+    void Update()
+    {
+        bul_Timer -= Time.deltaTime;
+        if (this.gameObject.name == ("bullet(Clone)") && bul_Timer <= 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
     private void OnTriggerEnter(Collider Col)
     {
@@ -26,8 +35,8 @@ public class Player_Attack : MonoBehaviour
             Destroy(Col.gameObject);
             Destroy(this.gameObject);
         }
-        if (this.gameObject.name == ("bullet(Clone)") && Col.gameObject.tag != "enemy" && 
-            Col.gameObject.name != "Enemy_Box" && Col.gameObject.tag != "Player")
+        if (this.gameObject.name == ("bullet(Clone)") && Col.gameObject.tag != "enemy" && Col.gameObject.name !=
+            "Enemy_Box" && Col.gameObject.tag != "Player")
         {
             Destroy(this.gameObject);
         }
