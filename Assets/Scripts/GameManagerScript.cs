@@ -9,9 +9,16 @@ public class GameManagerScript : MonoBehaviour
     public Text pagesText;
     public Text CoinTXT;
     //temp amount just for texting purposes 
-    public int coins = 200;
+    public int coins;
     public int redcoins;
+
+    GameObject[] purpleCoins = new GameObject[8];
+    bool[] activepurcoins = new bool[8];
+
     public GameObject ComicPage_RedCoin;
+    public GameObject[] ComicBooks = new GameObject[25];
+    public bool[] ComicBookCollected = new bool[25];
+
     public GameObject ShopUI;
     GameObject ShopKeeper;
     GameObject[] Players;
@@ -20,17 +27,17 @@ public class GameManagerScript : MonoBehaviour
     bool shopopen;
     void Start()
     {
-        this.gameObject.transform.position = new Vector3(-188.1165f, 72.53726f, 2067.603f);
+        this.gameObject.transform.position = new Vector3(-359.147f, 79.20001f, 1875.099f);
     }
     void Update()
     {
-        if (sceneID == 0 || shopopen == true && this.gameObject.GetComponent<PauseScript>().isPaused == false 
+        if (sceneID == 0 || shopopen == true && this.gameObject.GetComponent<PauseScript>().isPaused == false
             || this.gameObject.GetComponent<PauseScript>().isPaused == true)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
-        if (sceneID != 0  && shopopen == false && this.gameObject.GetComponent<PauseScript>().isPaused == false)
+        if (sceneID != 0 && shopopen == false && this.gameObject.GetComponent<PauseScript>().isPaused == false)
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -44,24 +51,55 @@ public class GameManagerScript : MonoBehaviour
         {
             healthBar.SetActive(false);
         }
-       
+
         if (sceneID == 2)
         {
+
+
+
+            ComicPage_RedCoin = GameObject.Find("Red_Page");
             ShopKeeper = GameObject.FindGameObjectWithTag("ShopKeeper");
             Players = GameObject.FindGameObjectsWithTag("Player");
+            for (int i = 0; i < ComicBooks.Length; i++)
+            {
+                if (ComicBooks[i] == null)
+                    ComicBooks = GameObject.FindGameObjectsWithTag("ComicPage");
+
+                if (ComicBookCollected.Length < ComicBooks.Length)
+                    ComicBookCollected[i] = ComicBooks[i].GetComponent<PickUpables>().collected;
+
+                if (ComicBooks[i].GetComponent<PickUpables>().collected == true)
+                    ComicBookCollected[i] = true;
+
+                if (ComicBooks.Length == ComicBookCollected.Length)
+                    if (ComicBookCollected[i] == true)
+                        ComicBooks[i].GetComponent<PickUpables>().collected = ComicBookCollected[i];
+            }
+            //what this does is, if you collect purple coins in the scene then switch scenes 
+            //it'll make the purple coins that you collected in the last scene not spawn
+            for (int i = 0; i < purpleCoins.Length; i++)
+            {
+                if(purpleCoins[i] == null)
+                    purpleCoins = GameObject.FindGameObjectsWithTag("RedCoin");
+
+                if (activepurcoins.Length < purpleCoins.Length)
+                    activepurcoins[i] = purpleCoins[i].GetComponent<PickUpables>().collected;
+
+                if (purpleCoins[i].GetComponent<PickUpables>().collected == true)
+                    activepurcoins[i] = true;
+
+                if (purpleCoins.Length == activepurcoins.Length)
+                    if(activepurcoins[i] == true)
+                        purpleCoins[i].GetComponent<PickUpables>().collected = activepurcoins[i];
+            }
         }
         pagesText.text = pagesCollected.ToString();
         CoinTXT.text = coins.ToString();
         if (ComicPage_RedCoin != null && sceneID == 2)
         {
-            if (redcoins < 8)
-            {
-                ComicPage_RedCoin.SetActive(false);
-            }
             if (redcoins >= 8)
             {
-                ComicPage_RedCoin.transform.position = new Vector3(-172.4f, 5.23674f, -188.1165f);
-                ComicPage_RedCoin.SetActive(true);
+                ComicPage_RedCoin.transform.position = new Vector3(-433.3f, 5.23674f, -188.1165f);
             }
         }
     }

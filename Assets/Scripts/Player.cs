@@ -11,7 +11,6 @@ public class Player : MonoBehaviour
     private bool moving;
     public GameObject[] DeathObjs = new GameObject[50];
 
-    Text HPtext;
     float hit_timer;
     bool playerDead;
     public GameObject[] players = new GameObject[2];
@@ -64,18 +63,14 @@ public class Player : MonoBehaviour
     GameObject healthbar;
 
 
-
     private Vector3 rotation;
-    Transform MovingPlatform;
     private GameObject gameManager; //The manager of course -Jon
-    private GameObject camera; //The camera of course -Jon
+    //private GameObject camera; //The camera of course -Jon
     private Transform pivot; //what the player uses to determine camera's rotation -Jon
     #endregion
 
     void Start()
     {
-        
-        HPtext = GameObject.FindGameObjectWithTag("HPTXT").GetComponent<Text>();
         ShopKeeper = GameObject.FindGameObjectWithTag("ShopKeeper");
 
         //gets the CharacterController 
@@ -85,7 +80,7 @@ public class Player : MonoBehaviour
 
         //gets the game manager + camera + pivot -Jon
         gameManager = GameObject.FindGameObjectWithTag("GameManager");
-        camera = GameObject.FindGameObjectWithTag("MainCamera");
+        //camera = GameObject.FindGameObjectWithTag("MainCamera");
         pivot = GetComponentInChildren<PivotScript>().transform;
 
 
@@ -125,19 +120,19 @@ public class Player : MonoBehaviour
     //This is what the character controller uses for its collision detection.
     //It only runs this function if the controller is moving
     //It does not detect collisions when standing still -Jon
-    private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        if (hit.gameObject.tag == "ComicPage")
-        { //The player collects a comic page, it should add to the pages number displayed on screen along with removing the page object. -Jon
-            gameManager.GetComponent<GameManagerScript>().pagesCollected++;
-            Destroy(hit.gameObject);
-        }
-        //maybe for later i have no clue ATM
-        //if(hit.gameObject.tag == "PlayerEvent")
-        //{
-        //    this.playerEvent = true;
-        //}
-    }
+    //private void OnControllerColliderHit(ControllerColliderHit hit)
+    //{
+    //    if (hit.gameObject.tag == "ComicPage")
+    //    { //The player collects a comic page, it should add to the pages number displayed on screen along with removing the page object. -Jon
+    //        gameManager.GetComponent<GameManagerScript>().pagesCollected++;
+    //        Destroy(hit.gameObject);
+    //    }
+    //    //maybe for later i have no clue ATM
+    //    //if(hit.gameObject.tag == "PlayerEvent")
+    //    //{
+    //    //    this.playerEvent = true;
+    //    //}
+    //}
 
     void Update()
     {
@@ -193,8 +188,6 @@ public class Player : MonoBehaviour
                 }
             }
             #endregion
-
-            HPtext.text = this.hp.ToString();
 
             //this.gameObject.GetComponentInChildren<Camera>().enabled = true; (Commented out for now -Jon)
             //Tells the camera to now focus on this active player -Jon
