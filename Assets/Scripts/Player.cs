@@ -116,24 +116,6 @@ public class Player : MonoBehaviour
         }
         #endregion
     }
-
-    //This is what the character controller uses for its collision detection.
-    //It only runs this function if the controller is moving
-    //It does not detect collisions when standing still -Jon
-    //private void OnControllerColliderHit(ControllerColliderHit hit)
-    //{
-    //    if (hit.gameObject.tag == "ComicPage")
-    //    { //The player collects a comic page, it should add to the pages number displayed on screen along with removing the page object. -Jon
-    //        gameManager.GetComponent<GameManagerScript>().pagesCollected++;
-    //        Destroy(hit.gameObject);
-    //    }
-    //    //maybe for later i have no clue ATM
-    //    //if(hit.gameObject.tag == "PlayerEvent")
-    //    //{
-    //    //    this.playerEvent = true;
-    //    //}
-    //}
-
     void Update()
     {
         healthbar = GameObject.FindGameObjectWithTag("HealthBar");

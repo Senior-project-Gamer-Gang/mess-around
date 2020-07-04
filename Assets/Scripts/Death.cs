@@ -12,7 +12,8 @@ public class Death : MonoBehaviour
     {
         //checks if players collides with checkpoints 
         if (Col.gameObject.tag == "Player" && IsFloor == false && IsCar == false)
-        { 
+        {
+            Debug.Log("Bullet");
             lose_Hp = true;
         }
         if (Col.gameObject.tag == "Player" && IsCar == true)
@@ -20,6 +21,7 @@ public class Death : MonoBehaviour
 
             if ( this.gameObject.GetComponent<Rigidbody>().IsSleeping() == false)
             {
+                Debug.Log("Car");
                 lose_Hp = true;
             }
         }
@@ -27,10 +29,11 @@ public class Death : MonoBehaviour
     }
     //this is for a box around the level
     //if you leave the box the player dies
-    void OnTriggerExit(Collider other)
+    void OnTriggerExit(Collider Col)
     {
-        if (IsFloor == true)
+        if (Col.gameObject.tag == "Player" && IsFloor == true)
         {
+            Debug.Log("Floor");
             lose_Hp = true;
         }
     }

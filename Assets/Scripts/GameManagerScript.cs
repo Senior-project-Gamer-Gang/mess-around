@@ -79,7 +79,7 @@ public class GameManagerScript : MonoBehaviour
             //it'll make the purple coins that you collected in the last scene not spawn
             for (int i = 0; i < purpleCoins.Length; i++)
             {
-                if(purpleCoins[i] == null)
+                if (purpleCoins[i] == null)
                     purpleCoins = GameObject.FindGameObjectsWithTag("RedCoin");
 
                 if (activepurcoins.Length < purpleCoins.Length)
@@ -89,19 +89,18 @@ public class GameManagerScript : MonoBehaviour
                     activepurcoins[i] = true;
 
                 if (purpleCoins.Length == activepurcoins.Length)
-                    if(activepurcoins[i] == true)
+                    if (activepurcoins[i] == true)
                         purpleCoins[i].GetComponent<PickUpables>().collected = activepurcoins[i];
             }
         }
         pagesText.text = pagesCollected.ToString();
         CoinTXT.text = coins.ToString();
-        if (ComicPage_RedCoin != null && sceneID == 2)
+
+        if (redcoins >= 8)
         {
-            if (redcoins >= 8)
-            {
-                ComicPage_RedCoin.transform.position = new Vector3(-433.3f, 5.23674f, -188.1165f);
-            }
+            ComicPage_RedCoin.transform.position = new Vector3(-390.0734f, 88, 1874.154f);
         }
+
     }
     public void ShopOpen()
     {
