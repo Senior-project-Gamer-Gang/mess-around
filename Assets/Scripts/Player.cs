@@ -98,22 +98,20 @@ public class Player : MonoBehaviour
             speed = 15.0f;
             jumpSpeed = 15;
             hp = 6;
-            anim.Play("Jeff_idle");
         }
         if (this.gameObject.name == "Shooter")
         {
-            anim.Play("idle");
             speed = 10;
             jumpSpeed = 17;
             hp = 7;
         }
         if (this.gameObject.name == "HandMan")
         {
-            anim.Play("BHMidle");
             speed = 8;
             jumpSpeed = 15;
             hp = 8;
         }
+        anim.Play("idle");
         #endregion
     }
     void Update()
@@ -129,7 +127,7 @@ public class Player : MonoBehaviour
         //switchs player
         if (activeplayer == true)
         {
-            
+
             if (ShopKeeper != null)
             {
                 if (Vector3.Distance(this.gameObject.transform.position, ShopKeeper.transform.position) <= 5
@@ -180,7 +178,7 @@ public class Player : MonoBehaviour
             {
                 if (this.gameObject.name == "Jeff")
                 {
-                    if(healthbar != null)
+                    if (healthbar != null)
                         healthbar.GetComponent<HealthBarScript>().HPChange(hp, 6);
                     #region Dontlook@thisneedtorewritelater1
                     if (players[0].gameObject.name == "Shooter" && distbetweenobj[0] <= 3)
@@ -204,7 +202,7 @@ public class Player : MonoBehaviour
 
                     if (Input.GetMouseButtonDown(0) && currentskill == 0 && punch_time < 0)
                     {
-                        
+
                         anim.SetBool("Jeff_ball", false);
                         anim.Play("Jeff_punch");
                         if (rb != null)
@@ -224,14 +222,14 @@ public class Player : MonoBehaviour
                         this.gameObject.GetComponent<SphereCollider>().enabled = true;
                         this.gameObject.AddComponent<Rigidbody>();
                         rb = this.GetComponent<Rigidbody>();
-                        anim.SetBool("Jeff_walk", false);
+                        anim.SetBool("walk", false);
                         anim.SetBool("Jeff_ball", true);
                         characterController.enabled = false;
 
                     }
                     if (Input.GetMouseButtonDown(0) && currentskill == 2)
                     {
-                        anim.SetBool("Jeff_walk", false);
+                        anim.SetBool("walk", false);
                         anim.SetBool("Jeff_ball", false);
                         characterController.enabled = true;
                         jeffscale(this.gameObject.transform.localScale);
@@ -392,12 +390,9 @@ public class Player : MonoBehaviour
         #region PlayerMovement
 
         //this is so the handman wont keep walking after he's deactivated
-        if (activeplayer == false && this.gameObject.name == "HandMan")
+        if (activeplayer == false)
             anim.SetBool("walk", false);
-        if (activeplayer == false && this.gameObject.name == "Shooter")
-            anim.SetBool("run", false);
-        if (activeplayer == false && this.gameObject.name == "Jeff")
-            anim.SetBool("Jeff_walk", false);
+
         if (activeplayer == true && isrigidbody == false)
         {
             if (Input.GetKeyDown(KeyCode.Keypad0) || Input.GetKeyDown(KeyCode.Alpha0))
@@ -421,18 +416,7 @@ public class Player : MonoBehaviour
                     if (Input.GetButton("Jump"))
                     {
                         moveDirection.y = jumpSpeed;
-                        if (this.gameObject.name == "HandMan")
-                        {
-                            anim.Play("jump");
-                        }
-                        if (this.gameObject.name == "Shooter")
-                        {
-                            anim.Play("Jump");
-                        }
-                        if (this.gameObject.name == "Jeff")
-                        {
-                            anim.Play("Juff_jump");
-                        }
+                        anim.Play("jump");
                     }
                     NotGrounded = 0f;
                 }
@@ -441,63 +425,32 @@ public class Player : MonoBehaviour
                 if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
                 {
                     desiredRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0f, moveDirection.z)); //Uses moveDirection to determine where the player would want to rotate towards -Jon
-                    if (this.gameObject.name == "HandMan" && this.characterController.isGrounded == true)
+                    if (this.characterController.isGrounded == true)
                     {
                         anim.SetBool("walk", true);
                     }
-                    if (this.gameObject.name == "HandMan" && this.characterController.isGrounded == false)
+                    if (this.characterController.isGrounded == false)
                     {
                         anim.SetBool("walk", false);
                     }
-                    if (this.gameObject.name == "Shooter" && this.characterController.isGrounded == true)
-                    {
-                        anim.SetBool("run", true);
-                    }
-                    if (this.gameObject.name == "Shooter" && characterController.isGrounded == false)
-                    {
-                        anim.SetBool("run", false);
-                    }
-                    if (this.gameObject.name == "Jeff" && characterController.isGrounded == true)
-                    {
-                        anim.SetBool("Jeff_walk", true);
-                    }
-                    if (this.gameObject.name == "Jeff" && characterController.isGrounded == false)
-                    {
-                        anim.SetBool("Jeff_walk", false);
-                    }
-
                 }
                 else { desiredRotation = transform.rotation; } //It will not try to rotate if player is not moving -Jon
                 transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, rotationSpeed * Time.deltaTime); //Gradually rotates towards desiredRotation -Jon
-                if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0 && this.gameObject.name == "HandMan")
+                if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0)
                 {
                     anim.SetBool("walk", false);
                 }
-                if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0 && this.gameObject.name == "Shooter")
-                {
-                    anim.SetBool("run", false);
-                }
-                if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0 && this.gameObject.name == "Jeff")
-                {
-                    anim.SetBool("Jeff_walk", false);
-                }
                 // Moves the controller
                 characterController.Move(moveDirection * Time.deltaTime);
-
-
             }
-            
-           
         }
-       
-            if (characterController.isGrounded == false)
+        if (characterController.isGrounded == false)
         {
             characterController.SimpleMove(Vector3.forward * 0);
             //the players always getting effected by gravity when off the ground
             moveDirection.y = moveDirection.y + (Physics.gravity.y * gravityScale * Time.deltaTime);
         }
         #endregion
-
         if (hp <= 0)
         {
             characterController.enabled = false;
@@ -540,14 +493,7 @@ public class Player : MonoBehaviour
                     hp = 7;
                 }
             }
-            if(this.gameObject.name == "Jeff")
-                anim.Play("Jeff_idle");
-            if (this.gameObject.name == "Shooter")
-                anim.Play("idle");
-            if (this.gameObject.name == "HandMan")
-                anim.Play("BHMidle");
+            anim.Play("idle");
         }
-        
-            
     }
 }
