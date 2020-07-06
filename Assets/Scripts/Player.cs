@@ -455,6 +455,9 @@ public class Player : MonoBehaviour
 
         if (activeplayer == false)
         {
+            if (this.gameObject.name == "Jeff")
+                this.gameObject.transform.localScale = new Vector3(1,1,1);
+
             foreach (GameObject badobj in DeathObjs)
             {
                 if (badobj.GetComponent<Death>().lose_Hp == true)
