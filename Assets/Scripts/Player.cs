@@ -451,6 +451,26 @@ public class Player : MonoBehaviour
             moveDirection.y = moveDirection.y + (Physics.gravity.y * gravityScale * Time.deltaTime);
         }
         #endregion
+
+
+        if (activeplayer == false)
+        {
+            foreach (GameObject badobj in DeathObjs)
+            {
+                if (badobj.GetComponent<Death>().lose_Hp == true)
+                {
+                    if (badobj.GetComponent<Death>().IsFloor == true)
+                    {
+                        hp -= 1;
+                        characterController.enabled = false;
+                        //repositions you at the most recent checkpoint
+                        Cp.GetComponent<CheckPoints>().RepoPlayer(this.gameObject);
+
+                        badobj.GetComponent<Death>().lose_Hp = false;
+                    }
+                }
+            }
+        }
         if (hp <= 0)
         {
             characterController.enabled = false;
