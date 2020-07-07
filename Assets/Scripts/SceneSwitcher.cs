@@ -60,7 +60,7 @@ public class SceneSwitcher : MonoBehaviour
     }
     public void LevelHubSwitch()
     {
-        SceneManager.LoadScene("Hub2");
+        SceneManager.LoadScene("Hub");
     }
     public void LevelMenuSwitch()
     {
