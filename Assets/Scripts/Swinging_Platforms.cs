@@ -101,19 +101,5 @@ public class Swinging_Platforms : MonoBehaviour
         //    }
         //}
     }
-    void OnTriggerEnter(Collider col)
-    {
-        if(col.gameObject.tag == "Player")
-        {
-            col.transform.parent = transform;
-        }
-        
-    }
-    private void OnTriggerExit(Collider col)
-    {
-        if (col.gameObject.tag == "Player")
-        {
-            col.transform.parent = null;
-        }
-    }
+    
 }

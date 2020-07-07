@@ -82,6 +82,7 @@
     <Compile Include="Assets\Scripts\SceneSwitcher.cs" />
     <Compile Include="Assets\Scripts\Shop.cs" />
     <Compile Include="Assets\Scripts\ShopBtn.cs" />
+    <Compile Include="Assets\Scripts\SwingHitbox.cs" />
     <Compile Include="Assets\Scripts\Swinging_Platforms.cs" />
     <Compile Include="Assets\Scripts\Teleporter.cs" />
     <Compile Include="Assets\scripts_underRenovations\anim.cs" />
