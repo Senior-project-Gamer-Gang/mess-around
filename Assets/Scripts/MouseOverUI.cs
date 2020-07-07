@@ -25,6 +25,11 @@ public class MouseOverUI : MonoBehaviour
                 img.sprite = Endingimg;
             }
         }
+        if(sceneID != 0)
+        {
+            this.gameObject.GetComponent<Button>().image.sprite = Ending;
+            //img.sprite = Endingimg;
+        }
     }
     public void OnMouseExit()
     {
@@ -36,6 +41,11 @@ public class MouseOverUI : MonoBehaviour
                 this.gameObject.GetComponent<Button>().image.sprite = Starting;
                 img.sprite = startingimg;
             }
+        }
+        if (sceneID != 0)
+        {
+            this.gameObject.GetComponent<Button>().image.sprite = Starting;
+           // img.sprite = startingimg;
         }
     }
 }
