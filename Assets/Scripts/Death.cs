@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class Death : MonoBehaviour
 {
     public bool lose_Hp;
     public bool IsFloor, IsCar;
     float timer = 2;
-
+    int sceneID;
     void OnTriggerEnter(Collider Col)
     {
         //checks if players collides with checkpoints 
@@ -31,14 +31,14 @@ public class Death : MonoBehaviour
     //if you leave the box the player dies
     void OnTriggerExit(Collider Col)
     {
-        if (Col.gameObject.tag == "Player" && IsFloor == true)
-        {
-            Debug.Log("Floor");
-            lose_Hp = true;
-        }
+            if (Col.gameObject.CompareTag("Player") && IsFloor == true)
+            {
+                lose_Hp = true;
+            }
     }
     void Update()
     {
+        sceneID = SceneManager.GetActiveScene().buildIndex;
         timer -= Time.deltaTime;
         //for bullets
         if (timer <= 0 && IsFloor == false && IsCar == false)

@@ -31,6 +31,7 @@ public class GameManagerScript : MonoBehaviour
     }
     void Update()
     {
+        sceneID = SceneManager.GetActiveScene().buildIndex;
         if (sceneID == 0 || shopopen == true && this.gameObject.GetComponent<PauseScript>().isPaused == false
             || this.gameObject.GetComponent<PauseScript>().isPaused == true)
         {
@@ -46,7 +47,7 @@ public class GameManagerScript : MonoBehaviour
         {
             healthBar.SetActive(true);
         }
-        sceneID = SceneManager.GetActiveScene().buildIndex;
+
         if (sceneID == 0)
         {
             healthBar.SetActive(false);
