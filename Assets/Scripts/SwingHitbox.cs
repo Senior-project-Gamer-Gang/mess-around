@@ -6,7 +6,7 @@ public class SwingHitbox : MonoBehaviour
 {
     void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.name == "Player")
+        if (col.gameObject.tag == "Player")
         {
             col.transform.parent = transform;
         }

@@ -55874,6 +55874,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: HandMan
       objectReference: {fileID: 0}
+    - target: {fileID: 5430851885956369066, guid: 33b7a6d43cf4d4d46be02dfc6c95be26,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 5430851885956369067, guid: 33b7a6d43cf4d4d46be02dfc6c95be26,
         type: 3}
       propertyPath: Cp
@@ -55972,11 +55977,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shooter
       objectReference: {fileID: 0}
+    - target: {fileID: 6208668150116831490, guid: d6e29486b921b9149bf7b0fd8b021cdd,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 6208668150116831491, guid: d6e29486b921b9149bf7b0fd8b021cdd,
         type: 3}
       propertyPath: Cp
       value: 
       objectReference: {fileID: 193744029}
+    - target: {fileID: 6208668150116831491, guid: d6e29486b921b9149bf7b0fd8b021cdd,
+        type: 3}
+      propertyPath: fireobj.Array.data[0]
+      value: 
+      objectReference: {fileID: 5050015057721869768, guid: 18d55ad7038121a47bf974365b0e2012,
+        type: 3}
     - target: {fileID: 6208668150116831550, guid: d6e29486b921b9149bf7b0fd8b021cdd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -65605,6 +65621,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Jeff
+      objectReference: {fileID: 0}
+    - target: {fileID: 3231465234665189084, guid: ee60e0476b490e74c928a1fb08de7cb2,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 7978636006350358781, guid: ee60e0476b490e74c928a1fb08de7cb2,
         type: 3}

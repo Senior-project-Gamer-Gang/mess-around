@@ -282,12 +282,10 @@ public class Player : MonoBehaviour
                     }
 
                     #endregion
-
-
                     if (Input.GetMouseButtonDown(0) && rof <= 0)
                     {
                         anim.Play("attack");
-                        bullet = Instantiate(fireobj[1], new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1,
+                        bullet = Instantiate(fireobj[0], new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1,
                             this.gameObject.transform.position.z), Quaternion.identity);
                         bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 500);
                         rof = 1.5f;

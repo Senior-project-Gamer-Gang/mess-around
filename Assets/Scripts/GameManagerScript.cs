@@ -61,6 +61,8 @@ public class GameManagerScript : MonoBehaviour
             ComicPage_RedCoin = GameObject.Find("Red_Page");
             ShopKeeper = GameObject.FindGameObjectWithTag("ShopKeeper");
             Players = GameObject.FindGameObjectsWithTag("Player");
+
+
             for (int i = 0; i < ComicBooks.Length; i++)
             {
                 if (ComicBooks[i] == null)
@@ -75,6 +77,8 @@ public class GameManagerScript : MonoBehaviour
                 if (ComicBooks.Length == ComicBookCollected.Length)
                     if (ComicBookCollected[i] == true)
                         ComicBooks[i].GetComponent<PickUpables>().collected = ComicBookCollected[i];
+
+                
             }
             //what this does is, if you collect purple coins in the scene then switch scenes 
             //it'll make the purple coins that you collected in the last scene not spawn

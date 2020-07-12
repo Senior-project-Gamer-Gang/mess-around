@@ -62,6 +62,10 @@ public class SceneSwitcher : MonoBehaviour
     {
         SceneManager.LoadScene("Hub");
     }
+    public void LevelhubbubbaSwitch()
+    {
+        SceneManager.LoadScene("Hub");
+    }
     public void LevelMenuSwitch()
     {
         gamemanager.GetComponent<PauseScript>().isPaused = false;
